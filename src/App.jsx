@@ -3,6 +3,7 @@ import examData1 from "./examData";
 import examData2 from "./examData2";
 import examData3 from "./examData3";
 import examData4 from "./examData4";
+import examData5 from "./examData5";
 
 const EXAMS = [
     {
@@ -37,6 +38,14 @@ const EXAMS = [
         data: examData4,
         color: "from-violet-400 to-violet-600",
     },
+    {
+        id: 5,
+        title: "Actual Exam Simulation",
+        subtitle: "Exam 5",
+        description: "Direct simulation of the actual exam based on verified student notes. Heavily tests: KNN vs LinReg, MPT/CAPM (Beta/Alpha), Valuations, Short Selling, EMH, Probability Rules.",
+        data: examData5,
+        color: "from-rose-500 to-rose-700",
+    },
 ];
 
 /* ───────────────────────── Start Screen ───────────────────────── */
@@ -62,7 +71,7 @@ function StartScreen({ onSelectExam }) {
                         CS7646 — Machine Learning for Trading
                     </p>
                     <p className="text-text-secondary text-base leading-relaxed max-w-md mx-auto">
-                        4 Practice Exams &middot; 100 Total Questions &middot; Weeks 1–7
+                        5 Practice Exams &middot; 125 Total Questions &middot; Weeks 1–7
                     </p>
                 </div>
 
