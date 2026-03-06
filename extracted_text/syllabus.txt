@@ -1,0 +1,368 @@
+Global Navigation Menu
+CS7646
+Syllabus
+Immersive Reader
+Skip To Content
+Dashboard
+Muhammad Haris
+Account
+Dashboard
+Courses
+Calendar
+Inbox
+History
+Kaltura
+My Media
+10 unread release notes. 10
+Help
+Close
+1. My Dashboar d
+2. CS7646
+3. Syllabus
+Immersive Reader
+Spring 2026
+Home
+Announcements
+Assignments
+Course Guidelines (SP26)
+Course Policies (SP26)
+Ed Discussion
+Ed Lessons
+Files
+Grades 2
+Gradescope
+Media Gallery
+Quick Links (SP26)
+Quizzes
+Syllabus
+Zoom
+Honorlock
+Course Syllabus
+Jump to Today
+Revision History
+1. Published - Start of term.
+2. Aug 24, 2025 - Added "(M)" to represent videos found in the media gallery .
+Quick Links
+To help with navigation, here are some of the links you’ll be using frequently in this course:
+Course Pages : Home  | Syllabus  | Course Policies  | Video Lessons, Textbooks, and Other Resources  | ML4T  Development Environment Setup  | Help and Support
+Assignment Instructions : Assignment Overview  | Project 1  | Project 2  | Project 3  | Project 4  | Project 5  | Project 6  | Project 7  | Project 8  | API Specifications
+Additional Policies & Pr ocedur es: Using Gradescope  | Using Honorlock  | Development Guidelines, Recommendations, and Rules  | Assignment Follow-up Guidelines & Processes
+Exams : Exam 1 & 2 Instructions | Exam 1  | Exam 2
+Welcome to Machine Learning for  Trading (CS7646)
+This course is designed to give you the skills and knowledge needed to implement machine learning algorithms ef fectively in the trading sector . You'll learn to develop algorithmic trading strategies using advanced machine learning models. Throughout the course, we will cover a variety of
+techniques in Supervised Learning—including linear regression, K-Nearest Neighbors (KNN), regression trees, and ensemble learners—and in Reinforcement Learning, focusing on Q-Learning. You'll apply these methods directly to real stock market data, making informed trading decisions.
+But this course is about more than just coding. It takes a comprehensive approach to applied machine learning, incorporating lessons on machine learning theory , financial market analysis, trading strategy development, and academic research writing. Each element of the curriculum is designed to
+build a thorough understanding of both the theoretical and practical applications of machine learning in trading, preparing you for future academic and professional challenges.
+In the ML4T  course, students will develop a simulated trading system through iterative projects, culminating in a capstone project that integrates machine learning and algorithmic trading strategies to model the complexity of financial markets. For more details, visit the project overview page .
+Get ready to dive deep into both the technological and financial aspects of trading as you develop the skills to innovate and navigate in this dynamic field!
+Understanding Our  Course Policies
+Our policies play a crucial role in setting the expectations and standards that will guide our interactions and your participation throughout the semester . These guidelines are designed to ensure a fair , respectful, and enriching learning environment for everyone involved. From communication and
+submission protocols to academic integrity and professional conduct, each policy helps streamline our processes and provides clarity on what is expected of you as a student. We strongly encourage you to review these policies thoroughly to understand your responsibilities and the resources
+available to you. This will not only help you navigate the course more ef fectively but also enhance your overall learning experience.
+Please take a moment to familiarize yourself with the detailed course policies her e.
+Exploring Our  Textbooks and Learning Resour ces
+Our curriculum carefully integrates video content, required readings, and supplemental books to provide a comprehensive understanding of key concepts. The textbooks and other materials have been thoughtfully chosen to ensure you are engaging with the most insightful content available. While
+we have specified certain essential readings, such as 'What Hedge Funds Really Do', which is a concise yet informative resource that can be comfortably read in an evening or two, not all materials require cover -to-cover reading. Additionally , all required and supplemental texts are freely
+accessible online, ensuring you have ready access to these valuable educational tools.
+For a detailed list of all the textbooks, including required and supplemental readings, please visit our Video Lessons, Textbooks, and Other  Resour ces page.
+Course Logistics
+All the tools you need for this course are conveniently located online. Let's walk through where everything is and how to get there:
+Canvas : This is your main hub. For any course content—whether it’ s videos, readings, or slides—log into Canvas, click on our course, and look for the 'Start Here' section. This will be your roadmap for the course.
+Report Submissions : When it’ s time to turn in reports, you'll use Canvas. Just go to the Assignments section in our course and submit your work. This will be the repository for all your hard work in report form. Feedback will be provided in Canvas.
+Code Submissions : Ready to submit your code? You'll do this through Gradescope. Find the link to Gradescope in our course on Canvas, where you can submit your code. Feedback will be provided through Canvas. Please do not submit code to Canvas.
+Discussions : For questions, clarifications, and engaging with your classmates, we'll use Ed Discussion. Access this directly through our course page on Canvas.
+Remember , staying or ganized and keeping track of due dates is key to your success in this course. If you have any questions about the logistics or need help finding something, please reach out to the ML4T  Instructional Staf f on Ed Discussions.
+Setting Up Your ML4T  Development Envir onment
+Properly setting up your development environment is crucial for success in this course. We use Python in a Linux or macOS environment, and specific versions of NumPy , SciPy , and Pandas. Detailed setup instructions and video tutorials are available on the ML4T  Development Environment
+Page in Canvas. These resources will guide you to ensure your environment aligns with our grading system on Gradescope, where compatibility is paramount.
+Please follow the instructions closely to avoid common pitfalls and ensure your work is evaluated correctly . Visit the ML4T  Development Envir onment Page  on Canvas for all the details and updates.
+Grades
+Your performance in this class is assessed through a combination of dif ferent assignments, each designed to measure various aspects of your learning:
+1. Projects : You will complete eight hands-on projects that form the backbone of your grade. These are your opportunities to apply what you've learned and demonstrate your problem-solving skills.
+2. Exams : Two comprehensive exams will challenge your understanding of the course material and your ability to apply theoretical concepts.
+3. Course Content Quizzes : Regular quizzes help reinforce your learning and give you immediate feedback on how well you're grasping the content.
+4. Course Surveys : Four surveys will be conducted to gather your input on the course, which also contribute to your final grade.
+Final grades are not just numbers; they reflect your hard work and progress. They will be calculated based on the weighted average of all graded components. Here's how the final letter grade breaks down:
+90 or above secures an A
+80 to 89 earns a B
+70 to 79 gets you a C
+60 to 69 results in a D
+Below 60 leads to an F
+Remember , the grade scale here is absolute, not curved. On the one hand, this means that everyone in class has the opportunity to aim high and achieve "A"s. On the other hand, it means that a score of 89.9999%, for example, is a B. Geor gia Tech does not use plus and minus grade.
+Regarding the return of grades, our of ficial policy is to to release them in two main batches—one before the Institute's Drop Date, and the final batch at the end of the term. We understand the importance of timely feedback, so our hope is to be able to get grades back to you on a rolling basis,
+Course Deliverables
+Assignments: 71%
+In this course, you will complete eight assignments, which together comprise 71% of your final grade. These assignments vary in scope and dif ficulty , and as such, they are weighted dif ferently to reflect their complexity and the ef fort required.
+The assignments are designed as a mix of programming tasks and comprehensive projects that include both programming and written reports. This structure is intended to not only test your technical abilities but also to enhance your skills in analyzing, articulating, and presenting your findings in a
+structured academic format. Each assignment will challenge you to apply the concepts and techniques discussed in readings and lectures to real-world trading scenarios, helping you to solidify your understanding and refine your skills in practical applications.
+Project 1 , 3%: Martingale
+Project 2 , 3%: Optimize Something
+Project 3 , 15%: Assess Learners
+Project 4 , 5%: Defeat Learners
+Project 5 , 8%: Marketsim
+Project 6 , 7%: Indicator Evaluation
+Project 7 , 10%: Qlearning Robot
+Project 8 , 20%: Strategy Evaluation
+Exams: 25%
+You’ll have two exams in this course, and each one will count for 12.5% of your overall grade.
+The exams will be administered online using Canvas and Honorlock. You'll have a one-week window to complete each exam, starting one week before the due date. Make sure to schedule your exam within this period, as early or late submissions won’ t be accepted.
+Everything we’ve covered up to the exam—including readings, any papers, YouTube videos, and Ed Lessons videos listed in the syllabus—is fair game for the exams. Be sure to review all these materials to prepare thoroughly and give yourself the best chance to excel.
+Course Content Quizzes: 2%
+Each week, you'll be greeted with a quiz designed to keep you sharp and engaged with the course material. During the Summer term, expect about 10 quizzes, while the Fall and Spring terms will feature around 12. These quizzes will touch on everything from the readings and lectures to the finer
+points of your active projects.
+Here's the deal with quizzes:
+They'r e quick : You'll only have to tackle a few multiple-choice or multi-select questions.
+They'r e convenient : You'll find them on Canvas, ready to go whenever you are within the week they're assigned.
+They'r e a little differ ent fr om exams : While exams are all about multi-select questions, quizzes will mix it up with both multiple-choice and multi-select options.
+They'r e uniquely scor ed: Canvas has its own way of grading quizzes, which is dif ferent from how we'll score your exams.
+A heads-up on quiz etiquette: Please keep quiz content between you and Canvas. That means no sharing questions on Ed Discussion, Slack, Discord, or other chat platforms. It's part of ensuring everyone gets a fair shot at the material.
+Quizzes open up each Monday and need to be completed by Sunday night at 1 1:59 pm AOE. It's a good rhythm—you start the week with new material and end with a quiz to cap it of f. Just remember , there are no early birds or latecomers in quiz land—everyone gets the same window to complete
+them.
+Course Surveys: 2%
+Think of course surveys as your space to be heard — and they’re worth 2% of your overall grade. However , as there are no right or wrong answers, completing all four surveys is an easy way to earn 2% of your overall course grade.
+Schedule
+Requir ed r eadings will r efer ence selected Chapters, not entir e Parts or  Sections of books.
+(*) denotes optional or supplemental material
+Notes on Resour ces
+Papers are available via the " Videos, Textbooks, and Other Resources " page.
+Many videos are found in Ed Lessons
+Additional Videos are found in the Media Gallery in Canvas and are represented by "(M)"
+Course Schedule
+Week
+#Start of
+WeekEnd of Week (Due
+Date)Videos Readings Assignments
+1 2026-01-12 2026-01-18Getting Started with CS7646
+00-00 Introduction
+01-01 Readings and Plotting Stock Data
+01-02 Working with Multiple Stocks
+01-03 The Power of NumPy
+01-04 Statistical Analysis of Time Series
+Introduction to Machine Learning (M)
+ML4T  - Course Policies & Guidelines (M)
+ML4T  - Intro to Canvas (M)
+ML4T  - Assignment Submissions (M)
+ML4T  - Intro to Ed Stem (M)
+ML4T  - Development Environment (M)
+ML4T  - Install Linux into VMW are (Optional) (M)
+ML4T  - Install Linux into VirtualBox (Optional) (M)
+ML4T  - Environment Setup (M)
+ML4T  - PyCharm IDE (Optional) (M)
+ML4T  - Configuring GitHub (Optional) (M)
+ML4T  - VPN Setup (Optional) (M)
+Welcome & Orientation (Zoom + Media Gallery) (M)Probabilistic Machine Learning - Book 1 - Chapter 1
+Machine Learning Ch. 1 (Optional)
+Handbook of AI and Big Data Applications in Investments - Chapter 1 (i.e., On Machine Learning
+Applications in Investments)
+Python for Finance - Data Types & structures (1st Ed: Ch. 4 / 2nd Ed: Ch. 3) (Optional)
+Python for Finance - Financial Time Series (1st Ed: Ch. 6 / 2nd Ed: Ch. 8) (Optional)Local Environment Setup
+Introduce Yourselves (Ed Discussions Post)
+Course Content Quiz #1
+2 2026-01-19 2026-01-2501-05 Incomplete Data
+01-06 Histograms and Scatter Plots
+01-07 Sharpe Ratio and Other Portfolio Statistics
+01-08 Optimizers: Building a Parameterized Model
+Project 1 Briefing (M)Deep Learning: Foundations and Concepts - Chapter 2-1 and 2-2
+Handbook of AI and Big Data Applications in Investments - Chapter 2
+Python for Finance - Data Visualization (1st Ed: Ch. 5 / 2nd Ed: Ch. 7) (Optional)Course Content Quiz #2
+Start of Course Survey
+Project 1: Martingale
+3 2026-01-26 2026-02-0101-09 Optimizers: How to Optimize a Portfolio
+03-01 How Machine Learning is Used at a Hedge Fund
+03-02 Regression
+Project 2 Briefing (M)Introduction to Statistical Learning – Chapter 1, 2.2, 3.1 to 3.3
+Python for Finance - Mathematical Tools (1st Ed: Ch. 10 / 2nd Ed: Ch. 1 1) (Optional)
+Python for Finance - Statistics (1st Ed: Ch. 1 1 / 2nd Ed: Ch. 13) (Optional)
+Paper: Stock return prediction based on Bagging-decision tree (NOTE: Requires the Geor gia Tech VPN
+for access.) (Optional)Course Content Quiz #3
+Project 2: Optimize Something
+4 2026-02-02 2026-02-0803-03 Assessing a Learning Algorithm
+03-04 Ensemble Learners - Bagging and Boosting
+SunT rust Visit (Optional) (Note: Slides Unavailable)
+Decision Trees
+Project 3 Briefing (M)Introduction to Statistical Learning – Chapters 8.1 and 8.2
+Machine Learning Ch. 3 (Optional)Course Content Quiz #4
+5 2026-02-09 2026-02-1502-01 So You Want to be a Hedge Fund Manager
+02-02 Market MechanicsDeep Learning: Foundations and Concepts - Chapter 1
+Introduction to Statistical Learning – Chapters 3.5
+Machine Learning Ch. 8 (Optional)
+What Hedge Funds Really Do Ch. 2 & 4Course Content Quiz #5
+Quarter Course Survey
+Project 3: Assess Learners
+6 2026-02-16 2026-02-2202-03 What is a Company Worth?
+02-04 The Capital Asset Pricing Model (CAPM)
+Is the Stock Market Rigged?
+Project 4 Briefing (M)Handbook of AI and Big Data Applications in Investments - Chapter 7
+What Hedge Funds Really Do Ch. 5, & 7Course Content Quiz #6 (Fall / Spring Only)
+Project 4: Defeat Learners
+7 2026-02-23 2026-03-0102-05 How Hedge Funds Use the CAPM
+02-06 Technical Analysis
+Introduction to Technical Analysis (M)
+ML4T  - Room Scan Demo (M)
+Project 5 Briefing (M)What Hedge Funds Really Do Ch. 8 & 12Course Content Quiz #7 (Fall / Spring Only)
+Honorlock Onboarding Quiz
+8 2026-03-02 2026-03-0802-07 Dealing with Data
+02-08 Ef ficient Markets Hypothesis
+Market Simulator
+The Big Short (Optional)Exam 1
+Project 5: Marketsim
+9 2026-03-09 2026-03-15Time Series Data
+Project 6 Briefing (M)Vectorize Me PowerPoint (Optional)
+Paper: 101 Formulaic Alphas (Optional)Course Content Quiz #8 (Summer Quiz #6)
+Mid-Course Survey
+Project 6: Indicator Evaluation
+10 2026-03-16 2026-03-2202-09 The Fundamental Law of Active Portfolio Management
+02-10 Portfolio Optimization and The Ef ficient Frontier
+Navigation Project
+Introduction to Reinforcement Learning (M)
+Project 7 Briefing (M)What Hedge Funds Really Do Ch. 9 Course Content Quiz #9 (Summer Quiz #7)
+11 2026-03-23 2026-03-2903-05 Reinforcement Learning
+03-06 Q-Learning
+03-07 DynaProbabilistic Machine Learning - Book 2 – Chapter 35 (Optional)
+Machine Learning – Chapter 13
+Foundations of Deep Reinforcement Learning – Chapter 1 (Optional)Course Content Quiz #10 (Summer Quiz #8)
+Project 7: Qlearning Robot
+12 2026-03-30 2026-04-05Random Forest & Q-Learner Strategy
+Applying Deep Reinforcement Learning to Trading with Dr . Tucker
+Balch (Optional)
+Introduction to Generative AI (M)
+Project 8 Briefing (M)An Introduction to Statistical Learning with Applications in Python – Deep Learning Chapter 10
+Paper: Financial Times Series Forecasting using CNN and Transformer (Optional)Course Content Quiz #1 1 (Fall / Spring Only)
+13 2026-04-06 2026-04-12 Handbook of AI and Big Data Applications in Investments - Chapter 8 Course Content Quiz #12 (Summer Quiz #9)
+14 2026-04-13 2026-04-19 Keynote on Algorithmic Bias (Drs. Isbell and Littman) Handbook of AI and Big Data Applications in Investments - Chapters 10 and 1 1 Project 8: Strategy Evaluation
+15 2026-04-20 2026-04-26Options
+Interview with Tammer KamelReading: Options and Futures: A Tutorial - Chapter 4 (Optional) Honorlock Onboarding Quiz
+16 2026-04-27 2026-05-03 Exam 2
+17 2026-05-04 2026-05-08End of Course Survey (See Canvas Calendar for
+Due Date)
+CIOS (See Canvas Calendar for Due Date)
+ 
+Course Summary:
+Course Summary
+Date Details Due
+Wed Jan 14, 2026 Calendar Event  Welcome & Orientation (CS7646) 6:30pm  to 8pm
+Sat Jan 17, 2026 Calendar Event  Setting up the ML4T  Environment in a VirtualBox VM4:15pm  to 5:15pm
+Mon Jan 19, 2026 Quiz  Course Content Quiz #1 due by 5am
+Thu Jan 22, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Wed Jan 28, 2026 Quiz  Course Content Quiz #2 due by 5am
+Assignment  Project 1: Martingale (Report) due by 5am
+Quiz  Start-of-Course Survey due by 5am
+Thu Jan 29, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon Feb 2, 2026 Quiz  Course Content Quiz #3 due by 5am
+Assignment  Project 2: Optimize Something (Code Grade Only) due by 5am
+Assignment  Project 2: Optimize Something (Report) due by 5am
+Thu Feb 5, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon Feb 9, 2026 Quiz  Course Content Quiz #4 due by 5am
+Thu Feb 12, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon Feb 16, 2026 Quiz  Course Content Quiz #5 due by 5am
+Assignment  Project 3: Assess Learners (Code Grade Only) due by 5am
+Assignment  Project 3: Assess Learners (Report) due by 5am
+Quiz  Quarter -Course Survey due by 5am
+Thu Feb 19, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon Feb 23, 2026 Quiz  Course Content Quiz #6 (Fall / Spring Only) due by 5am
+Assignment  Project 4: Defeat Learners due by 5am
+Thu Feb 26, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon Mar  2, 2026 Quiz  Course Content Quiz #7 (Fall / Spring Only) due by 5am
+Thu Mar  5, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon Mar  9, 2026 Quiz  Exam 1 due by 6am
+Assignment  Project 5: Marketsim due by 6am
+Thu Mar  12, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon Mar  16, 2026 Quiz  Course Content Quiz #8 (Summer Quiz #6) due by 6am
+Assignment  Project 6: Indicator Evaluation (Report) due by 6am
+Tue Mar  17, 2026 Quiz  Mid-Course Survey due by 6am
+Wed Mar  18, 2026 Calendar Event  ML4T  TA Virtual Cof fee Hours 3pm to 4pm
+Thu Mar  19, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon Mar  23, 2026 Quiz  Course Content Quiz #9 (Summer Quiz #7) due by 6am
+Thu Mar  26, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon Mar  30, 2026 Quiz  Course Content Quiz #10 (Summer Quiz #8) due by 6am
+Assignment  Project 7: Qlearning Robot due by 6am
+Thu Apr 2, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon Apr 6, 2026 Quiz  Course Content Quiz #1 1 (Fall / Spring Only) due by 6am
+Thu Apr 9, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon Apr 13, 2026 Quiz  Course Content Quiz #12 (Summer Quiz #9) due by 6am
+Thu Apr 16, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon Apr 20, 2026 Assignment  Project 8: Strategy Evaluation (Code Grade Only) due by 6am
+Assignment  Project 8: Strategy Evaluation (Report) due by 6am
+Thu Apr 23, 2026 Calendar Event  TA Live Discussions 6:30pm  to 8pm
+Mon May 4, 2026 Quiz  Exam 2 due by 6am
+Fri May 8, 2026 Quiz  End-of-Course Survey due by 6am
+Assignment  Pre-Approved Late Submissions (Reports)  
+Prev month Next month January  2026
+Calendar
+Sunday Monday Tuesday Wednesday Thursday Friday Saturday
+28 December 2025  28 Previous month
+Next month  Today  Click to view event
+details29 December 2025  29 Previous month
+Next month  Today  Click to view event
+details30 December 2025  30 Previous month
+Next month  Today  Click to view event
+details31 December 2025  31 Previous month
+Next month  Today  Click to view event
+details1 January 2026  1 Previous month  Next
+month  Today  Click to view event details2 January 2026  2 Previous month  Next
+month  Today  Click to view event details3 January 2026  3 Previous month  Next
+month  Today  Click to view event details
+4 January 2026  4 Previous month  Next
+month  Today  Click to view event details5 January 2026  5 Previous month  Next
+month  Today  Click to view event details6 January 2026  6 Previous month  Next
+month  Today  Click to view event details7 January 2026  7 Previous month  Next
+month  Today  Click to view event details8 January 2026  8 Previous month  Next
+month  Today  Click to view event details9 January 2026  9 Previous month  Next
+month  Today  Click to view event details10 January 2026  10 Previous month
+Next month  Today  Click to view event
+details
+11 January 2026  11 Previous month  Next
+month  Today  Click to view event details12 January 2026  12 Previous month  Next
+month  Today  Click to view event details13 January 2026  13 Previous month  Next
+month  Today  Click to view event details14 January 2026  14 Previous month  Next
+month  Today  Click to view event details15 January 2026  15 Previous month  Next
+month  Today  Click to view event details16 January 2026  16 Previous month
+Next month  Today  Click to view event
+details17 January 2026  17 Previous month
+Next month  Today  Click to view event
+details
+18 January 2026  18 Previous month  Next
+month  Today  Click to view event details19 January 2026  19 Previous month  Next
+month  Today  Click to view event details20 January 2026  20 Previous month  Next
+month  Today  Click to view event details21 January 2026  21 Previous month  Next
+month  Today  Click to view event details22 January 2026  22 Previous month  Next
+month  Today  Click to view event details23 January 2026  23 Previous month
+Next month  Today  Click to view event
+details24 January 2026  24 Previous month
+Next month  Today  Click to view event
+details
+25 January 2026  25 Previous month  Next
+month  Today  Click to view event details26 January 2026  26 Previous month  Next
+month  Today  Click to view event details27 January 2026  27 Previous month  Next
+month  Today  Click to view event details28 January 2026  28 Previous month  Next
+month  Today  Click to view event details29 January 2026  29 Previous month  Next
+month  Today  Click to view event details30 January 2026  30 Previous month
+Next month  Today  Click to view event
+details31 January 2026  31 Previous month
+Next month  Today  Click to view event
+details
+1 February 2026  1 Previous month  Next
+month  Today  Click to view event details2 February 2026  2 Previous month  Next
+month  Today  Click to view event details3 February 2026  3 Previous month  Next
+month  Today  Click to view event details4 February 2026  4 Previous month  Next
+month  Today  Click to view event details5 February 2026  5 Previous month  Next
+month  Today  Click to view event details6 February 2026  6 Previous month  Next
+month  Today  Click to view event details7 February 2026  7 Previous month  Next
+month  Today  Click to view event details
+Assignments ar e weighted by gr oup:
+Group Weight
+Assignments 0%
+Project 1 3%
+Project 2 3%
+Project 3 15%
+Project 4 5%
+Project 5 8%
+Project 6 7%
+Project 7 10%
+Project 8 20%
+Pre-Appr oved Late Assignments 0%
+Exams 25%
+Surveys 2%
+Course Content Quizzes 2%
+Total 100%
+

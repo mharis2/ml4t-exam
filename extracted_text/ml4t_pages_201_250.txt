@@ -1,0 +1,905 @@
+--- Page 201 ---
+MachineLearningforTrading(ML4T)‑Complete
+Oncewelearn 𝑚and 𝑏,wecanqueryourmodelforany 𝑥andgetacorresponding 𝑦.
+Thismodelisdecent,butitdoesn’taccuratelytrackthebehaviorofthedata. Aswecansee,thedata
+“curves”upandthenbackdown,andalinearmodelcan’tcapturethistypeofmovement.
+So, we can generate a more complex model. Instead of fitting a line, we can fit a polynomial: 𝑦 =
+𝑚2𝑥2+ 𝑚𝑥 + 𝑏 . Withthismodel,wehavetolearnthreeparameters,whereasweonlyhadtolearn
+twowiththesimplerlinearmodel.
+Noticethatthispolynomialmodelfitsthedatamuchbetterthanthelinearmodelfor 𝑥 > 0. However,
+themodelfitsthedatafor 𝑥 < 0prettypoorly. Asyoumightimagine,wecouldaddan 𝑥3termtoour
+MattSchlenker 201
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 202 ---
+MachineLearningforTrading(ML4T)‑Complete
+modeltohelpbetterfitthatportionofthedata.
+Afterwelearntheparametersforamodel, wecanthrowawaythetrainingdataandretainonlythe
+parametersthatdescribethemodel. Forapolynomialoforder 𝑑,weonlyneedtostore 𝑑 + 1values,
+whichmakestheseregressionmodelsveryspace‑efficient.
+11.2 K‑NearestNeighbor
+Insteadofusingaparametricapproach,wecanusean instance‑basedregression approachlikeKNN.
+InKNN,weretainallofourdataandutilizeitwhenwemakeaquery.
+Let’srecallourscatterplotfrombefore,whichdemonstratesarelationshipbetweenchangeinbaro‑
+metricpressureandrainfall.
+Supposewewanttoqueryourmodeltopredicthowmuchrainfallweshouldexpectforachangein
+barometricpressureof‑5mm.
+MattSchlenker 202
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 203 ---
+MachineLearningforTrading(ML4T)‑Complete
+With KNN, we find the 𝐾nearest historical data points to our query and use them to estimate the
+prediction. Inthiscase, 𝐾 = 3.
+11.3 HowtoPredictQuiz
+We’veidentifiedthat,inKNN,foraparticularquery 𝑄,wewanttoutilizethe 𝐾nearestdatapointsto
+𝑄tocomeupwithaprediction. Whatshouldwedowiththoseneighboringdatapointstofindthat
+prediction?
+MattSchlenker 203
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 204 ---
+MachineLearningforTrading(ML4T)‑Complete
+11.4 HowtoPredictQuizSolution
+Remember that we want to predict a 𝑦‑value for the queried 𝑥‑value. As a result, it doesn’t make
+sensetotaketheaverageofthe 𝑥‑valuesofthenearestneighbors. Additionally,wedon’twanttotake
+thelargest 𝑦‑value;otherwise,theotherneighborshavenoinfluenceontheprediction. Thecorrect
+approachhereistotakethemeanoftheir 𝑦‑values.
+MattSchlenker 204
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 205 ---
+MachineLearningforTrading(ML4T)‑Complete
+11.5 KernelRegression
+Wesaidthatthecorrectmethodofcombiningnearestneighborstomakeapredictionistotaketheav‑
+erageoftheir 𝑦‑values. Ifwerepeatedthisprocessatmanypointsalongthe 𝑥‑axis,wewouldgenerate
+amodelthatlookslikethefollowing.
+BesidesKNN,thereareseveralotherinstance‑basedregressionmethods,suchas kernelregression .
+Whereas in KNN, we take an unweighted average of the nearest neighbors, in kernel regression, we
+weightthecontributionsofeachneighboraccordingtoitsdistancefromthequery.
+11.6 ParametricvsNon‑ParametricQuiz
+Let’sconsidertherelationshipbetweenvariablesintwodifferentscenarios.
+Thefirstscenarioinvolvesfiringacannon. Theindependentvariableisthevalueoftheanglethatthe
+cannonmakeswiththeground,andthedependentvariableisthehorizontaldistancethecannonball
+travels.
+MattSchlenker 205
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 206 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thesecondscenarioinvolvesattractingbeestoafoodsource. Theindependentvariableistherich‑
+nessofthefoodsource,andthedependentvariableisthenumberofbeesattractedtothatsource.
+Notethatthisscenarioisslightlydifferentthanthefirstbecauseit’snotclearthatthenumberofbees
+alwaysincreasesasrichnessincreases.
+Giventhesetwoscenarios, which, ifany, isbettermodeledusingaparametricmodel, andwhich, if
+any,isbettermodeledusinganon‑parametricmodel?
+MattSchlenker 206
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 207 ---
+MachineLearningforTrading(ML4T)‑Complete
+11.7 ParametricvsNon‑ParametricQuizSolution
+Inthefirstscenario,wecanstartwithanestimateoftheunderlyingbehaviorofthesystemintermsofa
+mathematicalequationthatexpresseshowitbehaves. Thisequationisjusttheequationoftrajectory,
+whichwecanfindonline. Wecanthenlearntheparametersofthisequationsuchthatitdescribesthe
+relationshipbetweenourvariables.
+Inthesecondscenario,wehavenoinitialestimatefortheunderlyingmathematicalequation,soit’s
+bettertouseanon‑parametricmodel,whichcanmodelany“shape”ofrelationship.
+MattSchlenker 207
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 208 ---
+MachineLearningforTrading(ML4T)‑Complete
+11.8 TrainingandTesting
+Let’sconsiderthedatathatwetypicallyuseinafinance‑basedmachinelearningproblem. Wehave
+thefeaturesthatwemeasure‑metricslikeBollingerBands,momentum,P/Eratio,amongothers‑and
+thecorrespondingpricesorpricechangesthatweobserve.
+Wewanttolearnamodelthatcorrectlydescribestherelationshipbetweenthefeaturesofastockand
+itspricesothatwecanaccuratelypredictpricefromthosefeaturesinthefuture.
+Considerhowwewouldevaluatesuchamodel. Ifwetestthemodelusingthesamedataweusedfor
+training,we’dhavetobesuspiciousoftheresult. Afterall,themodelwasbuiltusingthetrainingdata,
+soitisinherentlybiasedtoperformverywellonthatdata.
+Instead,weuseatechniquecalledout‑of‑sampletesting. In out‑of‑sampletesting ,wesplitourdata
+intotwopartitions: atrainingportionandatestingportion.
+Wecallthefeaturesthatweusefortraining 𝑋𝑡𝑟𝑎𝑖𝑛andthecorrespondingprices 𝑌𝑡𝑟𝑎𝑖𝑛. Similarly,we
+refertothedatathatwetestonas 𝑋𝑡𝑒𝑠𝑡and 𝑌𝑡𝑒𝑠𝑡.
+First, we pass 𝑋𝑡𝑟𝑎𝑖𝑛and 𝑌𝑡𝑟𝑎𝑖𝑛to a machine learning algorithm, such as linear regression or KNN,
+which generates a model. Next, we query the model with 𝑋𝑡𝑒𝑠𝑡, which gives us a set of predictions
+𝑌𝑝𝑟𝑒𝑑𝑖𝑐𝑡.
+Toevaluatethepredictivepowerofthemodel,wehavetocompare 𝑌𝑡𝑒𝑠𝑡and 𝑌𝑝𝑟𝑒𝑑𝑖𝑐𝑡. Thecloserthat
+valuesin 𝑌𝑝𝑟𝑒𝑑𝑖𝑐𝑡cometogroundtruthvaluesin 𝑌𝑡𝑒𝑠𝑡,themoreaccuratethemodel.
+One thing to keep in mind is that financial data is often oriented in time‑specific order. As a result,
+weusuallysplitourdatasuchthatwetrainouronolderdataandtestonnewerdata. It’sgenerally
+frowned upon to do the reverse, as certain lookahead biases occur when training in the future and
+testinginthepast.
+11.9 LearningAPIs
+It’s helpful to standardize the application programming interface (API) when thinking about imple‑
+mentingmachinelearningalgorithms.
+We have three fundamental concepts that we need to cover in our API. First, we need to be able to
+createthelearnerandpassinanynecessaryparameters. Second,weneedtobeabletoinstructour
+learner to build a model from training data. Finally, we need a way to tell our learner to query its
+modelusingtestingdata.
+Hereisanexampleofhowwemightusealinearregressionlearner:
+1leaner =LinRegLearner () #Create the learner
+MattSchlenker 208
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 209 ---
+MachineLearningforTrading(ML4T)‑Complete
+2learner .train (Xtrain ,Ytrain ) #Learn the model
+3learner .query (Xtest ) #Compute predictions
+WecanimagineusingaKNNlearnerinaverysimilarfashion. TheonlydifferencewiththeKNNAPIis
+thattheconstructortakesinanadditionalargumentforspecifying 𝐾.
+1leaner =KNNLearner (k=3)
+2learner .train (Xtrain ,Ytrain )
+3learner .query (Xtest )
+11.10 ExampleforLinearRegression
+Let’slookatsomepseudocodedescribingapossibleimplementationofthisAPIforalinearregression
+learner.
+We define our LinRegLearner class, and the associated constructor using the __init__ method.
+Theconstructor,inthiscase,doesn’tneedtodoanything,sowecancall pass.
+1class LinRegLearner :
+2def __init__ ():
+3 pass
+Next,weneedtoimplementthe trainmethod. Givenatrainingdatasetconsistingof XandY,train
+findsthe mandbofthelinethatbestfitsthedata.
+1class LinRegLearner :
+2#... #
+3def train (X,Y):
+4 self .m,self .b=favorite_linreg (X,Y)
+WecanuseanyofseveralregressionalgorithmsatourdisposalaspartofSciPyandNumPytofind m,
+andb,andwestoretheseparametersasinstancevariablesonthelearner.
+Finally,the querymethodtakesin Xasanargumentandcomputesthecorresponding Y.
+1class LinRegLearner :
+2def query (X):
+3 return self .m*X+self .b
+AKNNlearnerwouldhavethesameAPI,althoughitsconstructorwouldlookalittledifferentbecause
+wewanttobeabletospecify 𝐾:
+1class KNNLearner :
+2def __init__ (k):
+3 self .k=k
+MattSchlenker 209
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 210 ---
+MachineLearningforTrading(ML4T)‑Complete
+EnforcingthatalllearnersimplementthesameAPIisadvantageousbecause,onceweknowhowto
+useonelearner,weknowhowtousethemall.
+12 AssessingaLearningAlgorithm
+12.1 ACloserLookatKNNSolutions
+Assumewehavethefollowingtrainingexamplesplottedbelow,andwewanttousetheKNNalgorithm
+toprovidepredictionsfornewobservations.
+Now suppose we query the KNN model at the following point, near 𝑥 = 0, using the three nearest
+neighborstomakeourprediction.
+MattSchlenker 210
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 211 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecalculatethepredicted 𝑦valueforthis 𝑥asthemeanofthe 𝑦valuesofthesethreeneighbors. As
+𝑥getslarger,thesetofnearestneighbors,andthereforethepredicted 𝑦value,shifts. Wecanplotthe
+predicted 𝑦valuesthroughoutthefollowingcontinuousrangeof 𝑥values.
+A helpful feature of this model is that it doesn’t overfit the data. Since we consider multiple neigh‑
+MattSchlenker 211
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 212 ---
+MachineLearningforTrading(ML4T)‑Complete
+bors for each prediction, a prediction is never disproportionately influenced by a single training ex‑
+ample.
+However, thismodelisnotwithoutitsshortcomings. Forexample, weseeflatlinesateitherendof
+theplot. Afteracertainpoint,themodelreturnsthesamepredictionforany 𝑥becausetheneighbors
+don’tchange. Inotherwords,themodelisunabletoextrapolateanytrendspresentinthedata.
+12.2 WhatHappensasKVariesQuiz
+Considerthefollowingthreemodels,eachgeneratedusingadifferentvaluefor 𝐾.
+Our first task is to match the value of 𝐾with the corresponding plot. Our second task is to decide
+whetherweincreasethechancesofoverfittingasweincrease 𝐾. Anoverfitmodelmatchesthetrain‑
+ingsetverywellbutfailstogeneralizetonewexamples.
+MattSchlenker 212
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 213 ---
+MachineLearningforTrading(ML4T)‑Complete
+12.3 WhatHappensasKVariesQuizSolution
+Let’sconsiderthecasewhere 𝐾 = 1. Inthiscase,themodelpassesthrougheverypoint 𝑃directly,
+sincenear 𝑃,theonlypointthathasanyinfluenceis 𝑃.
+Nowconsiderthecasewhere 𝐾 = 𝑁. Inthiscase,everypointconsidersalloftheneighbors. Thus,
+thegeneratedmodelisastraightlinepassingthroughthemeanofthe 𝑦valuesofallthepoints.
+Of course, when 1 < 𝐾 < 𝑁 , the graph lies between these two extremes. For 𝐾 = 3, the graph
+roughlyfollowsthepointswithoutpassingthroughthemdirectly.
+Asaresult,weseethatincreasesin 𝐾decreasetheprobabilityofoverfitting.
+12.4 WhatHappensasDVariesQuiz
+Considerthefollowingthreepolynomialmodels. Thedifferencebetweeneachmodelisthe degreeof
+thepolynomial 𝑑.
+MattSchlenker 213
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 214 ---
+MachineLearningforTrading(ML4T)‑Complete
+Our first task is to match the value of 𝑑with the corresponding plot. Our second task is to decide
+whetherweincreasethechancesofoverfittingasweincrease 𝑑.
+12.5 WhatHappensasDVariesQuizSolution
+MattSchlenker 214
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 215 ---
+MachineLearningforTrading(ML4T)‑Complete
+Apolynomialofdegreeonematchestheequation 𝑦 = 𝑚1𝑥 + 𝑏,whichistheequationofalineand
+correspondstothethirdplot.
+Apolynomialofdegreetwomatchestheequation 𝑦 = 𝑚1𝑥 + 𝑚2𝑥2+ 𝑏,whichistheequationofa
+parabolaandcorrespondstothefirstplot.
+Athird‑orderpolynomialmatchestheequation 𝑦 = 𝑚1𝑥 + 𝑚2𝑥2+ 𝑚3𝑥3+ 𝑏,whichcorrespondsto
+thesecondplot.
+Weseethatasweincrease 𝑑, ourmodelbeginstofollowthepointsmoreclosely. Indeed, itcanbe
+shownthatfor 𝑁points,aparabolaofdegree 𝑁existsthatpassesthrougheachpoint.
+Noticethatforeachofthesemodels,wecanextrapolatebeyondthedatagiven. Thisabilitytoextrap‑
+olateisapropertyofparametricmodelsthatinstance‑basedmodelslack.
+12.6 Metric1: RMSError
+We’ve looked at different graphs of models and visually evaluated how well they fit sets of data. A
+morequantitativeapproachtomeasuringfitistomeasure error.
+Let’sassumewewanttobuildalinearmodelfromthefollowingdata.
+Themodelmightlooksomethinglikethis.
+MattSchlenker 215
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 216 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecanassessthismodelateachrealdatapoint 𝑑andmeasurethedifferencebetweenthe 𝑦‑valueof
+𝑑andthe 𝑦‑valueofthemodelforthe 𝑥valueof 𝑑. Thisdifferenceistheerror.
+Accordingly,wehaveanerrorforeverysingledatapointinourdataset.
+MattSchlenker 216
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 217 ---
+MachineLearningforTrading(ML4T)‑Complete
+A common type of error is the root‑mean‑square error (RMSE), which we compute by taking the
+squarerootofthemeanofthesquarederrorsforeachpoint.
+Formally,givenamodelfitto 𝑁datapoints,eachwithanerror 𝑒𝑖,wecancalculateRMSEas:
+√∑𝑖𝑒2
+𝑖
+𝑁
+TheRMSEformulationgivesusanapproximationoftheaverageerror,althoughitemphasizeslarger
+errorsslightlymorethansmallerones.
+12.7 InSampleVs. OutofSample
+RememberfromourKNNdiscussionthatit’spossibletobuildmodelsthatcanperfectlyfitanarbitrary
+dataset. Inotherwords,wecancreateamodelthathasvirtuallyzeroerroragainstourtrainingset.
+Asaresult,itdoesn’tmakesensetoevaluateourmodelagainstthedataonwhichittrained. Instead,
+wetrainourmodelononesetofdataandtestitonanother, previouslyunseensetofdata: the test
+set.
+We minimize the in‑sample error between the training set and the model during training. We then
+computethe out‑of‑sample errorbetweenthetestsetandthemodeltoevaluatehowwellthemodel
+generalizestonewdata.
+MattSchlenker 217
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 218 ---
+MachineLearningforTrading(ML4T)‑Complete
+12.8 WhichisWorseQuiz
+Suppose we just built a model. Which error would you expect to be larger: in‑sample or out‑of‑
+sample?
+MattSchlenker 218
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 219 ---
+MachineLearningforTrading(ML4T)‑Complete
+12.9 WhichisWorseQuizSolution
+Ingeneral,theout‑of‑sampleerrorisworsethanthein‑sampleerror.
+12.10 CrossValidation
+Usually,whenresearchersareevaluatingamodel,theysplittheirdataintotwosets. 60%ofthedata
+goesintoatrainingset,andtheremaining40%goesintoatestset.
+Wecanthinkoftheprocessoftrainingandtestingamodelasa trial. Inmanycases,asingletrialis
+sufficienttoassessamodel.
+Oneproblemresearcherssometimesencounter,however,isthattheydon’thaveenoughdatatoana‑
+lyzetheirmodeleffectively. Theycanmitigatethisproblembypartitioningtheirdatasetintodifferent
+subsetssuchthattheycanrunmultipletrials.
+Forexample,wecansliceourdatasetintofiveequalpartitions. Intrialone,wetrainonthefirstfour
+slices and test on the fifth. In trial two, we train on the last four slices and test on the first. We can
+followthisapproachtogenerateatotaloffiveuniquetrain/testsplitsfromoursinglesetofdata.
+12.11 RollForwardCrossValidation
+Cross‑validationisagreattool,buttypicallydoesn’tfitfinancialdataapplicationswell,atleastinthe
+formwe’veseensofar.
+MattSchlenker 219
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 220 ---
+MachineLearningforTrading(ML4T)‑Complete
+Infinancialapplications,wearetypicallyworkingwithtemporaldata,andarbitraryselectionoftrain‑
+ingandtestingsetscancreateasituationwhereourtestingdatapredatesourtrainingdata.
+Inotherwords,wemightfindourselvestrainingondatafromtherelativefutureandtestingondata
+fromtherelativepast. Any futurebias likethiscanleadtounrealisticallyoptimisticresults,soweneed
+toavoidit.
+Wecanavoidthisbiaswithrollforwardcross‑validation. In rollforwardcross‑validation , wecon‑
+straintheselectionoftrainingandtestingsetssuchthattrainingdataalwayscomesbeforetestdata.
+Evenwiththeseconstraints,wecanstillsubsetourdatatocreatemultipletrain/testtrials.
+Forexample,let’ssupposewesliceourdatasetintofiveequalpartitions. Intrialone,wetrainonthe
+sliceoneandtestoneslicetwo. Intrialtwo,wetrainonslicetwoandtestonslicethree. Wecanfollow
+thisapproachtogenerateatotaloffouruniquetrain/testsplitsfromoursinglesetofdata.
+12.12 Metric2: Correlation
+Anotherwaytoevaluatetheaccuracyofaregressionalgorithmistolookattherelationshipbetween
+predictedandobservedvaluesofourdependentvariable, 𝑦.
+Let’ssupposewehaveamodel 𝑀andasetoftestingdatacontaining 𝑋𝑡𝑒𝑠𝑡and 𝑌𝑡𝑒𝑠𝑡. Wecanquery
+𝑀with 𝑋𝑡𝑒𝑠𝑡,anditwillreturnasetofpredictions 𝑌𝑝𝑟𝑒𝑑𝑖𝑐𝑡. Wecanthencomparethepredictedvalues
+againstthegroundtruth.
+We compute the correlation between 𝑌𝑡𝑒𝑠𝑡and 𝑌𝑝𝑟𝑒𝑑𝑖𝑐𝑡to quantitatively measure the relationship
+betweenthetwosetsofvariables. Correlationvaluesrangefrom‑1to1,where‑1indicatesaperfect
+inverserelationship,1indicatesaperfectpositiverelationship,and0indicatesnorelationship.
+Ideally, we would want to see a correlation between 𝑌𝑡𝑒𝑠𝑡and 𝑌𝑝𝑟𝑒𝑑𝑖𝑐𝑡of precisely 1, which would
+indicatethatthetwosetsofdataareidentical;thatis,ourmodelmadenopredictionerrors.
+Given two ndarrays n1andn2of identical shapes, we can compute the correlation between them
+like:
+1np.corrcoef (n1,n2)
+12.12.1 Documentation
+•numpy.corrcoef
+MattSchlenker 220
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 221 ---
+MachineLearningforTrading(ML4T)‑Complete
+12.13 CorrelationandRMSErrorQuiz
+Let’sthinkabouttherelationshipbetweenRMSerrorandthecorrelationbetween 𝑌𝑡𝑒𝑠𝑡and 𝑌𝑝𝑟𝑒𝑑𝑖𝑐𝑡.
+Whichofthefollowingstatementsistrue?
+12.14 CorrelationandRMSErrorQuizSolution
+Inmostcases, correlationdecreasesasRMSerrorincreases. However, itispossibletoconstructex‑
+ampleswherecorrelationincreasesasRMSerrorincreases.
+MattSchlenker 221
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 222 ---
+MachineLearningforTrading(ML4T)‑Complete
+12.15 Overfitting
+Let’sconsideraparameterizedpolynomialmodel 𝑀. Wewanttoincreasethedegreeof 𝑀steadily
+‑ adding an 𝑥term, an 𝑥2term, an 𝑥3term, and so on ‑ and understand how the error changes in
+response.
+Wecanlookatthein‑sampleerrorfirst. When 𝑑issmallest,ourerrorishighest,andasweincrease
+𝑑, ourerrordrops. As 𝑑approachesthenumberofitems 𝑁inourdataset, ourerrorcanapproach
+zero.
+Let’slookattheout‑of‑sampleerrornext. Rememberthatwealwaysexpectout‑of‑sampleerrorto
+begreaterthanourequaltoin‑sampleerror.
+When 𝑑issmall,ourout‑of‑sampleerrorislikelytobeveryclosetoourin‑sampleerror. However,as
+𝑑increases,theout‑of‑sampleerrorgetslarger. Inotherwords,amodelwithmorefactorscanfitthe
+trainingdatabetterattheexpenseoffittingthetestdata. Indeed,atlargevaluesof 𝑑,wemightsee
+sharpincreasesinout‑of‑sampleerror.
+MattSchlenker 222
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 223 ---
+MachineLearningforTrading(ML4T)‑Complete
+We can define overfitting as the range in which adding additional factors to our model results in a
+decreaseinin‑sampleerrorbutanincreaseinout‑of‑sampleerror.
+12.16 OverfittingQuiz
+Let’sconsideroverfittinginKNNandhowin‑sampleandout‑of‑sampleerrorchangesas 𝐾increases
+from1tothenumberofitems 𝑁inadataset.
+Whichofthefollowingplotscorrectlyrepresentstheshapeoftheerrorcurvesthatwewouldexpect
+MattSchlenker 223
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 224 ---
+MachineLearningforTrading(ML4T)‑Complete
+forbothtypesoferrorasweincrease 𝐾?
+12.17 OverfittingQuizSolution
+Remember that KNN models are least generalized when 𝐾 = 1. In other words, when 𝐾 = 1, the
+modelpredictseachtrainingpointinthedatasetperfectlybutfailstopredicttestingpointsaccurately.
+Asaresult,KNNmodelsoverfitwhen 𝐾issmall.
+MattSchlenker 224
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 225 ---
+MachineLearningforTrading(ML4T)‑Complete
+12.18 AFewOtherConsiderationsQuiz
+Thereareafewotherfactorsworthconsideringwhenevaluatingalearningalgorithm. Foreachofthe
+followingfactors,whichofthetwomodelshasbetterperformance?
+12.19 AFewOtherConsiderationsQuizSolution
+Linear regression models require less space for persistence than KNN models. A linear regression
+modelofdegreefourcanbedescribedinasfewasfourintegers,whileaKNNmodelmustretainev‑
+MattSchlenker 225
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 226 ---
+MachineLearningforTrading(ML4T)‑Complete
+erysingledatapointeverseen.
+KNN models require less compute time to train than linear regression models. In fact, KNN models
+requirezerotimetotrain.
+Linear regression models process queries more quickly than KNN models. The query time for a lin‑
+earregressionmodelisconstant. ThequerytimeforKNNmodelsgrowswiththenumberofqueries,
+as previously queried data points are added to the data set and must be examined in subsequent
+queries.
+Adding new data is quicker in KNN than in linear regression. Incorporating new data into a model
+requiresretrainingthemodel,but,aswejustsaw,thetrainingtimeforaKNNmodeliszero.
+13 EnsembleLearners,Bagging,andBoosting
+13.1 EnsembleLearners
+Sofar,we’velookedatusingasingletypeoflearningmethodtobuildasinglemodel. Forexample,
+wemightbuildaKNNmodelfromourtrainingdata,andthenqueryitwithnewobservationstoget
+newpredictions.
+Nothingisrestrictingustothisone‑modelparadigm. Wecanbuildan ensemble oflearnersandcom‑
+binetheoutputsoftheirmodelstoprovideacompositeprediction.
+Forexample,wemighthaveaKNNlearner,alinearregressionlearner,adecisiontreelearner,andan
+SVM‑based learner. Each learner in the ensemble is trained using the same data, and we query the
+MattSchlenker 226
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 227 ---
+MachineLearningforTrading(ML4T)‑Complete
+ensemblebyqueryingeachmodelandcombiningtheresults.
+Forclassificationproblems,thecompositepredictionmightbethemodeoftheindividualpredictions;
+inotherwords, eachmodelvotes, andthehighestvotewins. Forregressionproblems, wetypically
+takethemeanoftheindividualoutputs.
+Weuseensemblesfortworeasons:first,theyoftenhavelowererrorthananyindividuallearnermight
+havebyitself,and,second,ensemblelearnersarelesslikelytooverfitthanasinglelearner.
+We can offer an intuitive explanation for these claims. Every model that we might use has its own
+typeofbias. Forexample,alinearregressionlearnerisbiasedinitsassumptionthattherelationship
+between 𝑋and 𝑌islinear. Whenwecombinelearners,theseindividualbiasescancanceleachother
+out,toanextent.
+13.2 HowtoBuildanEnsembleQuiz
+Howmightwegoaboutbuildinganensembleoflearners?
+MattSchlenker 227
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 228 ---
+MachineLearningforTrading(ML4T)‑Complete
+13.3 HowtoBuildanEnsembleQuizSolution
+Wecancreateanensemblebytrainingseveralparameterizedpolynomialsofdifferingdegrees(A)or
+bytrainingseveralKNNmodelsusingdifferentsubsetsofdata(B).
+Itdoesn’tmakesensetotrainKNNmodelsusingrandomized 𝑌‑values,becausewewanttotrainany
+modelweplantouseontheactualdatainourtrainingset. Asaresult,neither(C)nor(E)iscorrect.
+Instead of using just polynomial learners or KNN learners, we can combine the two into a super en‑
+MattSchlenker 228
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 229 ---
+MachineLearningforTrading(ML4T)‑Complete
+semble(D)forevenbetterresults.
+13.4 BootstrapAggregating: Bagging
+Insteadofbuildinganensembleusingdifferenttypesoflearners,wecanusemultipleinstancesofthe
+samelearner,trainingeachonaslightlydifferentsubsetofthedata. Thisprocessiscalled bootstrap
+aggregating ,orbagging.
+Fromtheoriginalsetoftrainingdata,containing 𝑛examples,wecancreate 𝑚bagsof 𝑛′= 𝑛exam‑
+plesbysamplingthetrainingdatarandomly,withreplacement, 𝑚times.
+Wethentakeeachbaganduseittotrainaninstanceofourlearner. Justlikewhenwehaveanensem‑
+bleofdifferentlearningalgorithms,wecanqueryourbaggedensembleinthesameway. Wepassthe
+same 𝑋toeachtrainedmodelandcollectandaveragetheresultstogeneratea 𝑌.
+13.5 OverfittingQuiz
+Whichofthesetwomodelsisleastlikelytooverfit?
+Aside: thescreenshotsays“mostlikelytooverfit”,butheselectsthemodelthatisleastlikelyto
+overfit.
+MattSchlenker 229
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 230 ---
+MachineLearningforTrading(ML4T)‑Complete
+13.6 OverfittingQuizSolution
+13.7 BaggingExample
+Suppose we have the following data, and we’d like to create several 1‑nearest neighbor models to
+describethisdata.
+MattSchlenker 230
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 231 ---
+MachineLearningforTrading(ML4T)‑Complete
+First,werandomlyselectthedatapoints,circledbelow,forourfirsttrainingbag.
+Fromthesepoints,wecangeneratethefollowingmodel.
+MattSchlenker 231
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 232 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecangenerateanothermodelbyselectinganotherrandomsubsetofdatapoints.
+Whilebothofthesemodels,takenalone,lookwoefullyoverfit,wecancreateanensemblethataver‑
+agestheirpredictionsforeachquery.
+MattSchlenker 232
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 233 ---
+MachineLearningforTrading(ML4T)‑Complete
+Indeed,theensemblemodelis“smoother”thaneitheroftheconstituentmodels. Wedon’thaveto
+stopatjusttwolearners;instead,wecancreateanevenlargerensemble.
+If we plot the ensemble created from these five learners, we see an even smoother model than the
+onegeneratedbythepreviousensemble.
+MattSchlenker 233
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 234 ---
+MachineLearningforTrading(ML4T)‑Complete
+13.8 Boosting
+Boosting isarelativelysimplevariationonbaggingthatstrivestoiterativelyimprovetheensemble
+byfocusingonareasinwhichitiscurrentlyperformingpoorly. Oneofthemostwell‑knownboosting
+algorithmsis AdaptiveBoosting (AdaBoost).
+UsingAdaBoost,webuildourfirstbagofdataintheusualway: randomselection,withreplacement,
+fromourtrainingdata. Wethentrainamodelonthisbag.
+Next,wetestthemodelusingtheentiresetoftrainingdata. Duringthistest,wearegoingtodiscover
+thatourmodelhasalargerpredictionerrorforsomedatapointsandnotothers.
+Whenwegotobuildournextbagofdata,wenolongerselectourexamplesrandomlyfromthetraining
+set. Instead,weweighttheprobabilityofselectionasafunctionofthepredictionerror,sothatpoorly
+predictedexamplesaremorelikelytobechosen.
+Inotherwords,webumptheworst‑predictedexamplestothefrontofthelinesothatthenextmodel
+wetraincanfixtheerrorsofthefirst.
+We build a model from our second bag and then test both models, as an ensemble, over the entire
+trainingset. Weagainadjusttheprobabilitiesofselectingtrainingexamplesforournextbagaccord‑
+ingtothepredictionerrorsthattheensemblegenerates. Wecontinuethisrefinementuntilwehave
+𝑚bags.
+MattSchlenker 234
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 235 ---
+MachineLearningforTrading(ML4T)‑Complete
+13.9 OverfitationQuiz
+As we increase the number of models 𝑚in our ensemble, which of the following strategies is more
+likelytooverfit?
+13.10 OverfitationQuizSolution
+MattSchlenker 235
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 236 ---
+MachineLearningforTrading(ML4T)‑Complete
+AdaBoostfocusesprimarilyonimprovingthesystemforspecificdatapoints;inotherwords,itstrives
+tofit. Asaresult,itismoresusceptibletooverfittingthanissimplebagging.
+14 SoYouWanttobeaHedgeFundManager
+14.1 TypesofFunds
+There are many different types of funds, but three broad classes that we are going to look at are
+exchange‑tradedfunds (ETFs),mutualfunds ,andhedgefunds .
+ETFs represent baskets of stocks, yet can be bought and sold as if they were individual stocks. ETF
+priceschangethroughouttheday,andwecanbuyorsellETFshareswheneverthemarketisopen. In
+otherwords,ETFsareveryliquid. Additionally,ETFmanagersareverytransparentconcerninginvest‑
+mentgoals‑forinstance,trackingtheS&P500‑andholdings.
+MutualfundsarelessliquidthanETFs. Attheendofthetradingday,amutualfundaddsupallofits
+holdingstocomputea netassetvalue ,andit’sfromthisvaluethatthebuy/sellpriceisderived. Unlike
+ETFs,whichinvestorscantradeintraday,mutualfundscanonlybeboughtorsoldattheendofthe
+day.
+Additionally, mutual funds are less transparent then ETFs. Mutual funds only have to disclose their
+holdingsonceeveryquarter. Asaresult,investinginamutualfundcanbesomewhatofablackbox
+in the middle of the quarter, as investors are unsure of the composition of the fund at the time of
+investment.
+Still,mutualfundsaresomewhattransparentbecausetheyhavestatedgoals. Forexample,amutual
+fundmightstrivetotracktheS&P500,anditwouldpublishthegoaltoinforminvestors.
+Hedge funds are even less transparent than mutual funds. Buying shares in a hedge fund often in‑
+volves first entering into a secret agreement that prohibits the disclosure of any details regarding
+whichassetsarebeingboughtorsold.
+Hedgefundsarehardtoexit,astheyusuallyrequireinvestorstolocktheirmoneyinforsomenumber
+ofmonthsoryears. Wheninvestorsdoexit, theymaynotbeabletowithdrawalloftheirmoneyat
+once.
+Finally,hedgefundsdon’thavetodisclosewhattheyareholding,noteventotheirinvestors,making
+hedgefundsboththeleasttransparentandleastliquidofthethree.
+MattSchlenker 236
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 237 ---
+MachineLearningforTrading(ML4T)‑Complete
+14.2 LiquidityandCapitalization
+Liquidity referstotheeasewithwhichonecanbuyorsellsharesinaparticularholding. Stocksand
+ETFs,whichhavehundredsofthousandsorevenmillionsofinvestors,areoftenveryliquid;inother
+words,youcanalmostalwaysfindsomeonelookingtobuyorsellshares. Indeed,wecanlookupthe
+tradingvolume ofstocksandETFsonplatformslike GoogleFinance orYahooFinance toconfirmthis
+liquidity.
+Capitalization referstotheworthofacompanydefinedastheproductofthenumberofoutstanding
+sharesandtheshareprice. Somestocks,likeApple,havecapitalizationsinthehundredsofbillions
+(trillions) of dollars, and werefer tothese stocks are large‑cap stocks. Correspondingly, small‑cap
+stocksarethosewithsmallercapitalizations.
+Notethatthepriceofastockonlyrelatestothepriceofoneshare,nottheoverall valueofthecom‑
+pany.
+14.3 WhatTypeofFundisitQuiz
+Foreachofthefollowingfivefunds,determineifthefundisanETF,mutualfund,orhedgefund. Use
+GoogleFinance orYahooFinance forhelp.
+MattSchlenker 237
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 238 ---
+MachineLearningforTrading(ML4T)‑Complete
+14.4 WhatTypeofFundisitQuizSolution
+Typically, symbols for ETFs have three or four letters, while mutual fund symbols usually have five.
+Hedgefundsdon’thavesymbols;instead,werefertothembytheirfullname.
+MattSchlenker 238
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 239 ---
+MachineLearningforTrading(ML4T)‑Complete
+14.5 IncentivesforFundManagers
+We’ve discussed differences regarding transparency and liquidity among ETFs, mutual funds, and
+hedgefunds. Now,let’sfocusonhowthemanagersofthesefundsarecompensated.
+Each type of fund has different rules for how managers receive compensation, and it’s essential to
+investigate these compensation mechanisms because they incentivize managers to act in specific
+ways.
+Beforewecandiscussthesecompensationstructures,wehavetointroduceoneconcept: assetsun‑
+dermanagement (AUM).AUMreferstotheamountofmoneymanagedbythefundandisimportant
+because,foreachtypeoffund,partofthecompensationisderivedfromAUM.
+ThemanagersofETFsarecompensatedaccordingtoan expenseratio ,whichisessentiallyapercent‑
+ageofAUM.Expenseratiosaretypicallyquitelowandvaryfrom0.01%to1%.
+Mutualfundmanagersarealsocompensatedaccordingtoanexpenseratio,andtherangeofexpense
+ratiosforthesemanagersisslightlyhigherthanforthosewhomanageETFs,varyingfromabout0.5%
+to3%.
+RememberthatETFsaretypicallytiedtoanindex. Forexample,SPYisapopularETFthatissupposed
+totracktheS&P500. Asaresult, anSPYmanagerhasto“simply”makesuretheyareholdingallof
+thestocksintheS&P500.
+Mutual fund managers typically have much more discretion than ETF managers, and therefore can
+commandahigherexpenseratio,bothforthecostoftheirresearchandfortheirskill.
+Hedgefundsareacompletelydifferentbreedintermsofhowtheirmanagersarecompensated.These
+fundstypicallyfollowa twoandtwenty model, wherebythemanagerreceivesanexpenseratioof
+2%aswellas20%oftheprofits.
+We’ve been examining how fund managers are compensated, but we can also look at how fund in‑
+vestorsarecompensated. Ifweinvestinafund,ourreturnisbasedontheincreaseinthevalueofthat
+fund. Inmostcases,thatincreaseissubjecttomacroeconomicandmarketactivity.
+14.6 TwoandTwenty
+Considerthatwearemanagingahedgefundwith$100,000,000AUM.Overayear,ourinvestmentskill
+resultsinanincreaseinthevalueofthatfundby15%;inotherwords,thefundgrewfrom$100,000,000
+to$115,000,000.
+What’sourcompensation?
+MattSchlenker 239
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 240 ---
+MachineLearningforTrading(ML4T)‑Complete
+Two percent of AUM comes out to 0.02 ∗ 100, 000, 000 = 2, 000, 000 and twenty percent of prof‑
+its equals 0.2 ∗ 15, 000, 000 = 3, 000, 000 . In total, our compensation for the year would be about
+$5,000,000.
+One question we might ask: when determining our compensation, should we use an AUM of
+$100,000,000 or $115,000,000? It depends on the hedge fund, of course, and when they take ac‑
+countingsnapshots,buttheAUMusedforcompensationwilllikelyfallsomewherebetweenthetwo
+values.
+Thetwoandtwentymodelhasbeenassailedlately,andit’sraretofindahedgefundtodaythatcom‑
+pensates that highly. Typical rates these days are much lower, closer to “one and ten”. There are
+some star hedge funds that charge more; for instance, SAC Capital , which is no longer operating to
+thepublic,chargedasmuchas“fourandforty.”
+14.7 IncentivesQuiz
+Sofar,we’velookedattwodifferentincentivestructures: expenseratiosandthetwoandtwentyrule.
+Whichofthefollowingactionsmightthesecompensationmechanismsincentivize?
+MattSchlenker 240
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 241 ---
+MachineLearningforTrading(ML4T)‑Complete
+14.8 IncentivesQuizSolution
+Theexpenseratio,whichisderivedentirelyfromAUM,primarilyincentivizesAUMaccumulation. Ad‑
+ditionally,sincethe“two”oftwoandtwentyisbasedonAUM,thatincentivestructureoverallslightly
+incentivizesAUMaccumulation.
+ETFmanagersandmutualfundmanagersarenotcompensatedformakingprofits. ETFs,forexample,
+arespecificallydesignedtotrackanindex,andtheydon’tparticularlycarewhetheranindexgoesup
+ordown. Thetwoandtwentyruleincentivizesprofit,asthe“twenty”componentisearnedthrough
+profitgains.
+Funds that compensate according to expense ratios are not incentivized to take risks at all. Under
+the two and twenty model, however, risk‑taking is incentivized since significant profit gains can be
+realizedbyundertakingconsiderablerisk.
+Additionally,fundmanagersunderthetwoandtwentyruleareinsulatedfromriskbythe2%expense
+ratiothattheyreceivenomatterwhat. Asaresult,theyexperiencetheupsideofriskandaminimized
+downside.
+14.9 HowFundsAttractInvestors
+There are three major types of investors in hedge funds: individuals, institutions, and funds of
+funds.
+Individualsmaywishtodeployaportionoftheirpersonalwealthintoahedgefund. Hedgefundsusu‑
+allycanonlyhaveupto100investors,andmanagerswanttomaximizeAUM,sohedgefundstypically
+MattSchlenker 241
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 242 ---
+MachineLearningforTrading(ML4T)‑Complete
+onlyconsiderverywealthypeoplewhomakesizableinvestments.
+Whenwetalkaboutinstitutions,wearereferringtoentitiessuchaslargeretirementfunds‑ CalPERS
+inCalifornia,forexample‑anduniversityfoundations,likethoseassociatedwithHarvardorGeorgia
+Tech.
+Theseinstitutions,oftennon‑profitinnature,havelargesumsofmoneythattheyneedtokeepsome‑
+where. Since they’d like to see their money accrue in value, they might look to hedge funds as an
+investmentstrategy.
+Fundsoffundsgrouptogetherthefundsofmanyindividualsorinstitutions. Forinstance,anindivid‑
+ualmightbewealthyenoughtoinvestinonehedgefundbutwouldliketheadvantageofinvesting
+inseveralfunds. Thispersonmightinvesttheirmoneyintoafundoffunds,whichspreadstheinvest‑
+mentsitreceivesacrossseveralhedgefunds.
+Besidesknowingthetypesofinvestorsthatmightbeinterestedinourfund,it’scriticallyimportantto
+knowwhytheywouldinvest,asthisdirectshowwemightpresentourcasetopotentialinvestors.
+Someofthemostpersuasiveevidencewecanpresenttopotentialinvestorsisthetrackrecordofour
+fund,asthisservesasanindicationthatourfundwillcontinuetoperform. Indeed,manyinstitutional
+investors will want to see a track record for at least five years before they will invest in a particular
+fund.
+Ofcourse,youngerhedgefundmanagersmightnothavethistrackrecord,sotheysimulate/backtest
+theirstrategyinstead. Investorswillconsiderthesesimulations;however,theymustbebackedbya
+convincingstorydemonstratingthattheproposedstrategywillbesuccessfulinthewild.
+Finally,potentialinvestorsconsiderhowourstrategyfitswithintheirportfolio. Inotherwords,ifour
+strategyisforlarge‑capS&P500stocks,andthey’vealreadycoveredthatgroundwithanotherfund,
+theymightnotconsiderourfund. Ifourstrategyalignswithaparticularinvestmentneedthattheir
+portfolioismissing,theymightbeinclinedtogiveourfundmorethought.
+14.10 HedgeFundGoalsandMetrics
+Hedge funds typically try to achieve one of two goals: beat a benchmark or provide an absolute re‑
+turn.
+Forexample,ifwearegoodatpickingstocksfromtheS&P500,wemightbuildahedgefundwhose
+goalistobeattheS&P500. Here,theS&P500isthebenchmark,andwehopetobeatthisbenchmark
+byselectivelyinvestinginthosestocksweexpecttooutperform.
+Thebenchmarkwechooseshoulddependonourexpertise. Forexample,ifweareanexpertinselect‑
+ingstocksinemergingmarketsinEasternEurope,weshouldpickabenchmarkthatrepresentsthat
+typeofinvesting,suchasanindexcomprisedofcompaniesinemergingmarketsinEasternEurope.
+MattSchlenker 242
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 243 ---
+MachineLearningforTrading(ML4T)‑Complete
+One thing to note is that many benchmarks, such as indexes, can go down in value. Of course, it’s
+naturalforaportfolioassociatedwithalosingbenchmarktoalsolosemoney,butthefundcanstill
+beatthebenchmarkbylosinglessvalue.
+Fundsthatstriveforabsolutereturnsseektoprovidepositivereturnsnomatterwhat. Thesefunds
+areusuallylong/short,whichmeanstheymakepositivebetsonstockstheythinkaregoingtogoup
+andnegativebetsonstockstheythinkaregoingtogodown.
+The objective of these funds is to make slow, consistent, positive returns. Often, these funds don’t
+makethesamepercentagegainsasthefundsthatarepeggedtoabenchmark,buttheyhavelower
+drawdowns;inotherwords,whenthemarkettakesabighit,theydon’t.
+Howdowemeasurehowwellafundismeetingitsgoals? Weusethemetricsthatwe’vediscussed
+previously‑cumulativereturn,volatility,andSharperatio‑whichwetalkaboutatlength here.
+14.11 TheComputingInsideaHedgeFund
+Hedgefundsareamongthemostcomputationallydemandingenvironments,withinfrastructuralre‑
+quirementslikemassivedatabases,lowlatency,high‑bandwidthconnectivity,andreal‑timeprocess‑
+ing.
+Let’sexaminethedifferentcomponentsofahedgefund,frombothadata‑centricandanalgorithmic
+perspective,byworkingbackwardfromthemarket.
+Onecomponentthatahedgefundneedstokeeptrackofisits liveportfolio .Justlikeanyotherinvestor,
+ahedgefundhasacollectionofpositiveandnegativepositionsinvariousstocks.
+MattSchlenker 243
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 244 ---
+MachineLearningforTrading(ML4T)‑Complete
+Inadditiontotheliveportfolio,whichdescribescurrentlyheldstockpositions,thehedgefundalso
+maintainsa targetportfolio . Thetargetportfoliodescribesthepositionsthatthehedgefundwould
+liketohold.
+Thetrading algorithm is one of the most central pieces of the hedge fund. This algorithm interacts
+with the market, and issues ordersto move the positions in the live portfolio to match those in the
+targetportfolio.
+Atfirstglance,itmightseemlikeahedgefunddoesn’tneedasophisticatedalgorithmtoacquirethe
+positionsinitstargetportfolio;instead,theycansimplybuywhattheylackandsellwhattheyhave
+inexcess.
+In reality, hedge funds rarely execute everything all at once, as massive buy or sell orders can have
+detrimentalimpactsonexecutionprices. Thetradingalgorithmseekstoenterandexitpositionsas
+quietlyaspossible. Indeed,itcantakedaystoshiftholdingssubstantially.
+Now,let’sstepbackfurtherintothehedgefundandseehowwederivethetargetportfolio.
+Oneimportantpieceofdatathatinformsthemakeupofahedgefund’stargetportfolioisa forecast.
+Aforecastpredictspricesforagroupofstockssome 𝑁daysintothefutureandinformsahedgefund
+astotheoptimalpositionstotakeregardingthosestockstoday.
+Another valuable set of data to consider is the historical data ‑ open, high, low, close, and volume
+‑ for the group of stocks under consideration. Historical data can often reveal correlations between
+individualstocks,whichmay,inturn,informbuyingorsellingdecisions.
+Thecurrentportfolioisalsoofcriticalimportance. Ahedgefundmaybepenalizedforrapidlyopening
+andclosingpositionsandmaywanttoweighthesepenaltiesagainstforecastpredictions.
+MattSchlenker 244
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 245 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thesethreedatasourcesfeedintoanalgorithmcalleda portfoliooptimizer thatsearchesforaport‑
+foliothatmaximizesrewardsgivenasetofriskconstraints. Theresultingportfoliothenbecomesthe
+targetportfolio.
+Let’snowlookathowtocalculatean 𝑁‑dayforecast. Ahedgefundmighttrainamachine‑learning‑
+basedforecastingmodelusingacombinationofproprietaryinformationalongsidepublic,historical
+data.
+15 MarketMechanics
+15.1 WhatIsinanOrder
+Thewaythatwebuildaportfolioor,morespecifically,buystocksthatweholdinourportfolio,isby
+issuingorders. Weusuallysendtheseorderstoastockbroker,andtheytakecareofexecutingthem
+forus.
+Thereareseveralcomponentsofawell‑formedorder. First,weneedtoindicatewhetherwearelook‑
+ingtobuyorsellshares. Second,weneedtospecifythesymboloftheequitythatweareinterested
+in‑forinstance,IBMorSPLV.
+Next,weneedtoindicatehowmanysharesweareinterestedintransacting. Equitiessellinunitsof
+shares,notdollars. Inotherwords,wewouldn’ttellourbrokerthatwewant$100,000ofApple,but
+rather100,000sharesofApple.
+Next,weneedtotellthebrokerwhethertheorderisamarketorderoralimitorder. A marketorder
+meansthatwearewillingtoacceptwhateverpricethemarketiscurrentlybearing.
+MattSchlenker 245
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 246 ---
+MachineLearningforTrading(ML4T)‑Complete
+Alimitorder meansthatwedon’twanttodoanyworsethanaspecificprice. Ifwearesellingstock,
+alimitorderdescribesthelowestpricewewouldacceptforthatstock. Ifwearebuyingstock,alimit
+orderdescribesthehighestpricewearewillingtopayforthestock.
+Ifweareissuingalimitorder,wemustspecifythecorrespondinglimitprice. Ifweareissuingamarket
+order,wedon’tspecifyaprice,asthemarketdeterminesthepriceforus.
+Anordertobuy100sharesofIBMfornomorethan$99.95asharemightlooklikethis.
+1BUY,IBM,100, LIMIT ,99.95
+Anordertosell150sharesofGOOGatmarketpricemightlooklikethis.
+1SELL ,GOOG ,150, MARKET
+15.2 TheOrderBook
+Each stock exchange maintains a public order book for each stock that they buy or sell. Investors
+viewtheorderbooktodeterminehowotherinvestorsareinterestedintransactingthisstock.
+Let’ssupposethatweissuetheveryfirstorderoftheday: anordertobuy100sharesofIBMatalimit
+priceof$99.95. SincetheexchangedoesnothaveanysharesofIBMforsaleatthisprice,theycannot
+fulfillourorder. Instead,theyaddittotheorderbook.
+Atthispoint,theorderbooklookslikethis:
+1BID 99.95 100
+MattSchlenker 246
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 247 ---
+MachineLearningforTrading(ML4T)‑Complete
+Let’ssupposeanordercomesintosell1000sharesofIBMatalimitpriceof$100. Sincethereisnoone
+willingtobuyIBMat$100pershare,theexchangehastoaddthisordertoitsorderbookaswell.
+1ASK 100.00 1000
+2BID 99.95 100
+Throughouttheday,moreandmoreorderscomein,andtheorderbookmightlooklikethis.
+1ASK 100.10 100
+2ASK 100.05 500
+3ASK 100.00 1000
+4BID 99.95 100
+5BID 99.90 50
+6BID 99.85 50
+Suppose the exchange receives a market order to buy 100 shares of IBM. The exchange looks at its
+orderbookanddeterminesthat,sinceithas1600sharesforsale,itcanfulfilltheorder. Theexchange
+mustgivetheclientthelowestprice,soitsells100sharesfromthepoolof1000forsaleat$100.
+Asaresult,thenumberofsharesforsaleat$100drops,andtheorderbooknowlookslikethis.
+1ASK 100.10 100
+2ASK 100.05 500
+3ASK 100.00 900
+4BID 99.95 100
+5BID 99.90 50
+6BID 99.85 50
+15.3 UporDownQuiz
+Considerthefollowingorderbook. Doyouthinkthepriceofthisequityislikelytogoupordownin
+thenearfuture?
+MattSchlenker 247
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 248 ---
+MachineLearningforTrading(ML4T)‑Complete
+15.4 UporDownQuizSolution
+Thepriceislikelytodropinthenearfuturebecausethereismoresellingpressurethanbuyingpres‑
+sure.
+Considerwhatwouldhappenifweputinamarketordertosell200shares. Wewouldget100shares
+at$99.95,50sharesat$99.90,and50sharesat$99.85. Oursingleorderwouldcausethepriceofthe
+equitytodropby$0.10.
+MattSchlenker 248
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 249 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ontheotherhand,supposeweissueamarketordertobuy200shares. Wewouldreceive200ofthe
+1000sharesavailableforsaleat$100. Thenextmarketbuyorderwouldstartwiththeremaining800
+sharesforsaleat$100. Inotherwords,ourbuyorderwouldn’taffectthesalepriceatall.
+15.5 HowOrdersAffecttheOrderBook
+ConsiderthefollowingorderbookforIBM.
+1ASK 100.10 100
+2ASK 100.05 500
+3ASK 100.00 1000
+4BID 99.95 100
+5BID 99.90 50
+6BID 99.85 50
+Whathappensifwereceiveamarketordertobuy100sharesofIBM?Wehave1000sharesforsaleat
+$100and,sincewehavetogivetheclientthebestprice,wesellthem100sharesatthatprice. Now
+wehavethefollowingorderbook.
+1ASK 100.10 100
+2ASK 100.05 500
+3ASK 100.00 900
+4BID 99.95 100
+5BID 99.90 50
+6BID 99.85 50
+Let’snowconsideralimitorderfor100sharesofIBMat$100.02. Lookingattheorderbook,wecan
+satisfythatorder. Sincetheclientdoesn’twanttopaymorethan$100.02fortheshares,wecansell
+them100sharesfromthepoolforsaleat$100. Now,ourorderbooklookslikethis.
+1ASK 100.10 100
+2ASK 100.05 500
+3ASK 100.00 800
+4BID 99.95 100
+5BID 99.90 50
+6BID 99.85 50
+Let’slooknowatamarketordertosell175sharesofIBM.Wehave100sharesavailableat$99.95,so
+wesellthose,butwehavetogodeeperintothebooktofulfilltherestoftheorder. Weselltheblockof
+50sharesfor$99.90,andweselltheremaining25sharesfromthepoolof50sharespricedat$99.85.
+Noticethatwehadtodropthesalepricetwiceintheprocessoffulfillingtheorder,whichisindicative
+thatourbookisexperiencingmoresellpressurethanbuypressure.
+Afterthisorder,ourbooklookslikethis.
+MattSchlenker 249
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 250 ---
+MachineLearningforTrading(ML4T)‑Complete
+1ASK 100.10 100
+2ASK 100.05 500
+3ASK 100.00 800
+4BID 99.85 25
+Hereisascreenshotofareal‑lifeorderbook.
+On the right‑hand side, we can see different sell and buy orders and the corresponding execution
+prices. Ontheleft‑handside,weseeachartdepictingthepricemovementovertimeastheexchange
+fulfillstheseorders.
+15.6 HowOrdersGettotheExchange
+We’vetalkedaboutwhatordersareandwhathappenstothemwhentheyarriveattheexchange. Let’s
+focusnowonthepathanordertakesfromourlaptoptoanexchange.
+Suppose that we have just issued an order from our laptop to buy some stock. The buy order goes
+overtheInternettothebroker,whois,inturn,connectedtoseveralexchanges‑NYSE,NASDAQ,and
+BATS,forexample.
+Ourbrokerhasacomputerlocatedateachexchangeandquerieseachcomputertoreadtheprices
+fromthecorrespondingorderbook. Thebrokergathersallofthatinformationandthenroutesour
+ordertotheexchangethatoffersthebestprice: NYSE,inthiscase.
+MattSchlenker 250
+hrishishahh@gmail.com 26 Jan 2026
+

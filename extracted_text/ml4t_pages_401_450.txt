@@ -1,0 +1,621 @@
+--- Page 401 ---
+MachineLearningforTrading(ML4T)‑Complete
+3
+4#Use this
+5daily_returns .iloc [0] = 0
+27.4.6.1 Documentation
+•pandas.DataFrame.shift
+•pandas.DataFrame.ix‑DEPRECATED
+•pandas.DataFrame.loc
+•pandas.DataFrame.iloc
+27.5 IncompleteData
+27.5.1 Pandasfillna()Quiz
+Ourtaskistofindtheparameterthatweneedtopassto fillnatofillforwardmissingvalues.
+MattSchlenker 401
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 402 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.5.2 Pandasfillna()QuizSolution
+27.5.2.1 Documentation
+•pandas.DataFrame.fillna
+27.5.3 FillMissingValuesQuiz
+Ifwelookatthefollowingplotofstockpricedata,wecanseeseveralgaps.
+MattSchlenker 402
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 403 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ourtaskistousethe fillnamethodtofillthesegaps.
+27.5.4 FillMissingValuesSolution
+Wecanuseforwardfillingforgapsthathaveadefinitivestartdate,andbackwardfillingforgapsthat
+havenobeginningorbeginbeforeourdaterange.
+27.5.4.1 Documentation
+•pandas.DataFrame.fillna
+27.6 HistogramsandScatterPlots
+27.6.1 WhatWoulditLookLikeQuiz
+Supposethatwe’vetakenalloftheSPYpricingdatafromovertheyears,generatedanarrayofdaily
+returns,andcreatedahistogramfromthosereturns.
+Whichofthefollowingshapeswouldthehistogrammostlikelyhave?
+MattSchlenker 403
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 404 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.6.2 WhatWoulditLookLikeQuizSolution
+MattSchlenker 404
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 405 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.6.3 CompareTwoHistogramsQuiz
+Acommonpracticeinfinanceistoplothistogramsofthedailyreturnsofdifferentstockstogetherto
+assesshowthestocksrelatetoeachother.
+Below are the daily returns histograms for SPY and XYZ, as well as three statements describing the
+relationshipbetweenthetwo.
+Whichstatementdoyouthinkiscorrect?
+Notethat“vol”referstovolatilityandnotvolume.
+MattSchlenker 405
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 406 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.6.4 CompareTwoHistogramsQuizSolution
+WecanseethatthemeanofSPYisslightlyhigherthanthemeanofXYZ,indicatingthatSPYoutper‑
+formsXYZ.
+Additionally,wecanseethattheXYZcurveis“flatter”thantheSPYcurve. Thisfeatureindicatesthat
+thedailyreturnsofXYZaremorespreadoutthanthoseofSPY,whicharemorecentralized.
+Insummary,XYZhasbothlowerreturnsandhighervolatilitythanSPY.
+27.6.5 Correlationvs.SlopeQuiz
+Givenwhatwejustlearnedaboutcorrelationandslope(beta),let’slookattwoscatterplotswiththeir
+best‑fitlines,andchoosethemostaccuratestatement.
+MattSchlenker 406
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 407 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.6.6 Correlationvs.SlopeQuizSolution
+Thebest‑fitlineintheSPYvs.ABCscatterplothasahigherbetabecausethatlinehasalargerslope
+thanthecorrespondinglineintheSPYvs.XYZplot.
+Additionally,theSPYandABCdailyreturnsaremorehighlycorrelated,whichcanbedeterminedvi‑
+suallyfromexamininghow“tightly”theyhugthebest‑fitlineintheSPYvs.ABCplot.
+MattSchlenker 407
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 408 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.7 SharpeRatioandOtherPortfolioStatistics
+27.7.1 WhichPortfolioisBetterQuiz
+The Sharpe ratio allows us to consider our returns in the context of risk: the standard deviation, or
+volatility,ofthereturns.Whenwelookatportfolioperformance,wedon’ttypicallylookatrawreturns;
+instead,weadjustthereturnsreceivedfortheriskborne.
+With this in mind, let’s look at three comparisons of two stocks, ABC and XYZ, and decide which is
+better.
+MattSchlenker 408
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 409 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.7.2 WhichPortfolioisBetterQuizSolution
+Forthefirstcomparison, ABCisbetter. ABCandXYZhavesimilaramountsofvolatility, butABChas
+doublethereturnofXYZ.
+Forthesecondcomparison,XYZisbetter. BothABCandXYZhavethesamereturn,butABCismuch
+morevolatilethanXYZ.
+For the third comparison, we can’t tell which is better, given the information provided. ABC has a
+higherreturnthanXYZ,butthatreturnisoffsetbyhighervolatility.
+WeneedaqualitativemeasuretocompareABCandXYZinthisthirdexample,andtheSharperatiois
+thatmeasure.
+27.7.3 FormoftheSharpeRatioQuiz
+Considerthefollowingthreefactors.
+MattSchlenker 409
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 410 ---
+MachineLearningforTrading(ML4T)‑Complete
+Howwouldyoucombinethesethreefactorsintoasimpleequationtocreateametricthatprovidesa
+measureofrisk‑adjustedreturn?
+MattSchlenker 410
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 411 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.7.4 FormoftheSharpeRatioQuizSolution
+Onlythethirdchoicemeetsthetwocriteriawedescribedearlier;allelsebeingequal,higherreturns
+increaseourmetric,andlowerriskincreasesourmetric. Additionally,ahigherrateofrisk‑freereturn
+decreasesourmetric.
+27.7.5 WhatistheSharpeRatioQuiz
+Assumewehavebeentradingastrategyfor60daysnow. Onaverage,ourstrategyreturnsone‑tenth
+of one percent per day. Our daily risk‑free rate is two one‑hundredths of a percent. The standard
+deviationofourdailyreturnisone‑tenthofonepercent.
+WhatistheSharperatioofthisstrategy?
+MattSchlenker 411
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 412 ---
+MachineLearningforTrading(ML4T)‑Complete
+Infinancialterminology,oneone‑hundredthofonepercentisknownasa basispoint ,or“bip”.
+Instead of saying, for example, that our strategy returns one‑tenth of one percent per day, we
+couldsayitreturns10bpsperday.
+27.7.6 WhatistheSharpeRatioQuizSolution
+Let’srecallourformulafortheSharperatio:
+MattSchlenker 412
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 413 ---
+MachineLearningforTrading(ML4T)‑Complete
+𝑆 = 𝐾 ∗𝑚𝑒𝑎𝑛(𝑅𝑝− 𝑅𝑓)
+𝜎𝑅𝑝
+Giventhat 𝑅𝑝= 0.001onaverage, 𝑅𝑓= 0.0002 onaverage,and 𝜎𝑅𝑝= 0.001,withadailysample
+rate:
+𝑆 =√
+252 ∗0.001 − 0.0002
+0.001
+𝑆 =√
+252 ∗0.0008
+0.001
+𝑆 =√
+252 ∗ 0.8
+𝑆 ≈ 12.7
+27.8 Optimizers: BuildingaParameterizedModel
+27.8.1 HowtoDefeataMinimizerQuiz
+Whichofthefollowingfunctionswouldbehardfortheminimizertosolve?
+MattSchlenker 413
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 414 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.8.2 HowtoDefeataMinimizerQuizSolution
+Thefirstgraphishardbecauseofthe“flat”areasoneithersideoftheparabola. Aminimizertesting
+apointinthemiddleofthisareawouldn’tbeabletofindanygradienttofollow,soitwouldn’tknow
+howtoadjustthevalueitwascurrentlytesting.
+Thesecondgraphishardbecauseithasseverallocalminimathataren’tnecessarilytheglobalmin‑
+imum. A minimizer might “get stuck” in a local minimum, even though a more significant, global
+minimumexists.
+Thefourthgraphischallengingbothbecauseofthe“flat”areaandthediscontinuitybetweenthetwo
+halves.
+27.8.3 WhatisaGoodErrorMetricQuiz
+Let’sassumethatapoint 𝑝𝑖hasanerror 𝑒𝑖,whichistheverticaldistancebetween 𝑝𝑖andthebest‑fit
+linecurrentlyunderconsideration. Givenanumberofsucherrors 𝑒0, 𝑒1, ..., 𝑒𝑛,whichofthefollowing
+expressionsdescribesthemetricwewanttominimize?
+MattSchlenker 414
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 415 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.8.4 WhatisaGoodErrorMetricQuizSolution
+Wewanttominimizethesumoftheerrors, butwewanttoensurethaterrorsaboveandbelowthe
+linedonotcancelout. Toaccomplishthis,weneedtomakeeacherrorpositivebyeithersquaringit
+ortakingitsabsolutevalue.
+MattSchlenker 415
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 416 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.9 Optimizers: HowtoOptimizeaPortfolio
+27.9.1 WhichCriteriaisEasiesttoSolveForQuiz
+Let’sassumewehaveaportfoliooffourstocks,andwewanttofindtheoptimalallocationsthatmax‑
+imizesomeperformancemetric. Whichofthefollowingmetricswouldbeeasiesttooptimizefor?
+MattSchlenker 416
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 417 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.9.2 WhichCriteriaisEasiesttoSolveForQuizSolution
+Itwouldbeeasiesttowriteanoptimizerforcumulativereturn. Todoso,allweneedtodoisallocate
+100%ofourportfoliointowhicheverstockhadthehighestcumulativereturn.
+OptimizingforminimumvolatilityorSharperatioinvolvesevaluatingvariouscombinationsofstocks,
+whichismorecomplicatedthansimplyputtingalloureggsinonebasket.
+27.10 HowMachineLearningisUsedataHedgeFund
+27.10.1 What’sXandYQuiz
+Let’s think about building a model to use in trading. Which of the following factors might be input
+values( 𝑋)tothemodel,andwhichmightbeoutputvalues( 𝑌)?
+MattSchlenker 417
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 418 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.10.2 What’sXandYQuizSolution
+Sincewe oftenuse models to predictvalues in the future, both futureprice and future returnmake
+MattSchlenker 418
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 419 ---
+MachineLearningforTrading(ML4T)‑Complete
+sense as output values. Our model might make these predictions byconsidering price momentum,
+currentprice,andBollingervaluesasinput.
+27.11 Regression
+27.11.1 HowtoPredictQuiz
+We’veidentifiedthat,inKNN,foraparticularquery 𝑄,wewanttoutilizethe 𝐾nearestdatapointsto
+𝑄tocomeupwithaprediction. Whatshouldwedowiththoseneighboringdatapointstofindthat
+prediction?
+MattSchlenker 419
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 420 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.11.2 HowtoPredictQuizSolution
+Remember that we want to predict a 𝑦‑value for the queried 𝑥‑value. As a result, it doesn’t make
+sensetotaketheaverageofthe 𝑥‑valuesofthenearestneighbors. Additionally,wedon’twanttotake
+thelargest 𝑦‑value;otherwise,theotherneighborshavenoinfluenceontheprediction. Thecorrect
+approachhereistotakethemeanoftheir 𝑦‑values.
+27.11.3 ParametricvsNon‑ParametricQuiz
+Let’sconsidertherelationshipbetweenvariablesintwodifferentscenarios.
+Thefirstscenarioinvolvesfiringacannon. Theindependentvariableisthevalueoftheanglethatthe
+cannonmakeswiththeground,andthedependentvariableisthehorizontaldistancethecannonball
+travels.
+MattSchlenker 420
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 421 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thesecondscenarioinvolvesattractingbeestoafoodsource. Theindependentvariableistherich‑
+nessofthefoodsource,andthedependentvariableisthenumberofbeesattractedtothatsource.
+Notethatthisscenarioisslightlydifferentthanthefirstbecauseit’snotclearthatthenumberofbees
+alwaysincreasesasrichnessincreases.
+Giventhesetwoscenarios, which, ifany, isbettermodeledusingaparametricmodel, andwhich, if
+any,isbettermodeledusinganon‑parametricmodel?
+MattSchlenker 421
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 422 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.11.4 ParametricvsNon‑ParametricQuizSolution
+Inthefirstscenario,wecanstartwithanestimateoftheunderlyingbehaviorofthesystemintermsofa
+mathematicalequationthatexpresseshowitbehaves. Thisequationisjusttheequationoftrajectory,
+whichwecanfindonline. Wecanthenlearntheparametersofthisequationsuchthatitdescribesthe
+relationshipbetweenourvariables.
+Inthesecondscenario,wehavenoinitialestimatefortheunderlyingmathematicalequation,soit’s
+bettertouseanon‑parametricmodel,whichcanmodelany“shape”ofrelationship.
+MattSchlenker 422
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 423 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.12 AssessingaLearningAlgorithm
+27.12.1 WhatHappensasKVariesQuiz
+Considerthefollowingthreemodels,eachgeneratedusingadifferentvaluefor 𝐾.
+Our first task is to match the value of 𝐾with the corresponding plot. Our second task is to decide
+whetherweincreasethechancesofoverfittingasweincrease 𝐾. Anoverfitmodelmatchesthetrain‑
+ingsetverywellbutfailstogeneralizetonewexamples.
+MattSchlenker 423
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 424 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.12.2 WhatHappensasKVariesQuizSolution
+Let’sconsiderthecasewhere 𝐾 = 1. Inthiscase,themodelpassesthrougheverypoint 𝑃directly,
+sincenear 𝑃,theonlypointthathasanyinfluenceis 𝑃.
+Nowconsiderthecasewhere 𝐾 = 𝑁. Inthiscase,everypointconsidersalloftheneighbors. Thus,
+thegeneratedmodelisastraightlinepassingthroughthemeanofthe 𝑦valuesofallthepoints.
+Of course, when 1 < 𝐾 < 𝑁 , the graph lies between these two extremes. For 𝐾 = 3, the graph
+roughlyfollowsthepointswithoutpassingthroughthemdirectly.
+Asaresult,weseethatincreasesin 𝐾decreasetheprobabilityofoverfitting.
+27.12.3 WhatHappensasDVariesQuiz
+Considerthefollowingthreepolynomialmodels. Thedifferencebetweeneachmodelisthe degreeof
+thepolynomial 𝑑.
+MattSchlenker 424
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 425 ---
+MachineLearningforTrading(ML4T)‑Complete
+Our first task is to match the value of 𝑑with the corresponding plot. Our second task is to decide
+whetherweincreasethechancesofoverfittingasweincrease 𝑑.
+27.12.4 WhatHappensasDVariesQuizSolution
+MattSchlenker 425
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 426 ---
+MachineLearningforTrading(ML4T)‑Complete
+Apolynomialofdegreeonematchestheequation 𝑦 = 𝑚1𝑥 + 𝑏,whichistheequationofalineand
+correspondstothethirdplot.
+Apolynomialofdegreetwomatchestheequation 𝑦 = 𝑚1𝑥 + 𝑚2𝑥2+ 𝑏,whichistheequationofa
+parabolaandcorrespondstothefirstplot.
+Athird‑orderpolynomialmatchestheequation 𝑦 = 𝑚1𝑥 + 𝑚2𝑥2+ 𝑚3𝑥3+ 𝑏,whichcorrespondsto
+thesecondplot.
+Weseethatasweincrease 𝑑, ourmodelbeginstofollowthepointsmoreclosely. Indeed, itcanbe
+shownthatfor 𝑁points,aparabolaofdegree 𝑁existsthatpassesthrougheachpoint.
+Noticethatforeachofthesemodels,wecanextrapolatebeyondthedatagiven. Thisabilitytoextrap‑
+olateisapropertyofparametricmodelsthatinstance‑basedmodelslack.
+27.12.5 WhichisWorseQuiz
+Suppose we just built a model. Which error would you expect to be larger: in‑sample or out‑of‑
+sample?
+27.12.6 WhichisWorseQuizSolution
+Ingeneral,theout‑of‑sampleerrorisworsethanthein‑sampleerror.
+MattSchlenker 426
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 427 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.12.7 CorrelationandRMSErrorQuiz
+Let’sthinkabouttherelationshipbetweenRMSerrorandthecorrelationbetween 𝑌𝑡𝑒𝑠𝑡and 𝑌𝑝𝑟𝑒𝑑𝑖𝑐𝑡.
+Whichofthefollowingstatementsistrue?
+MattSchlenker 427
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 428 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.12.8 CorrelationandRMSErrorQuizSolution
+Inmostcases, correlationdecreasesasRMSerrorincreases. However, itispossibletoconstructex‑
+ampleswherecorrelationincreasesasRMSerrorincreases.
+27.12.9 OverfittingQuiz
+Let’sconsideroverfittinginKNNandhowin‑sampleandout‑of‑sampleerrorchangesas 𝐾increases
+from1tothenumberofitems 𝑁inadataset.
+Whichofthefollowingplotscorrectlyrepresentstheshapeoftheerrorcurvesthatwewouldexpect
+forbothtypesoferrorasweincrease 𝐾?
+MattSchlenker 428
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 429 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.12.10 OverfittingQuizSolution
+Remember that KNN models are least generalized when 𝐾 = 1. In other words, when 𝐾 = 1, the
+modelpredictseachtrainingpointinthedatasetperfectlybutfailstopredicttestingpointsaccurately.
+Asaresult,KNNmodelsoverfitwhen 𝐾issmall.
+MattSchlenker 429
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 430 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.12.11 AFewOtherConsiderationsQuiz
+Thereareafewotherfactorsworthconsideringwhenevaluatingalearningalgorithm. Foreachofthe
+followingfactors,whichofthetwomodelshasbetterperformance?
+27.12.12 AFewOtherConsiderationsQuizSolution
+Linear regression models require less space for persistence than KNN models. A linear regression
+modelofdegreefourcanbedescribedinasfewasfourintegers,whileaKNNmodelmustretainev‑
+MattSchlenker 430
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 431 ---
+MachineLearningforTrading(ML4T)‑Complete
+erysingledatapointeverseen.
+KNN models require less compute time to train than linear regression models. In fact, KNN models
+requirezerotimetotrain.
+Linear regression models process queries more quickly than KNN models. The query time for a lin‑
+earregressionmodelisconstant. ThequerytimeforKNNmodelsgrowswiththenumberofqueries,
+as previously queried data points are added to the data set and must be examined in subsequent
+queries.
+Adding new data is quicker in KNN than in linear regression. Incorporating new data into a model
+requiresretrainingthemodel,but,aswejustsaw,thetrainingtimeforaKNNmodeliszero.
+27.13 EnsembleLearners,Bagging,andBoosting
+27.13.1 HowtoBuildanEnsembleQuiz
+Howmightwegoaboutbuildinganensembleoflearners?
+MattSchlenker 431
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 432 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.13.2 HowtoBuildanEnsembleQuizSolution
+Wecancreateanensemblebytrainingseveralparameterizedpolynomialsofdifferingdegrees(A)or
+bytrainingseveralKNNmodelsusingdifferentsubsetsofdata(B).
+Itdoesn’tmakesensetotrainKNNmodelsusingrandomized 𝑌‑values,becausewewanttotrainany
+modelweplantouseontheactualdatainourtrainingset. Asaresult,neither(C)nor(E)iscorrect.
+Instead of using just polynomial learners or KNN learners, we can combine the two into a super en‑
+semble(D)forevenbetterresults.
+27.13.3 OverfittingQuiz
+Whichofthesetwomodelsisleastlikelytooverfit?
+Aside: thescreenshotsays“mostlikelytooverfit”,butheselectsthemodelthatisleastlikelyto
+overfit.
+MattSchlenker 432
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 433 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.13.4 OverfittingQuizSolution
+27.13.5 OverfitationQuiz
+As we increase the number of models 𝑚in our ensemble, which of the following strategies is more
+likelytooverfit?
+MattSchlenker 433
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 434 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.13.6 OverfitationQuizSolution
+AdaBoostfocusesprimarilyonimprovingthesystemforspecificdatapoints;inotherwords,itstrives
+tofit. Asaresult,itismoresusceptibletooverfittingthanissimplebagging.
+MattSchlenker 434
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 435 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.14 SoYouWanttobeaHedgeFundManager
+27.14.1 WhatTypeofFundisitQuiz
+Foreachofthefollowingfivefunds,determineifthefundisanETF,mutualfund,orhedgefund. Use
+GoogleFinance orYahooFinance forhelp.
+27.14.2 WhatTypeofFundisitQuizSolution
+MattSchlenker 435
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 436 ---
+MachineLearningforTrading(ML4T)‑Complete
+Typically, symbols for ETFs have three or four letters, while mutual fund symbols usually have five.
+Hedgefundsdon’thavesymbols;instead,werefertothembytheirfullname.
+27.14.3 IncentivesQuiz
+Sofar,we’velookedattwodifferentincentivestructures: expenseratiosandthetwoandtwentyrule.
+Whichofthefollowingactionsmightthesecompensationmechanismsincentivize?
+MattSchlenker 436
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 437 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.14.4 IncentivesQuizSolution
+Theexpenseratio,whichisderivedentirelyfromAUM,primarilyincentivizesAUMaccumulation. Ad‑
+ditionally,sincethe“two”oftwoandtwentyisbasedonAUM,thatincentivestructureoverallslightly
+incentivizesAUMaccumulation.
+ETFmanagersandmutualfundmanagersarenotcompensatedformakingprofits. ETFs,forexample,
+arespecificallydesignedtotrackanindex,andtheydon’tparticularlycarewhetheranindexgoesup
+ordown. Thetwoandtwentyruleincentivizesprofit,asthe“twenty”componentisearnedthrough
+profitgains.
+Funds that compensate according to expense ratios are not incentivized to take risks at all. Under
+the two and twenty model, however, risk‑taking is incentivized since significant profit gains can be
+realizedbyundertakingconsiderablerisk.
+Additionally,fundmanagersunderthetwoandtwentyruleareinsulatedfromriskbythe2%expense
+ratiothattheyreceivenomatterwhat. Asaresult,theyexperiencetheupsideofriskandaminimized
+downside.
+27.15 MarketMechanics
+27.15.1 UporDownQuiz
+Considerthefollowingorderbook. Doyouthinkthepriceofthisequityislikelytogoupordownin
+thenearfuture?
+MattSchlenker 437
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 438 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.15.2 UporDownQuizSolution
+Thepriceislikelytodropinthenearfuturebecausethereismoresellingpressurethanbuyingpres‑
+sure.
+Considerwhatwouldhappenifweputinamarketordertosell200shares. Wewouldget100shares
+at$99.95,50sharesat$99.90,and50sharesat$99.85. Oursingleorderwouldcausethepriceofthe
+equitytodropby$0.10.
+MattSchlenker 438
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 439 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ontheotherhand,supposeweissueamarketordertobuy200shares. Wewouldreceive200ofthe
+1000sharesavailableforsaleat$100. Thenextmarketbuyorderwouldstartwiththeremaining800
+sharesforsaleat$100. Inotherwords,ourbuyorderwouldn’taffectthesalepriceatall.
+27.15.3 ShortSellingQuiz
+Supposewe’vebeenwatchingIBM,andwedecidetoshortitwhenitreaches$100becausewethink
+thatitisgoingtogodown. Ifweshort100sharesat$100pershareandsubmitanordertobuyback
+thesharesat$90persharetocloseoutourposition,whatisournetreturn?
+MattSchlenker 439
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 440 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.15.4 ShortSellingQuizSolution
+EachtimeIBMdrops$1inprice,wemake$100becauseweareshorting100shares. Altogether,the
+stockdropped$10,sowemade$1000.
+27.16 WhatIsaCompanyWorth
+27.16.1 WhatIsaCompanyWorthQuiz
+Supposethereisacompanythatconsistentlygenerates$1peryear. Whatisthatcompanyworth?
+MattSchlenker 440
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 441 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.16.2 WhatIsaCompanyWorthQuizSolution
+27.16.3 TheBalchBondQuiz
+Assumethatweareinapositiontoreceiveoneofthreedifferentassets.
+The first asset is a $1 bill: cold, hard cash. The second asset is a Tucker Balch bond; essentially, a
+promisecertifiedbytheprofessorthathewillpayus$1inoneyear.ThethirdassetisaUSGovernment
+MattSchlenker 441
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 442 ---
+MachineLearningforTrading(ML4T)‑Complete
+bond,whichalsopaysout$1inoneyear,butisbackedbytheUnitedStatesgovernment.
+Whichoftheseassetswouldyouratherreceive? Rankthechoicesfrom1(best)to3(worst).
+27.16.4 TheBalchBondQuizSolution
+The most valuable asset among these three is the $1 delivered right now because you can spend it
+right now. The other two are promises for a reward at some point in the future. Among these two
+bonds, the one backed by the US government is likely more valuable than the one backed by the
+professor.
+MattSchlenker 442
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 443 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.16.5 IntrinsicValueQuiz
+Consider a company that pays a dividend of $2 per year. Given a discount rate of 4%, what is the
+intrinsicvalueofthiscompany?
+27.16.6 IntrinsicValueQuizSolution
+Thepresentvalue, 𝑃 𝑉,ofacompanyisequaltothefuturevalue, 𝐹 𝑉,dividedbythediscountrate,
+𝐷𝑅. Given 𝐹 𝑉 = 2and 𝐷𝑅 = 0.04 ,
+MattSchlenker 443
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 444 ---
+MachineLearningforTrading(ML4T)‑Complete
+𝑃 𝑉 =$2
+0.04= $50
+27.16.7 ComputeCompanyValueQuiz
+Considerafictitiousairlinecompany.
+Thiscompanyowns10airplanes,eachvaluedat$10million. Additionally,ithasabrandnameworth
+another$10million. Finally,ithasanoutstandingloanfor$20million. Whatisthebookvalueofthis
+company?
+Thiscompanypays$1millionperyearindividends. Assuminga5%discountrate,whatistheintrinsic
+valueofthiscompany?
+Thiscompanyhasonemillionsharesofstockoutstanding. Givenastockpriceof$75pershare,what
+isthemarketcapitalizationofthiscompany?
+MattSchlenker 444
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 445 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.16.8 ComputeCompanyValueQuizSolution
+Tocalculatebookvalue,wetakethevalueofthetotalassetsandsubtracttheintangibleassets,like
+thebrand,andtheliabilities. Given$110,000,000intotalassets,a$10,000,000intangibleasset,anda
+$20,000,000liability,thebookvalueforthiscompanyis$80,000,000.
+Tocomputetheintrinsicvalue,wedividethevalueofthedividends,$1,000,000,bythediscountrate,
+0.05,toget$20,000,000.
+Tocomputethemarketcapitalization,wetaketheproductoftheshareprice,$75,andthenumberof
+outstandingshares,1,000,000,toget$75,000,000.
+27.16.9 WouldyouBuythisStockQuiz
+Since this company has a market capitalization of $75,000,000, we could buy all of the shares and,
+effectivelythecompany,for$75,000,000. Shouldwe?
+MattSchlenker 445
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 446 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.16.10 WouldyouBuythisStockQuizSolution
+Itmightseemlikeatrickyquestion,givensucharelativelylowintrinsicvalue,butit’snot. Weshould
+buythiscompanyfor$75,000,000andthenbreakitapartandselltheindividualassetsfor$80,000,000
+togetanimmediate$5,000,000profit.
+Stockpricesveryrarelydipbelowbookvalueforthisexactreason;otherwise,predatorybuyersswoop
+inandbuythewholecompanyjusttosellitforparts.
+MattSchlenker 446
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 447 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.17 TheCapitalAssetsPricingModel(CAPM)
+27.17.1 PortfolioReturnQuiz
+Consideraportfolioconsistingoftwostocks: StockAandStockB.75%oftheportfolioisinStockA,
+and‑25%oftheportfolioisinStockB;inotherwords,theportfoliohastakenashortpositioninStock
+B.
+Assumethat,today,thepriceofStockAincreasesby1%,whilethepriceofStockBdecreasesby2%.
+Whatisthereturnonthisportfolio?
+MattSchlenker 447
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 448 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.17.2 PortfolioReturnQuizSolution
+Remembertheformulatocalculateportfolioreturn.
+𝑟𝑝(𝑡) =𝑛
+∑
+𝑖𝑤𝑖𝑟𝑖(𝑡)
+If we plug in the weights and returns for Stock A and Stock B, we can compute a portfolio return of
+1.25%.
+𝑟𝑝(𝑡) = (0.75 ∗ 1) + (−0.25 ∗ −2)
+𝑟𝑝(𝑡) = 0.75 + 0.5
+𝑟𝑝(𝑡) = 1.25
+27.17.3 CompareAlphaandBetaQuiz
+Considerthefollowingtwoscatterplots. Theplotontheleftshowsthedailyreturnsofafictionalstock
+XYZagainstthedailyreturnsoftheS&P500. Theplotontherightshowsthedailyreturnsofafictional
+stockABCagainstthedailyreturnsoftheS&P500.
+MattSchlenker 448
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 449 ---
+MachineLearningforTrading(ML4T)‑Complete
+Giventhesetwoplots,whichassethasahigher 𝛼andwhichhasahigher 𝛽?
+27.17.4 CompareAlphaandBetaQuizSolution
+Recallthat 𝛽istheslopeofthefitline,and 𝛼isthey‑interceptofthefitline. Wecantellfromtheplots
+thatABChasbothahigher 𝛼andahigher 𝛽.
+MattSchlenker 449
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 450 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.17.5 ImplicationsofCAPMQuiz
+Ifweareinanupwardmarket,dowewantaportfoliowithalarger 𝛽𝑝orasmaller 𝛽𝑝? Howaboutif
+weareinadownwardmarket?
+27.17.6 ImplicationsofCAPMQuizSolution
+In upward markets, we want a portfolio with a larger 𝛽𝑝. For example, a portfolio with a 𝛽𝑝greater
+thanonerisesevenhigherthanthemarket,whileaportfoliowitha 𝛽𝑝smallerthanonewon’tbeable
+MattSchlenker 450
+hrishishahh@gmail.com 26 Jan 2026
+

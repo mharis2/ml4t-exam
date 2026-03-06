@@ -1,0 +1,686 @@
+--- Page 51 ---
+MachineLearningforTrading(ML4T)‑Complete
+2.13 UtilityFunctionsforReadingDataQuizSolution
+WehaveconsolidatedboththeDataFrameinitializationcodeandthejoiningcode.
+Additionally, since we are using SPY as our baseline, we drop all rows from dfwhere SPY has not
+traded‑thatis,wheretheSPYcolumnhas NaNvalues‑withthefollowingcode:
+1df=df.dropna (subset =["SPY"])
+2.13.1 Documentation
+•pandas.DataFrame.dropna
+2.14 ObtainingaSliceofData
+HereisourcompleteDataFrame,containingdatafrom2010to2012forSPY,IBM,GOOG,andGLD.
+MattSchlenker 51
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 52 ---
+MachineLearningforTrading(ML4T)‑Complete
+Supposewewanttofocusonasubset,ora sliceorthisdata;forinstance,wemightbeinterestedin
+justvaluesofGOOGandGLDfor2/13/10through2/15/10.
+Pandasexposesasyntaxforcreatingsuchaslice. GivenaDataFrame df,wecanretrievethedatafor
+allcolumnsbetweenthesetwodateswiththefollowingexpression:
+1df['2010-2-13 ':'2010-2-15 ']
+WecanfurtherscopethisslicetoincludeinformationaboutonlyGOOGandGLDwiththefollowing
+expression:
+1df['2010-2-13 ':'2010-2-15 ', ['GOOG ','GLD']]
+Notethatneithertherowsnorthecolumnsthatweslicemustbecontiguousin df. Thefollowingslice
+ofnonadjacentcolumnsIBMandGLDisjustasvalidasouroriginalslice:
+1df['2010-2-13 ':'2010-2-15 ', ['IBM','GLD']]
+2.14.1 Documentation
+•Slicingranges
+MattSchlenker 52
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 53 ---
+MachineLearningforTrading(ML4T)‑Complete
+2.15 MoreSlicing
+OuroriginalDataFrameonlycontaineddataforfourdays. Wecanreadindataforthewholeyearof
+2010bychangingthedatesofthe DatetimeIndex objectwebuiltatthebeginningofthislesson:
+1start_date ='2010-01-01 '
+2end_date ='2010-12-31 '
+3
+4dates =pd.date_range (start_date ,end_date )
+Ifwerebuild dfwiththisnewindexandprintitout,weseethefollowing.
+PandasoffersseveraldifferentoptionsforslicingDataFrames.
+Rowslicing givesustherequestedrowsandallofthecolumns. Thistypeofslicingmightbeuseful
+whenyouwanttocomparethemovementofallthestocksoverasubsetoftime.
+IfwewanttoretrievedataforallofthesymbolsduringJanuary,forexample,wecanusethefollowing
+code:
+1df.ix['2010-01-01 ':'2010-01-31 ']
+Notethatthiscodeisequivalenttothefollowing:
+1df['2010-01-01 ':'2010-01-31 ']
+However,theformerisconsideredtobemorepythonic.
+MattSchlenker 53
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 54 ---
+MachineLearningforTrading(ML4T)‑Complete
+aside: it’snot. The ixmethodhassincebeendeprecated,andusersshoulduseeitherthe loc
+orilocmethods.
+Columnslicing returnsalloftherowsforagivencolumnorcolumns,andishelpfulwhenwewantto
+viewjustthemovementofasubsetofstocksovertheentiredaterange.
+ThefollowingcodeshowsthesyntaxforretrievinginformationforjustGOOG,aswellasforbothIBM
+andGLD.
+1df['GOOG ']
+2df[['IBM','GLD']]#Note the second pair of[]
+Finally,wecanslicethroughbothrowsandcolumns. Forexample,wecanselectinformationabout
+justSPYandIBM,forjustthedatesbetweenMarch10thandMarch15th:
+1df.ix['2010-03-10 ':'2010-03-15 ', ['SPY','IBM']]
+2.15.1 Documentation
+•pandas.DataFrame.ix‑DEPRECATED
+•pandas.DataFrame.loc
+•pandas.DataFrame.iloc
+2.16 ProblemswithPlotting
+It’sprettyeasytogenerateagood‑lookingplotfromaDataFrame;infact,wemerelyhavetocallthe
+plotmethod.
+MattSchlenker 54
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 55 ---
+MachineLearningforTrading(ML4T)‑Complete
+OnefeaturethatwecanimmediatelynoticeaboutthisplotisthatGOOGispricedquitehigherthan
+theotherstocks. It’softenthecasethatdifferentstocksarepricedatsignificantlydifferentlevels.
+Asaresult,itcanbehardtocomparethesestocksobjectively. We’dliketoadjusttheabsoluteprices
+sothattheyallstartfromasinglepoint‑suchas1.0‑andmovefromthere.
+MattSchlenker 55
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 56 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ifwecannormalize thestockpricesinthismanner,wecanmoreeasilycomparethemonan“apples
+toapples”basis.
+2.16.1 Documentation
+•Plotting
+MattSchlenker 56
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 57 ---
+MachineLearningforTrading(ML4T)‑Complete
+2.17 HowtoPloton“EqualFooting”Quiz
+MattSchlenker 57
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 58 ---
+MachineLearningforTrading(ML4T)‑Complete
+2.18 HowtoPloton“EqualFooting”QuizSolution
+Whilebothofthesearetechnicallycorrect,thesecondapproachleverages vectorization whichismust
+fasterthantheiterativeapproach. Readmoreaboutvectorization here.
+2.19 PlottingMultipleStocks
+Toplotourdata,wefirstneedtoimport matplotlib . Wecanthendefinea plot_data functionthat
+receivesaDataFrame dfandcalls plotonit.
+1import matplotlib .pyplot asplt
+2
+3def plot_data (df):
+4 df.plot ()
+5 plt.show ()
+Ifwerunthisfunction,weseethefollowinggraph.
+MattSchlenker 58
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 59 ---
+MachineLearningforTrading(ML4T)‑Complete
+Weneedtoaddmoreinformationtoourgraph,suchasatitleaswellasx‑andy‑axislabels. Addition‑
+ally, we can change the font‑size of the text to improve readability. We can adjust the title and the
+font‑sizewiththefollowingcode:
+1def plot_data (df,title ="Stock Prices "):
+2 df.plot (title =title ,fontsize =2)
+3 plt.show ()
+Togenerateaxislabels,weneedtocallthe set_xlabel andset_ylabel methodsontheobjectthat
+theplotmethodreturns.
+1def plot_data (df,title ="Stock Prices "):
+2 ax=df.plot (title =title )#axfor axis
+3 ax.set_xlabel ("Date ")
+4 ax.set_ylabel ("Price ")
+5
+6 plt.show ()
+Ifwerunthisfunctionnow,weseeamoreinformativegraph.
+MattSchlenker 59
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 60 ---
+MachineLearningforTrading(ML4T)‑Complete
+2.19.1 Documentation
+•Plotting
+•matplotlib.axes.Axes.set_xlabel
+•matplotlib.axes.Axes.set_ylabel
+MattSchlenker 60
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 61 ---
+MachineLearningforTrading(ML4T)‑Complete
+2.20 SliceandPlotTwoStocksQuiz
+Yourtaskistowritecodethatfirstslices dfalongtherowsboundedby start_index andend_index
+andacross columns ,andthenpassestheslicetothe plot_selected method.
+MattSchlenker 61
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 62 ---
+MachineLearningforTrading(ML4T)‑Complete
+2.21 SliceandPlotTwoStocksQuizSolution
+Wecancreateoursliceusingthefollowingcode,whichwethenpasstothe plot_data method:
+1df.ix[start_index :end_index ,columns ]
+2.21.1 Documentation
+•pandas.DataFrame.ix‑DEPRECATED
+•pandas.DataFrame.loc
+•pandas.DataFrame.iloc
+2.22 Normalizing
+Let’stakeanotherlookattheplotwehavecreated.
+MattSchlenker 62
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 63 ---
+MachineLearningforTrading(ML4T)‑Complete
+Hereweseetheabsolutepricemovementofeachstock. Whatwearemoreinterestedin,however,is
+thepricemovementofeachstockrelativetoitsstartingprice.
+Tocreateaplotthatshowsthisrelativemovement,wefirstneedtonormalizethepricesofeachstock.
+We do this by dividing the values of each column by their price on day one. This ensures that each
+stockstartsat1.0.
+Wecancreatea normalize_data methodthatnormalizesthedatainaDataFrame df:
+1def normalize_data (df):
+2 return df/df.ix[0, :]
+IfwegraphournormalizedDataFrame,weseethefollowinggraph. Noticethatallthestocksstartat
+1.0andmovefromthere.
+MattSchlenker 63
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 64 ---
+MachineLearningforTrading(ML4T)‑Complete
+3 ThePowerofNumPy
+3.1 WhatisNumPy?
+NumPyis a numerical library written in Python that focuses on matrix objects called ndarrays .
+NumPy delegates most of its core computation to underlying C and Fortran code, which means
+that NumPy is very fast. Indeed, many people use Python for financial research because of the
+functionalityprovidedbyNumPy.
+3.2 RelationshiptoPandas
+Let’slookbackatourDataFrame df.
+MattSchlenker 64
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 65 ---
+MachineLearningforTrading(ML4T)‑Complete
+JustasNumPyisawrapperaroundCandFortrancode,pandasisawrapperofsortsaroundNumPy.
+Asthepictureaboveillustrates,pandasbuilds dfontopofanndarray. Wecanretrievetheinternal
+MattSchlenker 65
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 66 ---
+MachineLearningforTrading(ML4T)‑Complete
+ndarraydirectlyfromaDataFrame dfwiththefollowingcode:
+1df.values
+Wedon’thavetodothisexplicitly,though; infact,wecaninteractwith dfasthoughitweretheun‑
+derlyingndarray. Inotherwords,functionalitythatisavailabletotheinternalndarrayisavailableto
+df.
+Of course, we create DataFrames because pandas builds a lot of great functionality on top of these
+ndarrays. Forexample,pandasprovidesexpressivewaystoaccessdatainthearray,suchassymbol‑
+basedcolumnindexinganddate‑basedrowindexinginthecaseof df.
+3.2.1 Documentation
+•pandas.DataFrame.values
+•pandas.DataFrame.to_numpy
+3.3 NotesonNotation
+Let’slookataccessinginformationinanndarray nd. Thebasicsyntaxforaccessinginformationabout
+arowandcollookslikethis:
+1nd[row,col]
+NumPyuses zero‑basedindexing ,whichmeansthatweaccesstheveryfirstcellusing nd[0,0],not
+nd[1,1].
+Toaccessthecellinthefourthrowandthethirdcolumn,forexample,wedothefollowing:
+1nd[3, 2]
+NumPyalsosupports slicing. Generally,toretrievethecellsboundedbythe(zero‑based)indexvalues
+start_row ,end_row ,start_col andend_col ,wedothefollowing:
+1nd[start_row :end_row + 1, start_col :end_col + 1]
+Concretely,ifwewanttoretrievethecellsin ndthatareinthefirstthreerowsandsecondandthird
+columns,wedothefollowing:
+1nd[0:3, 1:3]
+NotethatNumPyslicingisupper‑boundexclusive,whichiswhywehavetoaddonetotheendofour
+ranges.
+MattSchlenker 66
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 67 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ifwewanttoselectalloftherowsorallofthecolumnsin nd,wecanpassinthecolonbyitself,like
+this:
+1nd[:, 1:3] #select all rows ,second and third column
+2nd[0:2, :] #select first and second row,all columns
+NumPy also provides syntax for negative indexing . Passing in a negative number in the slicing ex‑
+pressionallowsustoindexfromthe“bottom”and/or“right”of nd. Forexample:
+1nd[-1, :] #select last row,all columns
+2nd[:, -2] #select all rows ,second -to-last column
+3nd[-2:, :] #select second -to-last and last row,all columns
+4nd[:, 0:-1] #select all rows ,all columns except last
+Notethatnegativeindexingis notzero‑based. Thelastrow/columnisreferencedby‑1,not‑0.
+3.3.1 Documentation
+•Indexing
+3.4 ReplaceaSliceQuiz
+MattSchlenker 67
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 68 ---
+MachineLearningforTrading(ML4T)‑Complete
+Weneedtomovedatafromthelasttworowsandthelasttwocolumnsof nd2tothefirsttworows
+andthefirsttwocolumnsof nd1.
+3.5 ReplaceaSliceQuizSolution
+Let’sfirstlookathowwecanslice nd2toextractthedatawewant. Wecanslicethelasttworowsusing
+negativeindexing: -2:. Wecanslicethelasttwocolumnsas 2:4. RememberthatNumPyindexingis
+upper‑boundexclusive.
+Nowlet’sseehowwecantransplantthatdatainto nd1. Wecanselectthefirsttworowsof nd1as0:2,
+andwecanselectthefirsttwocolumnsas 0:2.
+Thecompletedatatransfercanbeaccomplishedwiththefollowingcode:
+1nd1[0:2, 0:2] = nd2[-2:, 2:4]
+3.5.1 Documentation
+•Indexing
+MattSchlenker 68
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 69 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.6 CreatingNumPyArrays
+Aswesaidearlier,wecanaccesstheunderlyingNumPyarrayfromaDataFramethroughthe values
+property. Alternatively,wecancreateaNumPyarrayfromscratch:
+1import numpy asnp
+2nd=np.array ([2, 3, 4])
+Ifweprint ndweseethefollowing.
+Wecancreateatwo‑dimensionalarraybypassinginalistoflists:
+1nd=np.array ([(2, 3, 4),(5, 6, 7)])
+Ifweprint ndweseethefollowing.
+MattSchlenker 69
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 70 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.6.1 Documentation
+•numpy.array
+3.7 ArrayswithInitialValues
+NumPyoffersseveralfunctionsforcreatingemptyarrayswithinitialvalues. Forcertaincomputations,
+growingarraysincrementallycanbeacostlyoperation, soinitializingemptyarraysupfrontmaybe
+moreefficient.
+Wecancreateanemptyarraywithshape nlikeso:
+1np.empty (n)
+For example, we can create an empty one‑dimensional array with five elements, or an empty two‑
+dimensionalarraywithfiverowsandfourcolumnslikethis:
+1np.empty (5)
+2np.empty ((5, 4))
+Wecanevencreateathree‑dimensionalarraywithfiverows,fourcolumns,andadepthofthree:
+1np.empty ((5, 4, 3))
+MattSchlenker 70
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 71 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ifweprintthetwo‑dimensionalarraycreatedby np.empty ((5, 4)) ,weseethefollowing.
+Interestingly,theemptyarrayisnotactuallyempty; instead,thearrayisfilledwithwhatevervalues
+arepresentinmemoryatthetimeofarraycreation. Notethatallofthevaluesintheemptyarrayare
+floating‑pointnumbers.
+Wecancreateanarrayfullofoneswiththe np.onesfunction,andthefollowingcodeshowshowto
+createsuchanarraywithfiverowsandfourcolumns:
+1np.ones ((5, 4))
+Indeed,weseethefollowingarraywhenweprint.
+MattSchlenker 71
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 72 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.7.1 Documentation
+•numpy.empty
+•numpy.ones
+MattSchlenker 72
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 73 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.8 SpecifytheDataTypeQuiz
+We saw that the elements in an array created by np.onesare floats by default. Our task here is to
+update the call to np.onesand pass in a parameter that tells NumPy to give us integers instead of
+floats.
+MattSchlenker 73
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 74 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.9 SpecifytheDataTypeQuizSolution
+Wecanaccomplishthischangewiththefollowingcode:
+1np.ones ((5, 4), dtype =np.int_ )
+3.9.1 Documentation
+•numpy.ones
+•Datatypes
+3.10 GeneratingRandomNumbers
+NumPyalsocomeswithabunchofhandyfunctionsforgeneratingndarraysfilledwithrandomvalues.
+ThesefunctionsaredefinedinNumPy’s randommodule.
+Therandommethodonthe randommoduleallowsustogenerateanndarrayfilledwithrandom,uni‑
+formlysampledfloating‑pointnumbersintherangeof0.0(inclusive)to1.0(exclusive).
+Forexample, wecangeneratesuch anndarraywith fiverowsandfourcolumnsusingthefollowing
+code:
+MattSchlenker 74
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 75 ---
+MachineLearningforTrading(ML4T)‑Complete
+1np.random .random ((5,4))
+Ifweprintthisndarray,weseethefollowing.
+Aslightvariantofthe randommethodisthe randmethod,which,insteadofacceptingatuplecorre‑
+spondingtotheshape,acceptsasequenceofnumbersdescribingthedimensionsofthendarray.
+Wecangeneratethesamendarrayasabovewith randusingthefollowingcode:
+1np.random .rand (5, 4)
+NumPy exposes this syntax because it matches the more established MatLab syntax. However, we
+shouldusethe randommethod,astheshapetupleisaconsistentconstructseenacrossNumPy.
+Both randandrandomsampleuniformlyfromtherange [0.0, 1.0) . Wecaninsteadgeneratean
+ndarraywithelementssampledfroma Gaussian (normal)distribution,usingthe normalmethod.
+Forinstance,wecancreatesuchanndarraywithtworowsandthreecolumnslikeso:
+1np.random .normal (size =(2,3))
+Ifweprintthisndarray,weseethefollowing.
+MattSchlenker 75
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 76 ---
+MachineLearningforTrading(ML4T)‑Complete
+Bydefault,the normalmethodsamplesfromaGaussiandistributionwithameanof0andastandard
+deviationof1. Wecanalsosamplefromnormaldistributionsparameterizedbydifferentmeansand
+standarddeviations.
+For example, we can generate an ndarray whose elements are sampled from a normal distribution
+withameanof50andastandarddeviationof10likethis:
+1np.random .normal (50, 10, size =(2,3))
+Ifweprintthisndarray,weseethefollowing.
+MattSchlenker 76
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 77 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecangeneraterandomintegersusingthe randint method,likeso:
+1np.random .randint (10) #single integer in[0, 10)
+2np.random .randint (0, 10) #single integer in[0, 10)
+Additionally,wecangenerateanndarrayofrandomintegerswiththe randint method:
+1#5random integers from [0, 10) in1Dndarray
+2np.random .randint (0, 10, size =5)
+3
+4#2x3array ofrandom integers from [0, 10)
+5np.random .randint (0, 10, size =(2, 3))
+Ifweprintthepreviousfourexamples,weseethefollowing.
+MattSchlenker 77
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 78 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.10.1 Documentation
+•Randomsampling
+•numpy.random.random
+•numpy.random.rand
+•numpy.random.randint
+3.11 ArrayAttributes
+AnyNumPyndarrayhasseveralattributesthatdescribeit,inadditiontotheelementsitcontains.
+Oneofthemostusefulattributesis shape,whichisessentiallyatuplecontainingthenumberofrows
+andcolumnsinthearray. Let’screateanarrayandaccessitsshape:
+1a=np.random .random ((5,4))
+2a.shape
+Ifweprintout aanda.shape,weseethefollowing.
+MattSchlenker 78
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 79 ---
+MachineLearningforTrading(ML4T)‑Complete
+SincetheshapeisaPythontuple,whichsupportszero‑basedindexing,wecanaccessjustthenumber
+ofrowsorcolumnsin abyindexingintotheshape:
+1a.shape [0] #rows
+2a.shape [1] #columns
+Wecandeterminethenumberofdimensionsofanndarray ndbypassingtheshapetupletothebuiltin
+lenfunction:
+1len(nd.shape )
+Wecanretrievethenumberofelementspresentinanndarrayusingthe sizeattribute. Forexample,
+wecanretrievethesizeof a:
+1a.size
+Ifweprintthesize,weseetheproductoffiverowsandfourcolumns.
+MattSchlenker 79
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 80 ---
+MachineLearningforTrading(ML4T)‑Complete
+Attributeslikesizeandshapeareusefulwhenyouneedtoiterateovertheelementsinanndarrayto
+performsomecomputation.
+Finally, youcanaccessthedatatypeof eachelementusing the dtypeattributeofthendarray. For
+example:
+1a.dtype
+Ifweprintthedtypeof a,weseethefollowing.
+MattSchlenker 80
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 81 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecanseethattheelementsof aareall64‑bitfloating‑pointnumbers.
+3.11.1 Documentation
+•numpy.ndarray.shape
+•numpy.ndarray.size
+•numpy.ndarray.dtype
+3.12 OperationsonNdarrays
+Nowlet’slookatperformingvariousmathematicaloperationsonndarrays. Let’sstartbycreatingan
+array awithfiverowsandfourcolumns,whoseelementsarerandomintegersin [0, 10) :
+1a=np.random .randint (0, 10, size =(5,4))
+Ifweprint a,weseethefollowing.
+MattSchlenker 81
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 82 ---
+MachineLearningforTrading(ML4T)‑Complete
+Summingalloftheelementsin aisassimpleascallingthe summethodof a:
+1a.sum()
+Ifweprint awitha.sum(),weseethefollowing.
+MattSchlenker 82
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 83 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecanalsocalculatethesumof ainaspecificdirection. Inotherwords,wecanspecifythatwewant
+tosumacrosstherowsordownthecolumnsof a.
+We refer to this “direction” as an axis. The rows of an ndarray are aligned along axis zero, and the
+columnsofanndarrayarealignedalongaxisone. Thus, ifwewanttosumalloftherows, wemust
+sumalongaxisone,andifwewanttosumallofthecolumns,wemustsumdownaxiszero:
+1a.sum(axis =0) #Sum columns
+2a.sum(axis =1) #Sum row
+Ifweprintthesesums,weseethefollowing.
+MattSchlenker 83
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 84 ---
+MachineLearningforTrading(ML4T)‑Complete
+We can pull some basic statistics from an ndarray with the min,max, and meanmethods, which all
+optionallytakean axisparameter. forexample:
+1a.min(axis =0) #column minimum
+2a.max(axis =1) #row maximum
+3a.mean ()#mean ofall elements
+Ifweprintoutthesevalues,weseethefollowing.
+MattSchlenker 84
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 85 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.12.1 Documentation
+•numpy.sum
+•numpy.ndarray.min
+•numpy.ndarray.max
+•numpy.mean
+MattSchlenker 85
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 86 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.13 LocateMaximumValueQuiz
+Ourtaskistoimplementthefunction get_max_index ,whichtakesaone‑dimensionalndarray aand
+returnstheindexofthemaximumvalue.
+MattSchlenker 86
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 87 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.14 LocateMaximumValueQuizSolution
+Wecanretrievetheindexofthemaximumvaluein awiththe argmaxmethod:
+1def get_max_index (a):
+2 return a.argmax ()
+3.14.1 Documentation
+•numpy.argmax
+3.15 TimingPythonOperations
+We claimed that NumPy is very fast, and we’d like to confirm this claim. To do so, we first need to
+understandhowtotimefunctionsingeneral.
+We can use the timemodule and the timefunction in that library to capture the current time. We
+computethetimebeforeandafterexecutingafunctionandtakethedifferencetofigureouthowlong
+afunctiontooktoexecute.
+1import time
+2
+MattSchlenker 87
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 88 ---
+MachineLearningforTrading(ML4T)‑Complete
+3t1=time .time ()
+4print "ML4T "
+5t2=time .time ()
+6
+7print "The time taken byprint statement is",t2-t1,"seconds "
+Ifwerunthiscode,weseethefollowing.
+3.15.1 Documentation
+•time
+•time.time
+3.16 HowFastisNumPy?
+NowthatweknowhowtotimeanoperationinPython,let’scheckhowfastNumPyisrelativetonaive
+Pythoncode. Westartbydefiningareallylargearray, nd1:
+1nd1 =np.random .random ((1000, 10000))
+Wewantthisarraytobelargeenoughsothatthedifferencesbetweenexecutiondurationsbecome
+unmistakablysignificant.
+MattSchlenker 88
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 89 ---
+MachineLearningforTrading(ML4T)‑Complete
+We then define the two functions that we want to test. The function numpy_mean simply calls the
+meanmethod on the passed in arr. The function manual_mean iterates over all of the elements,
+sumsthemandthendividesthembythetotalnumberofelements.
+Finally, we define a how_long function, which itself receives a function funcand some arguments
+args. Thefunctiontimestheexecutionof func (*args ),andthenreturnstheresultalongwiththe
+duration.
+MattSchlenker 89
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 90 ---
+MachineLearningforTrading(ML4T)‑Complete
+Let’scheckthedifferenceinexecutiontimes.
+NumPyiscloseto300timesfasterthanthesimpleiterativemethod!
+MattSchlenker 90
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 91 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.17 AccessingArrayElements
+Accessingndarrayelementsisstraightforward. Youcanaccessaparticularelementbyreferringtoits
+rowandcolumnnumberinsidesquarebrackets. Forexample,wecanaccesstheelementinthefourth
+rowandthirdcolumnof alikeso:
+1a[3,2]
+Ifweprintoutthisvalue,weseethefollowing.
+Additionally,wecanaccessrangesofelementsdowncolumnsandacrossrowsusingslicing. Forin‑
+stance,wecanaccesstheelementsinthesecondandthirdcolumnsofthefirstrowof alikeso:
+1a[0, 1:3]
+Ifweprintthisslice,weseethefollowing.
+MattSchlenker 91
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 92 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecancombinerowandcolumnslicingtoselect,forexample,theelementsinthefirsttworowsand
+firsttwocolumnsof alikeso:
+1a[0:2, 0:2]
+Ifweprintthisslice,weseethefollowing.
+MattSchlenker 92
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 93 ---
+MachineLearningforTrading(ML4T)‑Complete
+So far, we have only seen slice syntax like x:y, which defines a slice starting at row/column xand
+endingatrow/column y- 1. Wecanspecifyathirdparameter, z,whichdefinesthe stepsize.
+Forexample,wecanselectallrows,butonlythefirstandthirdcolumnsof alikethis:
+1a[:, 0:3:2]
+Ifweprintthisslice,weseethefollowing.
+MattSchlenker 93
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 94 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.17.1 Documentation
+•Indexing
+3.18 ModifyingArrayElements
+Aswellasaccessingelementsinndarrays,wecanalsoassignvaluestospecificlocationsinndarrays.
+Asasimpleexample,wecansetthefirstelementin ato1likethis:
+1a[0, 0] = 1
+Let’slookat abeforeandaftertheassignment.
+MattSchlenker 94
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 95 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecanuseslicingforassignmentaswellasaccess. Forexample,wecansetalloftheelementsinthe
+firstrowof alikethis:
+1a[0, :] = 2
+Ifweprint a,weseethefollowing.
+MattSchlenker 95
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 96 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wedon’thavetosetalloftheelementsinaroworcolumntothesamevalue. Ifweassignacolumn
+orrowtoalist,eachelementwillbesettothecorrespondingvalueinthelist.
+For example, we can set the fourth column of ato the values 1 through 5 with the following assign‑
+ment:
+1a[:, 3] = [1, 2, 3, 4, 5]
+Ifweprint a,weseethefollowing.
+MattSchlenker 96
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 97 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.18.1 Documentation
+•Indexing
+3.19 IndexinganArraywithAnotherArray
+Anndarraycanalsobeindexedwithanotherndarray. Todemonstratethis,let’sfirstcreateanndarray
+a:
+1a=np.random .rand (5)
+Next,let’screateanndarray indices whoseelementsrepresenttheindicesofthevalueswewantto
+retrievefrom a:
+1indices =np.array ([1, 1, 2, 3])
+Wecanretrievethevaluesin aattheindicesin indices likeso:
+1a[indices ]
+Thisexpressionissayingthefollowing: foreachelementin indices retrievetheelementin aatthat
+index.
+MattSchlenker 97
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 98 ---
+MachineLearningforTrading(ML4T)‑Complete
+Indeed,wecanseethatourresultingarraycontainstheelementsof aatindices1,1,2,and3.
+3.19.1 Documentation
+•Indexing
+3.20 Booleanor“Mask”IndexArrays
+Let’sseehowwecanretrieveallofthevaluesfromanndarraythatarelessthanthemeanofthatarray.
+First,weconstructourtwo‑dimensionalndarray aandcalculatethemean:
+1a=np.array ([
+2 (20, 25, 10, 23, 26, 32, 10, 5, 0)
+3 (0, 2, 50, 20, 0, 1, 28, 5, 0)
+4])
+5
+6mean =a.mean ()
+Ifweprint aandmean,weseethefollowing.
+MattSchlenker 98
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 99 ---
+MachineLearningforTrading(ML4T)‑Complete
+Whilewecantechnicallyruna forloopovertheelementsin aandkeeponlythosevalueslessthan
+14.2,thereisacleanerway:
+1a[a<mean ]
+Wecaninterpretthisexpressionas: foreachvalue a_iina, compare a_iwith meanandretainthe
+valueif a_i >mean.
+Ifweprinttheoutputoftheexpression,weseethefollowingndarray.
+MattSchlenker 99
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 100 ---
+MachineLearningforTrading(ML4T)‑Complete
+Additionally,wecanusethismaskingtechniquetosetthevaluesof athatarelessthan meantomean
+:
+1a[a<mean ] = mean
+Ifweprint anow,weseethefollowing.
+MattSchlenker 100
+hrishishahh@gmail.com 26 Jan 2026
+

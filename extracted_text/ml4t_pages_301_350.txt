@@ -1,0 +1,898 @@
+--- Page 301 ---
+MachineLearningforTrading(ML4T)‑Complete
+JohnBollinger observedthat,forastockexperiencinglowvolatility,weshouldusearelativelysmaller
+value for our signal, and, for a stock experiencing high volatility, we should use a relatively larger
+value.
+Wecanaccomplishsuchdynamicsignalingusingastatistic,derivedfromthepricingdataitself,that
+captures volatility. Specifically, that statistic is standard deviation. For each day, we can take the
+standard deviation of the prices that constitute the simple moving average for that day. Given this
+standarddeviation,wetypicallycreateBollingerBandstwostandarddeviationsaboveandbelowthe
+simplemovingaverage.
+MattSchlenker 301
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 302 ---
+MachineLearningforTrading(ML4T)‑Complete
+These bands provide a dynamic measure for how much of a deviation we want to see before we re‑
+spond. Thebandsaretighterforperiodsoflowvolatility,andarelativelysmallerexcursionisenough
+tobreakoutofthebands. Inperiodsofhighervolatility,thebandsaremuchwider,andweonlysee
+crossoversformoreaggressivedeviations.
+WecanuseBollingerBandsinourtradingstrategies. Ageneralruleofthumbis: lookfortimeswhen
+thepricecrossesfromtheoutsideofabandtotheinside.
+Forexample,observethefollowingsellsignal.
+Hereweseealargepositiveexcursionfromthesimplemovingaverage,followedbyaBollingerBand
+crossoverinthedirectionofthemovingaverage.
+Fromourdiscussiononmovingaverages,wesaidthatweexpectpricestoregresstothemovingaver‑
+age,andthecrossovereventweseeabovedemonstratessucharegression. Sincearegressiondown‑
+wardtothemeaninvolvesafurtherdropinprice,wemightconsiderselling.
+Conversely, when wesee pricecrossing over fromthe outsideto the inside of the bottom band, we
+mightconsiderbuying.
+MattSchlenker 302
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 303 ---
+MachineLearningforTrading(ML4T)‑Complete
+Generally,ifwewanttocalculatetheBollingerBands, 𝐵𝐵,onagivenday, 𝑡,fromasequenceofprices,
+𝑝,usingan 𝑛‑daymovingaverage, 𝑆𝑀 𝐴,wecanusethefollowingformula. Notethat 𝜎referstothe
+standarddeviation.
+𝐵𝐵𝑡= 𝑆𝑀 𝐴𝑡± 2𝜎(𝑝𝑡−𝑛∶𝑡 )
+Additionally,wecanlookattheratio, 𝑟,ofthecurrentprice,less 𝑆𝑀 𝐴𝑡,tothecurrentBollingerBand,
+𝐵𝐵𝑡.
+𝑟 =𝑝𝑡− 𝑆𝑀 𝐴𝑡
+𝐵𝐵𝑡
+Wetypicallyseevaluesfor 𝑟between‑1.0and1.0. Inotherwords,thepricerarelybreaksoutofthe
+BollingerBands. Ofcourse,thismakessense,astheyareplacedtwostandarddeviationsoutsideof
+themean.
+By comparing the value of 𝑟over two consecutive days, 𝑡 − 1and 𝑡, we can quantify buy and sell
+signals.
+𝑓 (𝑟, 𝑡 − 1, 𝑡) =⎧{
+⎨{⎩𝐵𝑢𝑦, 𝑟𝑡−1 < −1.0, 𝑟𝑡> −1.0
+𝑆𝑒𝑙𝑙, 𝑟𝑡−1 > 1.0, 𝑟𝑡< 1.0
+MattSchlenker 303
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 304 ---
+MachineLearningforTrading(ML4T)‑Complete
+19.10 BuyorSellQuiz
+Let’s consider how we might trade using Bollinger Bands. Consider the four events below, each of
+which involves the price of a stock crossing over a Bollinger Band. For each event, determine if the
+eventdemonstratesabuyingopportunity,asellingopportunity,ornoopportunityatall.
+19.11 BuyorSellQuizSolution
+Forthefirstevent,weseethepricecrossingfromtheoutsidetotheinsideoftheupperBollingerBand.
+MattSchlenker 304
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 305 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thiseventindicatesthatthepriceismovingbacktowardsthemovingaverageafterastrongupward
+excursion. Thisisasellsignal.
+Forthesecondevent,weseethepricecrossingfromtheinsidetotheoutsideofthelowerBollinger
+Band. Thisisnotasignal,althoughitdoesindicateasignificantexcursionfromthemovingaverage.
+Forthethirdandfourthevents,weseethepricecrossingfromtheoutsidetotheinsideofthelower
+BollingerBand. Theseeventsindicatethatthepriceismovingbacktowardsthemovingaverageafter
+astrongdownwardexcursion. Correspondingly,theyarebothbuysignals.
+19.12 Normalization
+The technical indicators that we have discussed so far ‑ simple moving averages, momentum, and
+BollingerBands‑eachhaverangesofvaluesoverwhichtheytypicallyoperate. Forexample,wemight
+expecttoseevaluesbetween‑0.5and0.5forbothsimplemovingaveragesandmomentum,whilewe
+typicallyseevaluesforBollingerbandsbetween‑1.0to1.0.
+If we were to plug these indicators into a machine learning algorithm, we might see the algorithm
+placingmoreimportanceontheBollingerBandsbecausethisindicatorcantakeonvaluesofalarger
+magnitudethantheotherindicators.
+Thisundueoverweightingofaparticularfactormightbeevenmorevisibleifweincludeafundamental
+indicator,likeP/Eratio,whichcanrangefrom1to300.
+Thesolutiontothisproblemis normalization ,whichtakeseachoftheseparametersandcompresses
+orstretchesthemsothattheyvary,onaverage,from‑1to1,withameanof0. Effectively,normaliza‑
+tionallowsforan“applestoapples”comparisonofvariablesthattakeondifferentrangesofvalues.
+Normalizing values is simple. Given a set of original values, 𝑣𝑎𝑙𝑠, we can calculate the normalized
+values, 𝑛𝑜𝑟𝑚𝑒𝑑,asfollows. Notethat 𝑣𝑎𝑙𝑠referstothemeanof 𝑣𝑎𝑙𝑠,and 𝜎𝑣𝑎𝑙𝑠referstothestandard
+deviationof 𝑣𝑎𝑙𝑠.
+𝑛𝑜𝑟𝑚𝑒𝑑 =𝑣𝑎𝑙𝑠 − 𝑣𝑎𝑙𝑠
+𝜎𝑣𝑎𝑙𝑠
+20 DealingWithData
+20.1 HowDataIsAggregated
+Manystocksarebeingtradedacrossmanydifferentexchanges,andit’sessentialtounderstandhow
+thatdataisaggregatedandreportedtoussothatwecanconsumeitappropriately.
+MattSchlenker 305
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 306 ---
+MachineLearningforTrading(ML4T)‑Complete
+The finest resolution of data is a tick. A tickrepresents a successful match between a buyer and a
+seller: inotherwords,asuccessfultransaction.
+Considerthefollowingplot,whichshowssharepricealongwithsharevolumeovertime.
+Keep in mind that none of these transactions happens at a specific time or during a specific time
+slice. Thereisnoguaranteeregardingthenumberofticksduringanyparticularminuteorhour. An
+exchangeonlyrecordsatickwhenasuccessfultransactionoccurs.
+Eachexchangeprovidesitsowndatafeedregardingthesetransactions,andwecansubscribetomul‑
+tiplefeedstoseeticksacrossdifferentmarkets.
+Let’saddintheticksfromanotherexchange, showninred, toourplot. Rememberthatallofthese
+transactionsarehappeningsimultaneously,andpricesatdifferentexchangesaren’tguaranteedtobe
+thesame.
+MattSchlenker 306
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 307 ---
+MachineLearningforTrading(ML4T)‑Complete
+Highlyliquidstocksmightexperiencehundredsofthousandsoftransactionsoccurringeverysecond.
+Collectingticksacrossalloftheexchangesoveralongperiodoftimeforstockslikethesemightresult
+inanincomprehensibleamountofdata.
+As a result, exchanges usually consolidate tick data into time slices ‑ minute‑by‑minute or hour‑by‑
+hour,forexample‑andwecanseesuchslices,demarcatedbythedottedlines,inourplot.
+Wecandescribeeachchunkusingfivedatapoints: open,high,low,close,andvolume. Let’sconsider
+thefirstchunk.
+Theopenisthepriceofthefirsttransactionwithinthechunk,whichis$100.00. The highisthehighest
+MattSchlenker 307
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 308 ---
+MachineLearningforTrading(ML4T)‑Complete
+transaction price within the chunk, which is also $100.00. The lowis the lowest transaction price
+withinthechunk,whichis$99.05. The closeisthepriceofthelasttransactionwithinthechunk,which
+is $95.50. Finally, the volumerepresents the total number of shares transacted within the chunk,
+whichis600.
+We can similarly consolidate the next chunk. Both the open and the low are $99.00, while the high
+andthecloseare$99.95. Thevolumeis300.
+Thedatathatwearegoingtoworkwithisdailydata;inotherwords,weareworkingwithchunksthat
+aggregateticksonadailyfrequency.
+MattSchlenker 308
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 309 ---
+MachineLearningforTrading(ML4T)‑Complete
+Alloftheconceptsthatwediscussapplytofinertimeslices,suchasmilliseconds,butanalyzingand
+actingonchunksofthissizerequiresfastercomputersandlargerdatabasesthanwehaveaccessto
+inthiscourse.
+20.2 PriceAnomalyQuiz
+ConsiderthefollowingplotofIBMstockpricesovertime.
+Noticethesuddendropsinprice.Inoneexample,thepricedropsfrom$300pershareto$75pershare;
+inanother,thepricedropsfrom$250pershareto$125pershare. Thesedropsrepresenta75%and
+a50%pricedecline,respectively.
+Undoubtedly,thevalueofIBMdidnotdropthatmuchinoneday,so,whichofthefollowingreasons
+mightexplainthesuddendropinstockprice?
+MattSchlenker 309
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 310 ---
+MachineLearningforTrading(ML4T)‑Complete
+20.3 PriceAnomalyQuizSolution
+What we see here is a stock split , whereby a single share becomes 𝑛shares, and the price of each
+shareisdividedby 𝑛.
+Forexample,considerthedropinpricefrom$300pershareto$75pershare. This75%dropinprice
+is consistent with a 4‑for‑1 stock split, whereby one share becomes four shares. Note that the total
+valueofthesharesispreserved‑four$75sharesstillequals$300worthofIBM‑butthenumberof
+overallshareshasincreased.
+MattSchlenker 310
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 311 ---
+MachineLearningforTrading(ML4T)‑Complete
+20.4 StockSplits
+Themostcommonreasonforacompanytoissueastocksplitistodrivedowntheshareprice. Natu‑
+rally,thatbegsthequestion: whyisahighsharepriceaproblem?
+Considerastockwithahighshareprice,suchas$500. Investorsgenerallybuystocksingroupsofone
+hundred‑referredtoasa lot. At$500pershare, alotcosts$50,000, andsomeinvestorsmightfind
+this price prohibitively expensive. Additionally, share price impacts derivative securities, like stock
+options,whichtypicallycontrollots,andcanmakethemmoreexpensiveandlessliquid.
+Aswell,investorsoftenstrivetobuildportfolioswithfinely‑tunedproportionsallocatedtoeachstock.
+Ifsomeofthestockintheportfoliohaveveryhighshareprices,suchfineresolutionmaybedifficult
+toachieve.
+Let’slookattwostocksplits.
+Hereweseea4:1stocksplit,wherebyonesharebecomesfour,andtheresultingstockpriceisquar‑
+tered. Aswell,weseea2:1stocksplit,whichinvolvesadoublingofthesharecountandahalvingof
+theshareprice.
+Suppose we feed this pricing data into a computer and ask it to find trading opportunities. As we
+mightexpect,thealgorithmislikelytofindfantasticshortingopportunitiesonthedaysbeforeeach
+split!
+Ofcourse,thatstrategyisincorrect,asthevalueofthecompanyhasn’tactuallydecreased; instead,
+MattSchlenker 311
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 312 ---
+MachineLearningforTrading(ML4T)‑Complete
+thenumberofsharesofthecompanyareincreasing,andthepricepershareisadjustingtoaccount
+forthatincrease. Ifwewanttotradeusingtheactualclosedata,weneedtoaccountforthesesplits.
+The solution to this problem is to use adjusted close instead of close. Adjusted close retroactively
+accountsforstocksplitsandprovidesameasureofsplit‑adjustedpricemovementthatgivesinvestors
+‑andcomputers‑alessturbulentviewofthesharepriceovertime.
+Here’s how it works. We walk back in time, day by day, setting adjusted close equal to actual close
+untilweencounterthemostrecent 𝑛:1stocksplit. Fromthatpointbacktothebeginningoftime,we
+settheadjustedcloseequaltotheactualclosedividedby 𝑛.
+Forourexample,wedivideallclosepricesleadinguptothe2:1splitbytwoandallclosepricesleading
+uptothe4:1splitbyfour. Noticethatthevaluesleadinguptothe4:1splitareeffectivelydividedby
+eight,toaccountforbothsplits.
+By computing the adjusted close, we now have a smooth line representing the split‑adjusted stock
+price,andwenolongerhavetoaccountforstocksplitsexplicitly. Additionally,wecanlookbackinto
+thepast‑severalsplitsago‑andaccuratelyunderstandtheaccumulationofvaluebetweenthenand
+now.
+20.5 SplitAdjustmentQuiz
+Considerthefollowingplotofclosepricesforaparticularstockovertime. Noticethe2:1stocksplit.
+Foreachofthethreedaysidentifiedbelow,whatistheadjustedclosepriceforthisstock?
+MattSchlenker 312
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 313 ---
+MachineLearningforTrading(ML4T)‑Complete
+20.6 SplitAdjustmentQuizSolution
+Foreachdaysincethestocksplit,theadjustedcloseisequivalenttotheactualclose. Asaresult,the
+MattSchlenker 313
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 314 ---
+MachineLearningforTrading(ML4T)‑Complete
+adjustedcloseforthemostrecentofthethreedaysis$100.
+Foralldaysbeforethe2:1split,wecalculatetheadjustedclosebydividingtheactualclosebytwo. As
+aresult,theadjustedclosepricesfortheprevioustwodays,movingbackwardfromthesplit,are$50
+and$25,respectively.
+Consider buying one share of stock, on the first of the three days, for $50. After the split, we would
+havetwoshares,eachworth$50,andbythethirdday,ourshareswouldbeworth$100apiece. This
+trajectoryrepresentsafour‑foldincreaseinvalue,from$50to$200worthofstock.
+Note that using the adjusted close accurately reflects this quadrupling of value, whereas the actual
+closeseemstoindicate,incorrectly,onlyadoublingofvalue.
+20.7 Dividends
+Manycompaniesregularlypaydividendstotheirshareholders. Forexample,acompanymightpaya
+1‑2%dividendpershareperyear. Forastocktradingat$100pershare,thisdividendequals$1‑2.
+Dividendpaymentscanhavesignificanteffectsonastock’sprice. Consideracompanywhosestockis
+currentlytradingataround$100pershareandforwhichinvestorshavederivedafundamentalvalue
+ofexactly$100pershare. Let’ssupposethatthisstockhasanupcomingdividendpaymentof$1.
+MattSchlenker 314
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 315 ---
+MachineLearningforTrading(ML4T)‑Complete
+20.8 DividendsQuiz
+Whatsharepricedoweexpecttoseethedaybeforethedividendispaid?Howaboutafterthedividend
+ispaid?
+MattSchlenker 315
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 316 ---
+MachineLearningforTrading(ML4T)‑Complete
+20.9 DividendsQuizSolution
+Thedaybeforethedividendispaid,weshouldexpecttoseethestockpriceriseto$101. Ashareprice
+of$101reflectstheunderlyingvalueof$100pershare,forwhichthereisconsensus,plustheexpected
+$1dividendpayment.
+Ontheverynextday,weshouldexpectthepricetodropby$1to$100pershare. Sincethedividend
+hasbeenpaid,thesharepriceshoulddropbackdowntothepricealignedwithitsfundamentalvalue:
+$100pershare.
+Note that the overall value for investors who bought before the dividend was paid is still $101 per
+share: $100pershareplus$1incashpershare.
+20.10 AdjustingForDividends
+Let’srecallthedividendscenariowewerejustdescribing.
+MattSchlenker 316
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 317 ---
+MachineLearningforTrading(ML4T)‑Complete
+Betweenthedatethatthedividendisannouncedandthedateitispaid,weseethesharepricegen‑
+erally rise from the consensus price ‑ $100 ‑ to accommodate the value of the dividend. After the
+dividendispaid,weseethesharepriceimmediatelydropback$100.
+Let’s consider now how we might adjust historical prices to account for dividends. Remember that
+theadjustedpriceasoftodayisalwaysthesameastheactualprice. Aswemovebackwardintime,
+thesetwovaluesremainthesameuntilweencounteradividend.
+Onceweencounteradividend,weadjustalloftheprecedingpricesdownwardbytheproportionof
+thedividendpayment. Inthiscase,witha1%dividend‑$1paidona$100share‑wereduceallprices
+beforethedividenddateby1%.
+MattSchlenker 317
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 318 ---
+MachineLearningforTrading(ML4T)‑Complete
+Todouble‑checkthisadjustment,considerbuyingandholdingastockthroughthedividendpayment.
+Wewouldseeanincreaseinthevalueofourholdingbyabout$1: thedividendpayment.
+Thus,theadjustmentisperformingitspurpose. Itbakesinthevalueaddedbythedividendandallows
+ustomonitortheoverallvalueofourholdings,asopposedtojusttheshareprice,overtime.
+It’simportanttounderstandthattheadjustedclosepriceforaparticulardateisnotfixedbutrather
+dependsonthereferencedatefromwhichwestartourcalculation.
+For example, if we calculate the adjusted close starting from 2012, and then examine some date in
+2010,wewouldseeonevalue. However,wemightalsocalculateadjustedclosepricesstartingfroma
+morerecentyear,say,2015. Ifanysplitsordividendsoccurredbetween2012and2015,theadjusted
+closeforthesamedatein2010isgoingtobelower.
+20.11 SurvivorBias
+Oneoftheactivitieswedointhisclassissimulatestrategiesthatwearedeveloping. Todothis,we
+rollbacktime,tradeaccordingtoourstrategy,andanalyzetheresults.
+Before we can simulate our strategy, however, we first have to consider the universe of candidate
+stocksthatwecanbuyorsellasweexecuteourstrategy. Themostcommonuniverseofstocksisthe
+S&P500.
+Averycommonmistakethatpeoplemakeistousethemembershipofthatuniverseasitstandstoday
+andtradeaccordingtothisuniverseatthebeginningoftheirsimulation.
+Wecanseethestrongperformanceofsuchabiasedstrategybelowinblue.
+MattSchlenker 318
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 319 ---
+MachineLearningforTrading(ML4T)‑Complete
+Theproblemhereisthatweareselectingfromacollectionofstocksintherelativepastthatweknow
+existsintherelativefuture. Sinceallofthesestockssurvivedthetradingperiod,anytradingstrategy
+exclusivelyconsideringthemislikelytoshowunrealisticallyoptimisticresults. Inotherwords,there
+isabuilt‑in survivorshipbias inourselection.
+WhatifweusedtheS&P500universeasitexistedin2007? Theperformanceofourstrategynowis
+lessbiasedandmightlookliketheredlinebelow.
+Ifweconsidertheuniverseofstocksasitexistedin2007,weareconsideringthosestocksthatdidn’t
+makeittothepresentday. Specifically,ourstrategymightadviseinvestmentsinoneofthesixty‑eight
+MattSchlenker 319
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 320 ---
+MachineLearningforTrading(ML4T)‑Complete
+stocksthatdisappearedfromtheS&P500between2007and2009.
+Ifthisisthecase,ourstrategyislikelytoshowmuchworseperformancethanhadwejustconsidered
+thebiaseduniverse. However,theperformanceofourstrategyusingtheunbiaseduniverseisgoing
+tobemorerealistic,whichiswhatmatters.
+Thelessonlearnedhereistousesurvivor‑bias‑freedata,whichisavailableforpurchasefromseveral
+differentproviders.
+21 EfficientMarketsHypothesis
+21.1 OurHypothesis
+Upuntilnow,wehavebeenoperatingundersomeassumptions. Fortechnicalanalysis,weassumed
+that there is information in historical price and volume data that we can discover and exploit in ad‑
+vanceofthemarket. Forfundamentalanalysis,weassumedthatthereisinformationinfundamental
+data,likeearnings,thatwecanexploitandtradeuponinadvanceofthemarket. Theefficientmarkets
+hypothesissaysthatbothoftheseassumptionsarewrong.
+21.2 EMHAssumptions
+Thefoundationalideasthatformedthebackboneoftheefficientmarketshypothesiswerepostulated
+byJules Regnault in 1863. Eugene Fama carried those ideas further in the 1960s, and the subject
+becamehisPh.D.thesis. FamarecentlyreceivedtheNobelprizeforhiswork.
+MattSchlenker 320
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 321 ---
+MachineLearningforTrading(ML4T)‑Complete
+Tounderstandtheefficientmarketshypothesis,let’sfirstunderstandsomeoftheassumptionsthatit
+makes.
+Probablythemostcriticalassumptionisthattherearealargenumberofinvestorsinteractinginthe
+market. Theseinvestorsarelookingtomakeaprofit;therefore,theyhaveanincentivetofindoppor‑
+tunitieswherethepriceofastockisoutoflinewithitsactualvalue.
+Thenextassumptionisthatnewinformationarrivesrandomly. Informationaboutaparticularstock
+arrivesatrandomintervalsandrandomrates.
+Becausetherearesomanyoftheseinvestorsoperatingsimultaneously,thepriceisgoingtomoveany
+timenewinformationemerges. Asaresult,thethirdassumptionisthatpricesadjustquicklytonew
+information. Thefinalassumptiontakesthethirdassumptionfurtherandassumesthatthecurrent
+pricereflectsallavailableinformation.
+In summary, the efficient markets hypothesis supposes a large number of investors reacting to ran‑
+domlyemerginginformation. Furthermore,itassumesthatinformationimpactspricesoquicklythat
+thecurrentpriceofastockreflectsallavailableinformationaboutthatstock.
+21.3 OriginofInformation
+Informationthatmightimpactthepriceofastockcancomefromseveraldifferentsources.
+Forexample,theinformationmightcomefrompublicdatapointsaboutthecompanyitself. Priceand
+volumedata,whichformthebasisoftechnicalanalysis,canaffectthepriceofastock. Additionally,
+quarterlyreportsonfundamentaldata,suchasearnings,canalsohaveanimpact.
+The information does not have to come from the company itself; instead, exogenous information
+concernsexternalfactorsthatmightimpactacompany.
+Forexample, ifwearelookingatthestockofanairlinecompany, wemightseethatthestockprice
+riseswhenthepriceofoildrops. Inthiscase,thepriceofoilisanexogenouspieceofinformation.
+Informationcanalsocomefromcompanyinsiders. SupposethattheCEOofapharmaceuticalcom‑
+panytellsusprivatelythataparticulardrugoftheirsisabouttobeapproved. Wemightbuysharesin
+thatcompanybecausewethinkthepriceofitsstockisgoingtogoup.
+Dependingonthecircumstance,thisactionmayormaynotbelegal. Regardless,insideinformation
+isoneofthefewprivatesourcesofinformationthatmayimpactthepriceofastock.
+21.4 3FormsoftheEMH
+Therearethreeformsoftheefficientmarketshypothesis: weak,semi‑strong,andstrong.
+MattSchlenker 321
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 322 ---
+MachineLearningforTrading(ML4T)‑Complete
+TheweakformoftheEMH saysthatfuturepricescannotbepredictedbyanalyzinghistoricalprices.
+Noticethatthisformrulesouttechnicalanalysisasawaytomakemoney;however,itdoesleaveroom
+forfundamentalanalysis.
+Thesemi‑strongformoftheEMH statesthatpricesadjustimmediatelytonewpublicinformation.
+For instance, when companies release their quarterly reports, which contain fundamental informa‑
+tion,pricesreactimmediately.
+Ifthesemi‑strongversionoftheEMHistrue,thenwecannotmakemoneyusingfundamentalanalysis.
+However,wemightstillbeabletomakemoneyusingprivate,insiderinformation.
+Unfortunately,the strongformoftheEMH saysthatpricesreflect allinformation,publicandprivate,
+thusrulingoutinsiderinformationasameansofmakingmoney.
+IfthestrongformoftheEMHistrue,thenitisvirtuallyimpossibletomakemoneybyholdingaport‑
+foliootherthanthemarketportfolio.
+21.5 TheEMHProhibitsQuiz
+Considerthethreeformsoftheefficientmarketshypothesis: weak,semi‑strong,andstrong. Which
+formsprohibitwhichofthefollowingdifferentanalyses?
+MattSchlenker 322
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 323 ---
+MachineLearningforTrading(ML4T)‑Complete
+21.6 TheEMHProhibitsQuizSolution
+TheweakversionoftheEMHprohibitsusfromprofitingusingtechnicalanalysisbutissilentonfunda‑
+mentalanalysisandinsiderknowledge. Thesemi‑strongversionprohibitstechnicalandfundamental
+analysisbutissilentoninsiderknowledge. Thestrongversionprohibitsallthree.
+MattSchlenker 323
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 324 ---
+MachineLearningforTrading(ML4T)‑Complete
+21.7 IstheEMHCorrect
+Iftheefficientmarketshypothesisiscorrect,thenalotofwhatwearetryingtodointhiscourseisnot
+possible;namely,wecan’tbeatthemarketusinganyofthestrategieswehaveexamined.
+Thereisevidencethatspecificversionsoftheefficientmarketshypothesisarenotcorrect. Thepres‑
+ence of many very successful hedge funds would seem to indicate that we can make money in the
+marketbyinvestinginportfoliosotherthanthemarketportfolio.
+ThestrongversionoftheEMH, whichsaysthatwecan’tprofitfrominsiderinformation, istheleast
+solid. Therehavebeenmanyreportsofpeoplemakingmoneyfrominsiderinformation;clearly,it’sa
+methodthatcanprovideprofiteventhoughitisoftenillegal.
+Let’slookatadatasetthatwouldseemtorefutethesemi‑strongversionoftheEMH.
+HereweseeaplotofP/E‑pricetoearnings‑ratiosagainsttwentyyearannualizedreturns. Recallthat
+lowerP/Eratiosaregenerallyabetterbuy,asweexpectastockthathasarelativelylowerpriceand
+relativelyhigherearningstoincreaseinpriceinthefuture.
+Eachgroupofcolorsrepresentsadifferentdecadeoverwhichdatawassampled. Foreverydecade,
+weseethatlowP/Eratioscorrespondedwithhigherreturns. ThisconsistencyshowsthatP/Eratios
+areverypredictiveacrossmanydecadesoffuturereturns,whichwouldtendtorefutethesemi‑strong
+versionoftheEMH.
+MattSchlenker 324
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 325 ---
+MachineLearningforTrading(ML4T)‑Complete
+22 TheFundamentalLawofActivePortfolioManagement
+22.1 Grinold’sFundamentalLaw
+Inthe1980s,RichardGrinoldwasseekingamethodforrelatingthreefactors‑performance,skill,and
+breadth‑ininvesting.
+Ontheonehand,aninvestormightseestrongportfolioperformanceiftheypickjustoneortwostocks
+thatpostfantasticreturns. Ontheotherhand,aninvestormightalsoseestrongperformanceifthey
+pickmanystocksthateachpostsanaveragereturn. Wecanthinkofskillasthequalityofeachpick
+andbreadthasthenumberofpicks.
+Grinold felt that there must be some equation whereby we could combine skill and breadth to cre‑
+ateanestimateofperformance. Hedevelopedarelationshipcalledthe fundamentallawofactive
+portfoliomanagement ,whichrelatesperformance, 𝑃,skill, 𝑆,andbreadth, 𝐵,inthefollowingequa‑
+tion.
+𝑃 = 𝑆 ∗√
+𝐵
+Wemeasureperformanceusingametriccalledthe informationratio . Theinformationratioisvery
+similartotheSharperatio;however,theSharperatioreferstorisk‑adjustedreturnsoverall,andthe
+informationratioreferstoonlytherisk‑adjustedreturnsthatexceedthemarketoranotherportfolio
+benchmark.
+Wemeasureskillusingametriccalledthe informationcoefficient . Breadthsimplyreferstothenum‑
+beroftradingopportunitiesthatwetake.
+Notice what this relationship is saying: we can improve the performance of our portfolio by either
+improvingourskillinselectingstocksorbyinvestinginmorestocks.
+22.2 TheCoinFlippingCasino
+Investinginastockis,insomeways,similartobettingonacoinflip. Inbothcases,wemakeadecision
+andthenearnorlosemoneybasedonthatdecision.
+Let’srunwiththecoinflipanalogyandimaginethatweareinacoin‑flippingcasino. Wearegoingto
+makebetsoncoinflips,andifthecoincomesupheads,wewin;otherwise,welose.
+Foraparticularcoinflip,wecanplacean evenmoneybet of 𝑁tokens. Ifwewin‑thecoincomesup
+heads‑wewin 2𝑁tokens. Ifthecoincomesuptails,weloseall 𝑁tokens.
+MattSchlenker 325
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 326 ---
+MachineLearningforTrading(ML4T)‑Complete
+Atthiscasino,thereare1000bettingtables,eachwiththeirowncoin. Wehave1000tokens,andwe
+canchoosetobethoweverwe’dlike;forexample,wecanbet1tokenon1000tables,1000tokenson
+1table,orsomethinginthemiddle.
+Once we have distributed our tokens ‑ in other words, placed our bets ‑ the coins are flipped all at
+once,andthewinningsarepaidout.
+Tomaketheanalogymorerealistic, let’sassumethatthecoinisbiased, andweknowthatitshows
+heads51%ofthetimeandtails49%ofthetime. Thisinformationaledgeissimilartothealphavalue
+weassociatewithparticularstocksthatwethinkaregoingtooutperformthemarket.
+22.3 WhichBetisBetterQuiz
+Let’sconsidertwodifferentwaystobet.
+Oneapproachistoputall1000tokensononetableandzerotokensontheother999tables. Another
+approachistoputonecoinoneachofthe1000tables. Whichoftheseapproachesisbetter,orisitthe
+casethattheyareequivalent?
+MattSchlenker 326
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 327 ---
+MachineLearningforTrading(ML4T)‑Complete
+22.4 WhichBetisBetterQuizSolution
+Thefirstbetisveryrisky;thatis,thereisa49%chancethatwearegoingtoloseallofourmoneywith
+thesingleflipofacoin. Thesecondbetismuchlessrisky. Bydistributingourtokensacrossallone
+thousandtables,weonlyloseallofourmoneyifweloseall1000bets:averylowprobabilityindeed.
+Sincetheexpectedreturnforeachofthesebetsisthesame,thesecondbetisabetterchoicefromthe
+perspectiveofrisk‑adjustedreward.
+22.5 Coin‑FlipCasino: RewardQuiz
+Tofigureoutwhichofthesedifferentscenariosisbest,weneedtoconsiderrewardandrisk. Whenwe
+talkaboutrewardinthissituation,wearetalkingabout expectedreturn .
+Inthesingle‑betcase,wherewebet1000chipsatonce,ourexpectedreturnisthechanceofwinning
+thebettimestheamountthatwewouldwinplusthechanceoflosingthebettimestheamountthat
+wewouldlose.
+Sinceweareusingabiasedcoin,wehavea51%chanceofwinning1000tokensanda49%chanceof
+losing1000tokens. Ifwemultiplythisout,weseethatourexpectedreturnis20tokens.
+𝔼 = 0.51 ∗ 1000 + 0.49 ∗ −1000
+𝔼 = (0.51 − 0.49) ∗ 1000
+MattSchlenker 327
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 328 ---
+MachineLearningforTrading(ML4T)‑Complete
+𝔼 = 0.02 ∗ 1000 = 20
+What is the expected return in the multi‑bet case, where we bet 1000 tokens across 1000 different
+tables?
+22.6 Coin‑FlipCasino: RewardQuizSolution
+Inthiscase, wehavethesamechancesofwinningandlosing‑51%and49%, respectively‑butthe
+MattSchlenker 328
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 329 ---
+MachineLearningforTrading(ML4T)‑Complete
+amount we stand to win or lose on any bet is only one dollar. Since we are placing 1000 bets, our
+overallexpectedvalueis1000timestheexpectedvalueofanyindividualbet.
+𝔼 = (0.51 ∗ 1 + 0.49 ∗ −1) ∗ 1000
+𝔼 = (0.51 − 0.49) ∗ 1000
+𝔼 = 0.02 ∗ 1000 = 20
+Noticethatforboththesingle‑betandmulti‑betscenarios,theexpectedreturn‑thereward‑ispre‑
+ciselythesame. Tounderstandwhythemulti‑betsetupisabetterchoice,wehavetoalsoconsider
+theriskinherentineachscenario.
+22.7 Coin‑FlipCasino: Risk1
+Thereareseveralwaysthatwemightconsiderriskinthisscenario.
+First,let’slookatthechanceofus“losingitall”. Inotherwords,afterwehaveplacedourbets,what
+isthechancethateverycoinflipwebetonlandsontails?
+Inthesingle‑betcase,wherewebeteverythingonasingletable,andtheoutcomeisdeterminedby
+theflipofasinglecoin,thereisa49%chanceweloseallofourmoney. That’saveryhighprobability
+ofloss;wouldyoubetyoursavingsaccountonoddslikethat?
+Let’s now consider the multi‑bet scenario, where we bet a single token across 1000 tables, and our
+returnisdeterminedbytheresultof1000coinflips.
+In this scenario, the chance that we lose all of our money is the chance that we lose the first flip
+timesthechancethatwelosethesecondflip‑andsoforth‑timesthechancethatwelosetheone‑
+thousandthflip.
+Formally, the chance of losing all of our money in the multi‑bet scenario is 0.491000, which is an in‑
+finitesimallysmallprobabilityindeed.
+22.8 Coin‑FlipCasino: Risk2
+Anotherwaywemightexamineriskinthisexperimentistoconsiderthestandarddeviationofallof
+theindividualbetoutcomes.
+MattSchlenker 329
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 330 ---
+MachineLearningforTrading(ML4T)‑Complete
+Inthemulti‑betscenario, wearegoingtohaveacollectionof1000outcomesthatareeither1or‑1.
+Eitherwewonthebetandwonatoken,orwedidn’tandlostatoken. Thestandarddeviationforthis
+caseis1.0.
+Inthesingle‑betscenario,wearegoingtohaveacollectionof999outcomesthatareexactlyzeroand
+oneoutcomethatiseither1000or‑1000. Regardlessofwhetherwewinorlose,thestandarddeviation
+ofoutcomesinthisscenariois31.62.
+Usingthisquantificationofrisk,wecanseethatthesingle‑betscenarioisalmost32timesriskierthan
+themulti‑betscenario.
+22.9 Coin‑FlipCasino: Reward/RiskQuiz
+Nowwecanconsidertherisk‑adjustedreward.
+Let’slookatthesingle‑betcasefirst. Inthiscase,theexpectedrewardis$20,andtheexpectedriskis
+$31.62. Ifwedividetherewardbytherisk,wegetavalueof0.63.
+Whatistherisk‑adjustedrewardcalculationforthemulti‑betcase?
+MattSchlenker 330
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 331 ---
+MachineLearningforTrading(ML4T)‑Complete
+22.10 Coin‑FlipCasino: Reward/RiskQuizSolution
+Inthemulti‑betcase,therewardwasthesame‑$20‑buttheriskwasmuchsmaller:$1. Thus,therisk‑
+adjustedrewardforthisscenariois20,whichismuchhigherthanthatofthesingle‑betscenario.
+The take‑home message here is that we can increase the risk‑adjusted reward simply by spreading
+ourmoneyacrossalargenumberofbets.
+22.11 Coin‑FlipCasino: Observations
+Aswesaw,therisk‑adjustedrewardforthesingle‑betcase, 𝑅𝐴𝑅𝑠𝑖𝑛𝑔𝑙𝑒,is0.63. Alternatively,therisk‑
+adjustedrewardforthe1000‑betcase, 𝑅𝐴𝑅𝑚𝑢𝑙𝑡𝑖,is20. Noticethefollowingrelationship.
+𝑅𝐴𝑅𝑚𝑢𝑙𝑡𝑖 = 𝑅𝐴𝑅𝑠𝑖𝑛𝑔𝑙𝑒 ∗√
+1000
+Asweincreasethenumberofbetsthatweplace,theoverallrisk‑adjustedrewardincreaseswiththe
+squarerootofthatnumber. Putanotherway,wecanincreasetheoverallrisk‑adjustedrewardofour
+betsbyimprovingtheoddsofasinglebetorbyspreadingourmoneyoutovermorebets.
+This relationship is identical to the fundamental law of active portfolio management, which relates
+performance,skill,andbreadthinthefollowingway.
+𝑝𝑒𝑟𝑓 𝑜𝑟𝑚𝑎𝑛𝑐𝑒 = 𝑠𝑘𝑖𝑙𝑙 ∗√
+𝑏𝑟𝑒𝑎𝑑𝑡ℎ
+MattSchlenker 331
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 332 ---
+MachineLearningforTrading(ML4T)‑Complete
+From this relationship, we can see that we can improve overall investment performance either by
+improvingskill‑howgoodweareatpickingstocks‑orbyincreasingthenumberofinvestmentop‑
+portunitieswetake.
+22.12 Coin‑FlipCasino: Lessons
+Considernowtheresultsofthisthoughtexperiment. Ourcasinoenabledustoallocateour1000to‑
+kensto1000tables. Welookedattwoextremecases: onewhereweputasmallbetonall1000tables
+andanotherwhereweputallourmoneyononetable.
+Wesawthattheexpectedreturnwasthesameinbothcases‑about$20‑buttheriskwassubstantially
+higherforthesingle‑betcase. Thiswastrueforthetwotypesofriskweexamined: riskof“losingit
+all”andriskasstandarddeviation.
+Whenweconsiderriskandrewardtogether,wecomeawaywiththreelessons. First,ahigheralpha
+generatesahigherSharperatio. Second,moreexecutionopportunitiesprovideahigherSharperatio.
+Third,theSharperatiogrowsasthesquarerootofbreadth.
+22.13 BacktotheRealWorld
+Let’sconsidertworeal‑worldfunds.
+The first is Renaissance Technologies, a hedge fund founded by Jim Simons , a math and computer
+scienceprofessor. Thesecondis WarrenBuffett ,theinvestorwhoruns BerkshireHathaway .
+Bothofthesefundshaveproducedsimilarreturnsovertheyears,yettheyhaveverydifferentinvest‑
+mentstyles. Ontheonehand,Buffettholdsabout120stocksanddoesn’ttradethem,while,onthe
+otherhand,RenaissanceTechnologiestradesupwardsof100,000timesaday.
+Wecanusethefundamentallawofactiveportfoliomanagementtounderstandhowtwofundscan
+actsodifferentlyandyetpostsimilarreturns.
+22.14 IR,ICandBreadth
+RecallthatweusetheCAPMequationtodeterminethereturnonaportfolio, 𝑟𝑝,foraparticularday,
+𝑡. Givenaportfoliobeta, 𝛽𝑝,aportfolioalphafor 𝑡,𝛼𝑝(𝑡),andthemarketreturnfor 𝑡,𝑟𝑚(𝑡),then
+𝑟𝑝(𝑡) = 𝛽𝑝𝑟𝑚(𝑡) + 𝛼𝑝(𝑡)
+MattSchlenker 332
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 333 ---
+MachineLearningforTrading(ML4T)‑Complete
+We can break this equation into two main components: a market component comprising 𝛽𝑝𝑟𝑚(𝑡),
+andaskillcomponentconsistingof 𝛼𝑝(𝑡).
+Theinformationratio istheSharperatiooftheobserved 𝛼valuesforaportfolioovermanyperiods.
+Sincethealphacomponentquantifiesreturnsexceedingthemarket,wecanthinkoftheinformation
+ratioasameasureofrisk‑adjustedexcessreturn.
+Formally,givenacollectionof 𝛼𝑝observations, Α,wecancalculatetheinformationratiooftheport‑
+folio, 𝐼 𝑅𝑝,as
+𝐼 𝑅𝑝=Α
+𝜎Α
+Wecanderivethedailyvaluesof 𝛼𝑝bylookingbackatthedailyportfolioreturnsandsubtractingthe
+marketcomponent, 𝛽𝑝𝑟𝑚(𝑡).
+Information ratio is valuable in many different situations, not just in the fundamental law of active
+portfoliomanagement. Forexample,peoplefrequentlyuseinformationratioasameasureofportfo‑
+liomanagerperformance.
+22.15 IR,ICandBreadthContinued
+Theinformationcoefficient (IC)isthecorrelationofthemanager’sforecasttoactualreturns. ICcan
+rangefrom‑1,acompletelyincorrectforecast,to1,aperfectlycorrectforecast.
+Breadth represents the number of trading opportunities an investor encounters per year. Warren
+Buffettholds120stocks,sohesees120tradingopportunitiesperyear.Ontheotherhand,JimSimons,
+whotradesover100,000timesaday,hasamuchlargerbreadth.
+22.16 TheFundamentalLaw
+Given an information coefficient, 𝐼 𝐶, and A breadth, 𝐵𝑅, the fundamental law of active portfolio
+managementstatesthefollowingequationtocalculatetheinformationratio, 𝐼 𝑅.
+𝐼 𝑅 = 𝐼 𝐶 ∗√
+𝐵𝑅
+Inotherwords,theperformanceofthefundisduetothestock‑pickingskillofthemanagertimesthe
+squarerootofthenumberofinvestments.
+One consequence of this relationship is that while we might be very skilled at selecting stocks, we
+musthavemultipletradingopportunitiesavailabletousifwewanttooperationalizethisskill.
+MattSchlenker 333
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 334 ---
+MachineLearningforTrading(ML4T)‑Complete
+If we want to improve the performance of our fund, we can either focus on improving our skill or
+increasingourbreadth. Mostinvestorsfinditveryhardtoimprovetheirskill,soinstead,theylookto
+increasetheirbreadthbyfindingadditionalequitiesormarketstoanalyze.
+22.17 Simonsvs.BuffetQuiz
+How can we relate the performance of Renaissance Technologies ‑ really, Jim Simons ‑ and Warren
+Buffett?
+For this problem, let’s assume that Simons and Buffett both have the same information ratio. Let’s
+alsoassumethatSimons’sstock‑pickingalgorithmsareonlyabout1/1000thassmartasBuffett’s;in
+otherwords,Simon’sinformationcoefficientis1/1000ththatofBuffett.
+IfBuffetttrades120timesayear,howmanytimesmustSimonstradetomaintainthesameinforma‑
+tionratioasBuffett?
+MattSchlenker 334
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 335 ---
+MachineLearningforTrading(ML4T)‑Complete
+22.18 Simonsvs.BuffetQuizSolution
+If Buffett trades only 120 times per year, Simons has to trade 120,000,000 times to match Buffett’s
+performance.
+Let’sstepthroughthemath. SinceBuffettandSimonsbothhavethesameinformationratio,wecan
+settheequationfor 𝐼 𝑅𝐵equaltotheequationfor 𝐼 𝑅𝑆.
+𝐼 𝐶𝐵∗√𝐵𝐵= 𝐼 𝐶𝑆∗√𝐵𝑆
+Furthermore,weknowthatSimons’sICis1/1000thBuffett’sIC.
+𝐼 𝐶𝐵∗√𝐵𝐵=𝐼 𝐶𝐵∗√𝐵𝑆
+1000
+Wecanmanipulatethisequationtoisolate 𝐵𝑆.
+1000 =𝐼 𝐶𝐵∗√𝐵𝑆
+𝐼 𝐶𝐵∗√𝐵𝐵
+1000 =√𝐵𝑆
+√𝐵𝐵
+MattSchlenker 335
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 336 ---
+MachineLearningforTrading(ML4T)‑Complete
+1000 ∗ √𝐵𝐵= √𝐵𝑆
+1000000 ∗ 𝐵𝐵= 𝐵𝑆
+Sinceweknowthat 𝐵𝐵= 120,wecansolvefor 𝐵𝑆.
+1000000 ∗ 120 = 𝐵𝑆= 120, 000, 000
+23 PortfolioOptimizationandtheEfficientFrontier
+23.1 Overview
+Supposeyouhaveasetofstocksthatyouhavedeterminedarevaluableinvestments. Howmuchof
+yourportfolioshouldyouinvestineach? Inthislesson,wearegoingtolookatthefollowingportfolio
+optimizationproblem:givenasetofequitiesandatargetreturn,findanallocationtoeachequitythat
+minimizesrisk.
+23.2 WhatisRisk
+Ifwearegoingtofindaportfolio‑anallocationofassetstodifferentstocks‑thatminimizesrisk,we
+havetoconsiderfirst: whatisrisk?
+Thestandardmeasurementforriskis volatility ,thestandarddeviationofhistoricaldailyreturns.
+Let’sconsidertwostocks,XYZandABC,thathavebothgoneup10%. Sincethepricemovementsfor
+XYZhavebeensignificantlymorevolatilethanthoseforABC,weconsiderXYZariskierinvestment.
+MattSchlenker 336
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 337 ---
+MachineLearningforTrading(ML4T)‑Complete
+23.3 VisualizingReturnVs. Risk
+Weoftenwanttoconsidermultiplestockstogetherandevaluatetheirrelativeriskversustheirrelative
+return. Onewaywecanvisualizethisrelationshipistoploteachstockonascatterplot,wherethex‑
+axismeasuresrisk,andthey‑axismeasuresreturn.
+Withaplotlikethis,wecaneasilycomparestocksalongthesetwodimensions. Forexample,stocks
+situatedclosertobothaxeshaverelativelylowerriskandreturnthanthosefurtheraway.
+MattSchlenker 337
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 338 ---
+MachineLearningforTrading(ML4T)‑Complete
+Webuildaportfoliobycombiningmultipleassets,liketheonesabove,andweightingeachassetbya
+particularweightthatrepresentsitsallocationwithintheportfolio.
+Noticethattheriskandreturnoftheaggregateportfolioissomeweightedaverageoftheconstituent
+stocks. In other words, the portfolio risk is between that of the riskiest and safest stocks, and the
+portfolioreturnisbetweenthatofthehighest‑andlowest‑returningstocks.
+23.4 BuildingaPortfolioQuiz
+Let’sconsiderthethreefollowingportfolios.
+MattSchlenker 338
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 339 ---
+MachineLearningforTrading(ML4T)‑Complete
+Eachgreendotrepresentsanassetheldintheportfolio,andthesizeofthedotrepresentstheweight
+ofthatasset.
+Ifweweretoaggregatetheriskandreturnoftheindividualstocksintoonevalue,whichofthefollow‑
+ingplots‑inorangebelow‑wouldmatchwhichportfolio?
+23.5 BuildingaPortfolioQuizSolution
+Thefirstportfolioemphasizestwohigh‑riskstocks: onewithlowreturnandonewithhighreturn. Of
+MattSchlenker 339
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 340 ---
+MachineLearningforTrading(ML4T)‑Complete
+thethreeplots,Blooksbest‑alignedforthisallocation.
+Thesecondportfolioemphasizesthreelow‑riskstockswithanaggregatemiddle‑of‑the‑roadreturn.
+Ofthethreeplots,Alooksbest‑alignedforthisallocation.
+Finally,thethirdportfolioemphasizestwolow‑returnstocks: onewithlowriskandonewithhighrisk.
+Ofthethreeplots,Clooksbest‑alignedforthisallocation.
+23.6 CanWeDoBetter
+Foralongtime,peoplebuiltportfoliosinthismanner. Theywouldtakeacollectionofassets,weight
+themrelativelyequally,andcreatedaportfoliothataveragedouttheindividualcharacteristicsofeach
+assetcontainedwithin.
+Canwedobetterthanthis“average”performance? Inotherwords,givenacollectionofassets,can
+wederiveallocationssuchthatwecreateahigh‑return,low‑riskportfolio?
+MattSchlenker 340
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 341 ---
+MachineLearningforTrading(ML4T)‑Complete
+HarryMarkowitz ,wholaterwontheNobelPrizeforhisinsight,showedthatwecoulddobetter. What
+heuncovered,andwhatpeoplehadbeenoverlooking,wastherelationshipbetweenstocksinterms
+ofcovariance.
+The performance of a portfolio, especially in terms of risk, is not merely a weighted average of the
+various performances but must take into account how each asset interacts with one another on a
+dailybasis.
+Asaresult,thereexistsanallocationforacollectionofassets,whichleveragestheseinteractions,such
+thattheresultingportfolioachievesahigherrisk‑adjustedreturnthananyoftheindividualassets.
+UpuntilthetimeofHarryMarkowitz’sdiscovery,manyviewedbondsastheassetwiththelowestrisk.
+Markowitzshowedthatablendofstocksandbondsisactuallylessriskythanaportfoliocontaining
+eitherassetexclusively.
+23.7 WhyCovarianceMatters
+Toillustratetheimportanceofcovariance,let’slookatafewdifferentstocks. Weseetheperformance
+of ABC and GHI over time in the plot below. While both stocks have returned 10%, notice that GHI
+tendsto“zig”whenABC“zags”.
+MattSchlenker 341
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 342 ---
+MachineLearningforTrading(ML4T)‑Complete
+ConsideralsoDEF,whichmovespracticallyinlockstepwithABC.
+WhatisthebestportfoliowecanbuildbycombiningABC,DEF,andGHI?Toanswerthisquestion,let’s
+thinkaboutthecovariancebetweentheassets.
+ABC and DEF move very similarly, and if we were to measure the covariance of the daily returns be‑
+tweenthesetwostocks,wemightseeavalueof0.9.
+IfweweretomeasurethecovarianceofdailyreturnsbetweenABCandGHI,wewouldcomeupwith
+a negative number; in other words, when ABC goes up, GHI tends to go down. We might expect a
+covariancevalueof‑0.9forthesetwoassets.
+MattSchlenker 342
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 343 ---
+MachineLearningforTrading(ML4T)‑Complete
+Let’sfirstconsideraportfoliothatis50%ABCand50%DEF.Sincebothassetsmoveverysimilarly,a
+portfoliocontainingbothofthoseassetswouldfollowaverysimilarpath.
+Thisportfolioisfine‑itstillreturns10%‑butthereisnorealadvantageinblendingthesetwoassets
+becausetheportfolioretainsthesamevolatilityastheindividualassets.
+Considerinsteadofportfoliowiththefollowingallocation: 25%ABC,25%DEF,and50%GHI.Whatis
+theeffectofputtingananti‑correlatedassetintoourportfolio?
+Weseethatthisportfolioagainposts10%returns,buthasmuchlessvolatilitysincethecomponent
+stockstendtomoveinoppositedirections.
+MattSchlenker 343
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 344 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thus,wehavedemonstratedatahighlevelwhatMarkowitzproved:wecantakeacollectionofstocks
+and,withasmartallocation,createaportfoliowithhigher‑inthiscase,equal‑returnandlowerrisk
+thananycomponentstock.
+23.8 MeanVarianceOptimization
+WhenMarkowitzbegantoconsiderthecovariancebetweenindividualstocks,hediscoveredthatlow‑
+riskportfolioswerepossiblebyblendingtogetheranti‑correlatedassets.
+Outofhisworkgrewseveralalgorithms. Mean‑varianceoptimization isonesuchalgorithm,which
+examines the covariance between a potential set of assets to determine how a portfolio manager
+oughttoblendthem.
+Amean‑varianceoptimizationalgorithmtakesseveralinputs. Foreachstock,wehavetoprovidethe
+expectedreturnandthehistoricalvolatilityofthestock. Additionally,wehavetosupplyacovariance
+matrixthatcontainsthecovarianceofhistoricalreturnsbetweeneverypairofstocksunderconsider‑
+ation.
+Finally, we need to provide the target return we want to achieve, which can range from the return
+ofthelowest‑performingassettothatofthehighest‑performingasset. Wecanaccomplishareturn
+betweenthemaximumandminimumvaluesthroughblending.
+Theoptimizeroutputsasetofweights‑oneperasset‑thatcorrespondstotheallocationthateach
+assetdeservesintheportfolio. Accordingtotheoptimizer,suchaportfolioprovidesthetargetreturn
+butminimizesrisk.
+23.9 TheEfficientFrontier
+Considerthefollowingassets.
+MattSchlenker 344
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 345 ---
+MachineLearningforTrading(ML4T)‑Complete
+Foranyparticulardesiredreturn,thereexistsanoptimal‑minimallyrisky‑portfolio. Forexample,we
+canseetheoptimalportfolioforonevalueofreturnbelow.
+We can plot the optimal portfolio for each value of desired return and connect the points to form a
+line.
+MattSchlenker 345
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 346 ---
+MachineLearningforTrading(ML4T)‑Complete
+Note that, as we reduce the return, the associated risk sometimes increases. Naturally, few people
+wantlow‑return,high‑riskportfolios,soweoftendon’tconsiderthisportionofthecurve.
+Wecallthiscurvethe efficientfrontier . Theefficientfrontierrepresentstheceilingforportfoliore‑
+turn,givenaparticularamountofrisk. Asaresult,therearenoportfolios“beyond”theefficientfron‑
+tier,andanyportfolio“behind”thefrontierisinsufficientinsomeway.
+Forexample,considerthisportfolio.
+This portfolio is suboptimal; that is, for the amount of return it achieves, it assumes way too much
+risk. Saidanotherway,thisportfolioachievestoolittlereturnfortheamountofriskitbears.
+MattSchlenker 346
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 347 ---
+MachineLearningforTrading(ML4T)‑Complete
+Giventhislevelofriskandthiscollectionofassets,thereexistsaportfoliothatachievesahigherreturn.
+Conversely,giventhislevelofreturn,thereexistsaportfoliothatbearssignificantlylessrisk.
+One last thing to note about the efficient frontier is that, if we draw a tangent line on the frontier,
+originatingfromtheorigin,theslopeofthatlinerepresentsthemaximumSharperatiowecanachieve
+withthiscollectionofassets.
+Theefficientfrontierisprimarilyatheoreticaldevice;however,someportfoliomanagersliketoplot
+thefrontiersothattheycanseewheretheirportfolioliesrelativetotheassetsitcomprisesandthe
+efficiencyitmightachieve.
+MattSchlenker 347
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 348 ---
+MachineLearningforTrading(ML4T)‑Complete
+24 ReinforcementLearning
+24.1 Overview
+Untilnow,we’vebuiltmodelsthatforecastpricechangesandthenusedthesemodelstobuyorsell
+thestockswiththemostsignificantpredictedchange. Thisapproachignoressomeimportantissues,
+suchasthecertaintyofthepredictionandwhentoexitaposition. Wearegoingtoshiftourfocusnow
+toreinforcementlearning. Reinforcementlearnerscreatepoliciesthatprovidespecificdirectionon
+whichactiontotakegivenaparticularsetofparameters.
+24.2 TheRLProblem
+When we talk about reinforcement learning, we are talking about a problem, not a solution. In the
+samewaythatlinearregressionisonesolutiontothesupervisedregressionproblem,therearemany
+algorithmsthatsolvethereinforcementlearningproblem.
+Todemonstrateonepossiblealgorithm,let’sconsiderarobotinteractingwiththeenvironment.
+First, the robot observes the environment; more specifically, it reads in some representation of the
+environment. Wecallthisrepresentationthe state,whichwedenoteas 𝑆.
+MattSchlenker 348
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 349 ---
+MachineLearningforTrading(ML4T)‑Complete
+Therobothastoprocess 𝑆todeterminewhatactiontotakeanddoessobyconsultinga policy,which
+wedenoteas 𝜋. Therobotconsiders 𝑆withregardto 𝜋andoutputsanaction 𝑎.
+Theaction 𝑎changestheenvironmentinsomeway,andwecanusea transitionfunction ,denoted
+as 𝑇,toderiveanewenvironmentfromthecurrentenvironmentandaparticularaction.
+MattSchlenker 349
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 350 ---
+MachineLearningforTrading(ML4T)‑Complete
+Naturally,therobotreadsintheupdatedenvironmentasanew 𝑆,againstwhichitconsults 𝜋togen‑
+erateanew 𝑎. Werefertothiscircularprocessasthe sense,think,actcycle .
+Tounderstandhowtherobotarrivesatthepolicy 𝜋,wehavetoconsideranothercomponentofthis
+cycle: thereward, 𝑟. Foranyactionthattherobottakes,inanyparticularstate,thereisanassociated
+reward.
+As an example, if a navigation robot senses a cliff ahead and chooses to accelerate, the associated
+rewardmightbeverynegative. If, however, therobotchoosestoturnaround, therewardmightbe
+verypositive.
+Inourcase,wecanimaginethatourrobothasalittlewalletwhereitkeepsitscash. Therewardfora
+particularactionmightbehowmuchcashthatactionaddstothewallet. Theobjectiveofthisrobot
+istoexecuteactionsthatmaximizethisreward.
+MattSchlenker 350
+hrishishahh@gmail.com 26 Jan 2026
+

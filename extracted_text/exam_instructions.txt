@@ -1,0 +1,116 @@
+CS7646PagesExam InstructionsImmersive Reader
+Exam Instructions
+Revision History
+1. Start of Term
+Introduction
+Each exam is specifically developed to evaluate each student's proficiency in applying machine learning concepts within the specific contexts of financial services, trading, and investing. The questions are carefully
+selected from the required material outlined in the course syllabus, focusing primarily on the required readings and lectures. Our aim is to assess your ability to apply this knowledge practically, moving beyond mere
+rote memorization or the capacity to locate keywords in your notes or textbooks. We encourage you to demonstrate a deep understanding of the material and its applicability to real-world financial scenarios, reflecting
+your readiness to handle complex challenges in the field.
+Room Scan
+A room scan is required as part of the exam and must be performed as found in the Course Policies.
+Requirements
+Honorlock will require identification using a government ID (e.g., Driver's license, passport). The ID must be in English and include your photo. You will be required to show your photo ID before taking the Exam.
+You will need to take the exam in a quiet, well-lite, isolated location. (e.g., a quiet room is fine, a coffee shop is not)
+Windows, macOS, or ChromeOS with Chrome browser (ideally using a dedicated profile with the Honorlock plugin alone)
+Reliable internet connection. Note: This cannot be through your mobile phone, which must be turned off during the exam.
+Unsupported
+Honorlock does not support Linux. While they are aware of students using Linux for their exams, they (nor we) will support you should an issue arise while taking the exam on that operating system.
+Honorlock does not execute within a Virtual Machine on macOS or Windows. 
+Grade Weight
+Exam 1 is worth 12.5% of your overall grade.
+Exam 2 is worth 12.5% of your overall grade.
+Delivery Method
+Exams will be delivered via Canvas and Honorlock.
+You will log in to Canvas to take the exam.
+Please review the Honorlock information page for an overview.
+Observe the course Exam Quiet Period.
+Number of Questions
+There will be up to 25 multiple-select questions.
+The exam will be scaled and weighted out of 100 points. (e.g., 105 points earned from 110 points possible = 95%)
+Each question will have 5 sub-answers, each of which might be correct or incorrect. You will receive 1 point for each sub-question that is marked properly. So if questions A, B, C, and D were unchecked, with E
+checked, and someone marked answers A and E, then that would result in a score of 4 since questions B through E, but not A were appropriately marked or left unmarked.
+Each question will contain 5 components or sub-questions. For each question, at least one sub-question must be selected and at least one sub-question must be unselected.
+Warning: Questions with all 5 sub-questions selected or all 5 sub-questions unselected may receive a 0 for that question set.
+Permitted
+Your knowledge.
+Restrictions
+No use of desktop applications (exception - the Chrome browser Window used for the exam). An IDE is not necessary for the exam.
+No use of Generative AI.
+No other electronic devices (e.g., cell phones, additional screens (including smartwatches), computers, or tablets).
+No headphones, earphones, or earplugs.
+No AR glasses (e.g., glasses with audio and/or display capabilities) or sunglasses.
+No food or drinks.
+Please ensure you are alone in a quiet area and your webcam is right side up.
+Do not leave from webcam view.
+No discussion of exam questions, study guides, or material during the Exam window through any channel (e.g., live, Ed Discussions, Slack, WhatsApp, Discord).
+You may not use or circumvent the use of copy/paste or a functional equivalent.
+You may not use any tool (e.g., screen capture, video capture, generative AI) that views, monitors, observes, captures, or analyzes any part of your screen.
+You may not use voice input to any computing device or application, including voice transcription or voice conversations with AI agents (e.g., generative AI voice chat, voice capture, transcription).
+You may not mask, obscure, blur, or block your camera; dim your room lights or take the exam in the dark; or in any way prevent a clear recording of your face and eyes while taking the exam.
+Note that, per the Course Policies, violations of these restrictions will result in zero (0) on the exam and may be viewed as a academic integrity violation.
+Exceptions
+If you have an ODS or Dean of Students exception (e.g., extended time, use of earplugs/headphones, water/food, bathroom breaks), you must notify the ML4T Instructional Staff via a private forum 7 days before the
+start of the exam window so that we can notify HonorLock of your exception.
+Exam Conduct
+Logistics
+There will be a 90-minute time limit.
+Once started, the exam will be submitted when 1) you press the Exam's submit button, 2) the elapsed duration allocated for the exam is reached, or 2) the exam due date and time is reached, whichever occurs
+first.
+You can take the exam at any time during the 1-week exam window.
+We strongly recommend taking the HonorLock onboarding exam prior to the start of the exam window. You will find it under "Practice Quizzes" in the Quizzes section of Canvas.
+If during the exam you have technical difficulties, please try to resolve them with Honorlock. If unsuccessful, please create a private message in Ed Discussions, noting the 48-hour SLA and that the ML4T
+Instructional Staff will likely be unable to troubleshoot issues with Honorlock and/or Canvas.
+Quiet Period
+Once the exam window is open, and for the entire exam window, discussion of any aspect of Exam (including study guide or flashcard content) with other students is not permitted. This means no exam-related Ed
+Discussion posts or follow-ups (whether they are content-related or logistical); no discussions on Slack, WhatsApp, Discord, or similar platforms; no private messages to friends, study groups, etc. Comments like "That
+was easy!" or "That was hard!" are also not permitted. We want to ensure a fair testing situation, regardless of when one decides to take the exam.
+Sharing exam related content of any type (e.g., questions, study guides, thoughts) with others (in person, in Discord, etc.) if a violation of the quite period policy, will result on a 0 on the exam, and may be viewed as an
+academic integrity violation.
+Exam Content
+Exam 1
+All required readings, videos, papers or other content as specified from Week 1 to and including Week 7 (Week 6 in the summer term) in the course syllabus.
+Exam 2
+All required readings, videos, papers or other content as specified beginning with Week 7 (Week 6 in the summer term) an continuing to the Exam week in the course syllabus.
+Preparation
+As you gear up for the exam, it's important to employ strategic study methods that align with the nature of the test and the depth of knowledge required. Here are several key strategies to help you thoroughly prepare
+and excel:
+1. Focus on Required Readings: Many of the exam questions are derived directly from the required readings, which often contain more detailed information than what is presented in the lecture videos.
+2. Leverage Supplemental Readings: While questions are not specifically drawn from the supplemental readings, these materials frequently echo ideas found in the required readings.
+3. Create and Share Practice Questions: One of the most effective ways to deepen your understanding of the material is to write your own exam questions. This exercise can help you think critically about the content
+and anticipate potential exam questions.
+4. Utilize Generative AI Tools: Use generative AI to formulate open-ended questions based on the course content. Answer these questions in narrative form and use the AI to evaluate your responses. This method
+will help you refine your understanding and ensure you're able to discuss concepts in depth, preparing you for the type of questions you'll encounter on the exam.
+By integrating these strategies into your study routine, you'll not only build mastery over the course content but also enhance your ability to apply machine learning techniques in complex financial contexts.
+Sample Exam Questions
+Question 1
+Imagine you are tasked with developing a new machine learning-based trading strategy for a hedge fund. If possible, the strategy should leverage a combination of Supervised Learning, Unsupervised Learning, and
+Reinforcement Learning techniques to optimize trading decisions based on historical and real-time market data. Consider the following statements and indicate whether they are true or false:
+1. Using supervised learning to predict stock prices based on historical data is an effective strategy because it allows the model to learn from past price movements and apply this understanding to future predictions.
+2. Unsupervised learning can be used to detect unusual patterns in trading data, which can help identify market anomalies or potential fraudulent activities before they are visible through standard analysis
+techniques.
+3. Incorporating reinforcement learning into the trading strategy allows the model to make decisions based on real-time data, continuously learning and adapting to new market conditions without human
+intervention.
+4. Combining supervised and unsupervised learning techniques can improve the robustness of the trading strategy by using the strengths of both methods: prediction from labeled data and pattern discovery from
+unlabeled data.
+5. A successful ML-based trading strategy should solely rely on reinforcement learning since it adapts to new information and can maximize rewards based on predefined objectives.
+Answers: (T, T, T, T, F)
+Question 2
+As a portfolio manager, you are analyzing a portfolio that includes a diverse mix of assets. Over the past year, the portfolio has experienced a variety of market conditions. You are provided with the portfolio’s daily
+return data. Using this data, evaluate the following statements:
+1. The daily return of the portfolio is defined as the percentage change in portfolio value from one trading day to the next.
+2. The average daily return is computed by summing all daily returns and dividing by the number of trading days.
+3. The standard deviation of daily returns is used to quantify the volatility or risk of the portfolio, indicating how much returns deviate from the average return.
+4. The cumulative return of a portfolio is equal to the sum of its daily returns.
+5. The Sharpe Ratio is calculated by adding the risk-free rate to the portfolio’s average return and then dividing by the standard deviation of returns.
+Answers: (T, T, T, F, F)
+Account
+Dashboard
+Courses
+Calendar
+Inbox
+History
+My Media
+Help
+
+

@@ -1,0 +1,937 @@
+--- Page 151 ---
+MachineLearningforTrading(ML4T)‑Complete
+Let’sassumeforthisexamplethattheslopeis1.
+Infinancialterminology,theslopeisusuallyreferredtoasbeta. Betaindicateshowreactiveastock
+istothemarket.
+Inourexample,wehaveabetaofone. Thisvalueofbetaindicatesthat,onaverage,whenthemarket
+goesuponepercent,thisparticularstockalsogoesuppercent.
+If we had a higher beta, like 2, we would expect our stock to move by two percent every time the
+marketmovedbyonepercent.
+We can also consider another property of the best‑fit line: the y‑intercept . This value, called alpha,
+indicateshowwellthestockperforms,onaverage,relativetothemarket.
+Ifalphaispositive,asisthecasehere,itmeansthatthestockisoutperformingthemarket,onaverage.
+Ontheotherhand,ifalphaisnegative,itmeansthatthestockisperformingworsethanthemarket.
+6.12 SlopeDoesNotEqualCorrelation
+Manypeoplemistakenlyconfoundslopeandcorrelation;inotherwords,iftheyfindthattheslopeof
+thelinethatfitsthedataisone,theyassumethatthedatamustbecorrelated.
+Thisassumptionisnotcorrect. Forexample,wecanhaveashallowslopeandahighcorrelation,ora
+steepslopeandalowcorrelation.
+Theslopeofthebest‑fitlineisnothingmorethanapropertyofthatline. Ontheotherhand, corre‑
+lationmeasures the interdependence between two variables ‑ the performance of a stock and the
+performanceofthemarket,forexample.
+MattSchlenker 151
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 152 ---
+MachineLearningforTrading(ML4T)‑Complete
+Correlationvaluesrunfromzerotoone,wherezeromeansnocorrelationandonemeansperfectcorre‑
+lation. Wecanassesscorrelationvisuallybyexamininghow“tightly”thedatapointsinourscatterplot
+surroundthebest‑fitline.
+6.13 Correlationvs.SlopeQuiz
+Givenwhatwejustlearnedaboutcorrelationandslope(beta),let’slookattwoscatterplotswiththeir
+best‑fitlines,andchoosethemostaccuratestatement.
+MattSchlenker 152
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 153 ---
+MachineLearningforTrading(ML4T)‑Complete
+6.14 Correlationvs.SlopeQuizSolution
+Thebest‑fitlineintheSPYvs.ABCscatterplothasahigherbetabecausethatlinehasalargerslope
+thanthecorrespondinglineintheSPYvs.XYZplot.
+Additionally,theSPYandABCdailyreturnsaremorehighlycorrelated,whichcanbedeterminedvi‑
+suallyfromexamininghow“tightly”theyhugthebest‑fitlineintheSPYvs.ABCplot.
+6.15 ScatterplotsinPython
+Inthissection,wearegoingtocomparethescatterplotsofSPYvs.XOMandSPYvs.GLD.
+GivenaDataFrame daily_returns containingdailyreturndataforSPY,XOM,andGLD,wecancreate
+ascatterplotofSPYvs.XOMlikethis:
+1daily_returns .plot (kind ='scatter ',x='SPY',y='XOM')
+Note that because we have more than two columns in daily_returns , we have to specify which
+columnswewanttoplotalongouraxes.
+Let’slookatourfirstscatterplot.
+MattSchlenker 153
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 154 ---
+MachineLearningforTrading(ML4T)‑Complete
+Similarly,wecancreateascatterplotofSPYvs.GLDfromthesameDataFrame:
+1daily_returns .plot (kind ='scatter ',x='SPY',y='GLD')
+Let’slookatthescatterplotssidebyside.
+With our two plots in hand, we now want to fit a line to the data in each plot. For that, we need
+NumPy.
+Assume we have an array‑like object of independent variables xand a similar object of dependent
+variables y. Wecancomputetheslope mandintercept bofthebest‑fitlinemapping xtoylikeso:
+MattSchlenker 154
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 155 ---
+MachineLearningforTrading(ML4T)‑Complete
+1m,b=np.polyfit (x,y, 1)
+Notethatwepass1tospecifythatwewantafirst‑degreepolynomial: astraightline.
+Backtoourcontext,wecancalculatethebeta(slope) beta_XOM andalpha(y‑intercept) alpha_XOM
+valuesofthebest‑fitlineforSPYandXOMlikethis:
+1beta_XOM ,alpha_XOM =np.polyfit (daily_returns ['SPY'],daily_returns ['
+XOM'], 1)
+Nowthatwehave alpha_XOM andbeta_XOM ,wecancalculatethey‑valuesofthebest‑fitlineusing
+theSPYdataasthex‑values:
+1beta_XOM *daily_returns ['SPY'] + alpha_XOM
+Wecanplotthebest‑fitlineaccordingly:
+1plt.plot (daily_returns ['SPY'],beta_XOM *daily_returns ['SPY'] +
+alpha_XOM ,'-',color ='r')
+Notethatweincludethelasttwoparameterstogetaredlineplot.
+Let’slookatthebest‑fitline.
+IfweprintoutthealphaandbetavaluesfortheXOMlineandtheGLDline,weseethefollowing.
+MattSchlenker 155
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 156 ---
+MachineLearningforTrading(ML4T)‑Complete
+RememberthatthebetavalueshowshowastockmoveswithrespecttoSPY.Wecanseethatthebeta
+valueforXOMisgreaterthanthatforGLD,whichmeansthatXOMismorereactivetothemarketthan
+GLD.
+Remember also that the alpha value shows how well a stock performs with respect to SPY. We can
+seethatthealphavalueforGLDishigherthanthatforXOM,whichindicatesthatGLDperformsbetter,
+relativetoSPY,thanXOM.
+ThefollowinggraphofpricesconfirmsthatGLDoutperformsSPY,andSPYoutperformsXOM.
+Finally,wecanfindthecorrelationbetweenthedailyreturnsofSPY,XOM,andGLDwithonemethod
+MattSchlenker 156
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 157 ---
+MachineLearningforTrading(ML4T)‑Complete
+call:
+1daily_returns .corr (method ='pearson ')
+We can specify the method by which we want to calculate the correlation. We choose Pearson, the
+mostcommonmethod.
+Ifweprintoutthecorrelation,weseethefollowingtable.
+WecanseethatSPYandXOMarehighlycorrelated,whileSPYandGLDhaveaverylowcorrelation.
+Let’schecktheSPYvs.GLDscatterplotandbest‑fitlinetoverify.
+MattSchlenker 157
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 158 ---
+MachineLearningforTrading(ML4T)‑Complete
+Indeed,weseethatthedatapointsdonotfitthelinetightly.
+6.16 RealWorldUseofKurtosis
+Inmanycases,infinancialresearch,weassumethatreturnsarenormallydistributed. Thisassump‑
+tioncanbedangerousbecauseitignoreskurtosis,theprobabilitiesthatlieinthetails.
+Intheearly2000s,investmentbanksbuiltbondsbasedonmortgages. Theyassumedthatthedistri‑
+butionofreturnsforthesemortgageswasnormallydistributed. Onthatbasis,theywereabletoshow
+thatthesebondshadaverylowprobabilityofdefault.
+They made two mistakes, however. First, they assumed that the return of each of these mortgages
+wasindependentand,second,thatthisreturnwouldbenormallydistributed.
+Bothoftheseassumptionsprovedtobewrongasmassivenumbersofhomeownersdefaultedontheir
+mortgages. Itwasthesedefaultsthatprecipitatedthe GreatRecessionof2008 .
+7 SharpeRatioandOtherPortfolioStatistics
+7.1 DailyPortfolioValues
+Wewanttounderstandhowtocalculatetheoveralldailyvalueofaportfoliosothatwecancompute
+statisticsonportfolioperformance.
+Let’s consider the following portfolio. Assume we start with a portfolio value of $1 million, and we
+tracktheportfoliofromthebeginningof2009totheendof2011.
+Atthebeginningof2009,wesplitour$1millionintothefollowingfourallocations:40%SPY,40%XOM,
+10%GOOG,and10%GLD.Weholdthesepositionsfortheentire3‑yearperiodandassesswhetherwe
+gainedourlostmoneyattheendof2011.
+Let’s look at how we can calculate the value of the portfolio day‑by‑day. We start with our prices
+DataFrame pricesthatcontainscolumnsforeachofthefourstocks,indexedbydate.
+First,wecreateaDataFrame normedthatcontainsthenormalizedvaluesofthepricesin prices:
+1normed =prices /prices [0]. values
+Notethatthefirstrowof normedcontainsallones,andeachsubsequentrowcontainstheratioofthe
+priceonthatdaytothepriceondayone.
+Next,wecreateaDataFrame alloced thatmultipliesthenormalizedpricesforeachstockbytheircor‑
+respondingallocation. Givenanarrayof allocs‑[0.4, 0.4, 0.1, 0.1] ‑wecancreate alloced
+likeso:
+MattSchlenker 158
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 159 ---
+MachineLearningforTrading(ML4T)‑Complete
+1alloced =normed *allocs
+Notethatthefirstrowof alloced containsthevaluesof allocs,andeachsubsequentrowcontains
+thenormalizedpriceforeachstockscaledbythecorrespondingallocations.
+OurthirdstepistocreateaDataFrame pos_vals thatholdstheactualmonetaryvalueofourposi‑
+tionsineachofthefourstocksthroughouttime:
+1pos_vals =alloced *start_val #1_000_000
+The first row of pos_vals gives us the initial amount of cash allocated to each stock ‑ $400,000,
+$400,000, $100,000, and $100,000 ‑ and each subsequent row adjusts that amount based on the
+normalized,allocation‑scaledpricevalueforthatrow.
+Inotherwords, eachcellin pos_vals tellsushowmuchourpositioninthatstockisworthonthat
+day.
+Next,wecancreateaonecolumnDataFrame port_val thatcondensesourindividualpositioninto
+onenumberreflectingthetotalvalueoftheportfolioeachday:
+1port_val =pos_vals .sum(axis =1) #Sum across columns
+Thefirstrowof port_val issimplythesumoftheinitialallocations:$1million. Eachsubsequentrow
+reflectsthenewvalueoftheportfolioasthevalueofourpositionschangesasaresultofstockprice
+movement.
+MattSchlenker 159
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 160 ---
+MachineLearningforTrading(ML4T)‑Complete
+7.2 PortfolioStatistics
+Nowthatwehave port_val ,theDataFramecontainingthetotaldailyvalueoftheportfolio,wecan
+computeseveral important statistics on the portfolio. These statistics allow us toassess the perfor‑
+manceoftheportfolioandtheinvestmentstyleoftheportfoliomanager.
+Forexample,wecancalculatedailyreturns,whichgivesusameasureofhowourportfolioperformed
+onagivendayrelativetothepreviousday.
+WecanconstructaDataFrame daily_returns thatcontainsthedailyreturnsofourportfolio:
+1daily_returns = (port_val /port_val .shift (1)) - 1
+2daily_returns .iloc [0] = 0
+Whenever we calculate daily returns, the first value is always going to be zero because there is no
+previous day for comparison. We want to exclude this first entry from any calculations that we do
+overdailyreturns.
+1daily_returns =daily_returns [1: ]
+Nowthatwehavethisinformation,wecancomputefourcriticalstatisticsregardingtheperformance
+ofaportfolio: cumulativereturn,averagedailyreturn,standarddeviationofdailyreturn,andSharpe
+ratio.
+Cumulativereturn isameasureofhowmuchthevalueoftheportfoliohaschangedfrombeginning
+toend. Wecancalculatethecumulativereturnlikeso:
+1(port_val [-1] / port_val [0]) - 1
+Theaveragedailyreturnissimplytheaverageofthevaluesin daily_returns :
+1daily_returns .mean ()
+Wecancalculatethestandarddeviationofthevaluesin daily_returns similarly:
+1daily_returns .std()
+TheSharperatioisabitmorecomplicated,sowewillspendsomemoretimetalkingaboutitnext.
+7.3 WhichPortfolioisBetterQuiz
+The Sharpe ratio allows us to consider our returns in the context of risk: the standard deviation, or
+volatility,ofthereturns.Whenwelookatportfolioperformance,wedon’ttypicallylookatrawreturns;
+instead,weadjustthereturnsreceivedfortheriskborne.
+MattSchlenker 160
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 161 ---
+MachineLearningforTrading(ML4T)‑Complete
+With this in mind, let’s look at three comparisons of two stocks, ABC and XYZ, and decide which is
+better.
+7.4 WhichPortfolioisBetterQuizSolution
+Forthefirstcomparison, ABCisbetter. ABCandXYZhavesimilaramountsofvolatility, butABChas
+doublethereturnofXYZ.
+Forthesecondcomparison,XYZisbetter. BothABCandXYZhavethesamereturn,butABCismuch
+morevolatilethanXYZ.
+MattSchlenker 161
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 162 ---
+MachineLearningforTrading(ML4T)‑Complete
+For the third comparison, we can’t tell which is better, given the information provided. ABC has a
+higherreturnthanXYZ,butthatreturnisoffsetbyhighervolatility.
+WeneedaqualitativemeasuretocompareABCandXYZinthisthirdexample,andtheSharperatiois
+thatmeasure.
+7.5 SharpeRatio
+TheSharperatio ,namedfor WilliamSharpe ,isametricthatadjustsreturnforrisk,anditenablesus,
+quantitatively,toassessandcomparetheportfoliosfromthequizabove.
+Wewouldassumethatallelsebeingequal,lowerriskisbetter,andhigherreturnisbetter. Indeed,the
+Sharperatiovalidatestheseassumptions.
+It’s always possible that the performance of an asset is less than the risk‑free rate of return : the
+interest rate our money would receive if we just put it in a risk‑free asset like a bank account. The
+Sharperatioaccountsforthispossibilitybyincludingtherisk‑freerateofreturninitscalculation.
+Lately,however,therisk‑freerateofreturnisabout0. Ifyouweretoputyourmoneyinthebankor
+buyveryshort‑termtreasurybonds,you’dreceivevirtuallynointerest.
+7.6 FormoftheSharpeRatioQuiz
+Considerthefollowingthreefactors.
+MattSchlenker 162
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 163 ---
+MachineLearningforTrading(ML4T)‑Complete
+Howwouldyoucombinethesethreefactorsintoasimpleequationtocreateametricthatprovidesa
+measureofrisk‑adjustedreturn?
+MattSchlenker 163
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 164 ---
+MachineLearningforTrading(ML4T)‑Complete
+7.7 FormoftheSharpeRatioQuizSolution
+Onlythethirdchoicemeetsthetwocriteriawedescribedearlier;allelsebeingequal,higherreturns
+increaseourmetric,andlowerriskincreasesourmetric. Additionally,ahigherrateofrisk‑freereturn
+decreasesourmetric.
+7.8 ComputingSharpeRatio
+Givenadailyportfolioreturn 𝑅𝑝andadailyrisk‑freerateofreturn 𝑅𝑓,wecanformulatetheSharpe
+ratio 𝑆as:
+𝑆 =𝔼[𝑅𝑝− 𝑅𝑓]
+𝜎(𝑅𝑝− 𝑅𝑓)
+Thatis,theSharperatioistheexpectedvalueofthedifferenceoftheportfolioreturnandtherisk‑free
+rateofreturndividedbythestandarddeviationofthatsamedifference.
+When we talk about expected value, we are talking about expectations of events that occur in the
+future. Thisforward‑lookingformulationoftheSharperatioiscalledthe**ex‑ante**formulation.
+Ofcourse,tocalculatetheexpectedvaluegoingforward,wehavetolookbackatthehistoricalvalues.
+We can use the historical mean of the differences between 𝑅𝑝and 𝑅𝑓as the expected value going
+forward.
+𝑆 =𝑚𝑒𝑎𝑛(𝑅𝑝− 𝑅𝑓)
+𝜎(𝑅𝑝− 𝑅𝑓)
+MattSchlenker 164
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 165 ---
+MachineLearningforTrading(ML4T)‑Complete
+Whatistherisk‑freerate? Onevalueoftenusedisthe LondonInter‑bankOfferedRate . Anothervalue
+usedistheinterestrateonathree‑monthtreasurybill(T‑bill). Morerecently,however,peoplehave
+beenusingzerofortherisk‑freerate.
+Doesthismeanthatweneedtoretrievethecorrespondingrisk‑freerateforeachdailyreturnwehave?
+WhileLIBORandthethree‑monthT‑billinterestratedochangeslightlyday‑to‑day,wedon’tactually
+needtorecordtheirdailyvalues.
+Infact,therisk‑freerateisnotusuallygivendaily,butratheronanannualorsix‑monthbasis. Witha
+littlebitofmath,wecanconvertthatannualizedrateintoadailyrate.
+Let’slookatanexample. Assumeourrisk‑freerateis10%peryear,or0.1. Thatmeansthatifwestart
+atthebeginningoftheyearwithavalueof1.0,weendtheyearwithavalueof1.1.
+We need to find a number that equals 1.1 when multiplied to our balance each day in the 252‑day
+tradingyear. Inotherwords,
+1.1 = 1.0 ∗ 𝑥252
+1.1 = 𝑥252
+𝑥 =252√
+1.1
+𝑥 ≈ 1.00038
+Ofcourse, 𝑥isthemultiple. Thedailyrisk‑freerateis (𝑥 − 1) ∗ 100 ,or0.038%.
+Notethatthisvalueisconstantthroughoutthetimeperiod,andrememberthatthestandarddevia‑
+tionofasetofnumbersisunaffectedifeachnumberisshiftedbythesameamount. Asaresult,we
+cansimplifyourformulafortheSharperatio:
+𝑆 =𝑚𝑒𝑎𝑛(𝑅𝑝− 𝑅𝑓)
+𝜎𝑅𝑝
+Sincemanypeoplehavebeenusingzerorecentlyfortherisk‑freerateofreturn,wearegoingtofollow
+suit. Ourfinal,simplifiedSharperatioformulais:
+𝑆 =̄𝑅𝑝
+𝜎𝑅𝑝
+MattSchlenker 165
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 166 ---
+MachineLearningforTrading(ML4T)‑Complete
+7.9 ButWait,There’sMore!
+TheSharperatioforthesameassetcanvarywidelydependingonhowfrequentlywesampleit. Ifwe
+samplethepriceseveryyearandcalculatetheSharperatiobasedonyearlystatistics,you’llgetone
+number. Ifwesamplemonthlyordaily,we’llgetdifferentnumbers.
+The Sharpe ratio was initially envisioned as an annual measure. As a result, if we are sampling at
+nonannualfrequencies,weneedtoincorporateanadjustmentfactor.
+𝑆𝑅𝑎𝑛𝑛𝑢𝑎𝑙𝑖𝑧𝑒𝑑 = 𝐾 ∗ 𝑆𝑅
+where
+𝐾 = √𝑠𝑎𝑚𝑝𝑙𝑖𝑛𝑔 _𝑟𝑎𝑡𝑒
+Asanexample,thereare252tradingdaysinayear,soifweareusingdailydata,then 𝐾 =√
+252. If
+aretakingweeklysamples,then 𝐾 =√
+52.
+Notethat 𝐾isequaltotherateofsampling,notthenumberofsampleswetake. Forinstance,assume
+we are trading for 85 days. Because we are sampling at a daily rate, we set 𝐾 =√
+252, not 𝐾 =√
+85.
+Bringingitalltogether,givenadailyportfolioreturn 𝑅𝑝andadailyrisk‑freerateofreturn 𝑅𝑓,wecan
+formulatetheSharperatio 𝑆as:
+𝑆 =√
+252 ∗̄𝑅𝑝
+𝜎𝑅𝑝
+7.10 WhatistheSharpeRatioQuiz
+Assumewehavebeentradingastrategyfor60daysnow. Onaverage,ourstrategyreturnsone‑tenth
+of one percent per day. Our daily risk‑free rate is two one‑hundredths of a percent. The standard
+deviationofourdailyreturnisone‑tenthofonepercent.
+WhatistheSharperatioofthisstrategy?
+MattSchlenker 166
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 167 ---
+MachineLearningforTrading(ML4T)‑Complete
+Infinancialterminology,oneone‑hundredthofonepercentisknownasa basispoint ,or“bip”.
+Instead of saying, for example, that our strategy returns one‑tenth of one percent per day, we
+couldsayitreturns10bpsperday.
+7.11 WhatistheSharpeRatioQuizSolution
+Let’srecallourformulafortheSharperatio:
+MattSchlenker 167
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 168 ---
+MachineLearningforTrading(ML4T)‑Complete
+𝑆 = 𝐾 ∗𝑚𝑒𝑎𝑛(𝑅𝑝− 𝑅𝑓)
+𝜎𝑅𝑝
+Giventhat 𝑅𝑝= 0.001onaverage, 𝑅𝑓= 0.0002 onaverage,and 𝜎𝑅𝑝= 0.001,withadailysample
+rate:
+𝑆 =√
+252 ∗0.001 − 0.0002
+0.001
+𝑆 =√
+252 ∗0.0008
+0.001
+𝑆 =√
+252 ∗ 0.8
+𝑆 ≈ 12.7
+8 Optimizers: BuildingaParameterizedModel
+8.1 WhatisanOptimizer
+Anoptimizer isanalgorithmthatsearchestheinputspaceofatargetfunctionforvaluesthatdrive
+theoutputofthatfunctiontowardssomegoal.
+Weuseoptimizersforseveraldifferentpurposes.
+For one, we use optimizers to find minimum values for functions. For example, given a function
+𝑓 (𝑥) = 𝑥2+ 𝑥3+ 5,wecanuseanoptimizertofindan 𝑥suchthat 𝑓 (𝑥)isassmallaspossible.
+Additionally, we use optimizers to find the parameters of models we want to build from data. For
+example,wemightcollectdatathatcapturesarelationshipbetweentwovariables,andwecanuse
+optimizerstofindthecoefficientsofapolynomialthatdescribesthatrelationship.
+Finally, and from a more practical perspective, we can use optimizers to refine stock allocations in
+portfolios. Inotherwords,anoptimizercanhelpusdecidewhatpercentageofourfundsweshould
+allocatetoeachstock.
+Usinganoptimizerinvolvesthreemainsteps. First,wedefinethefunctionthatwewanttooptimize.
+For example, if we want to optimize 𝑓 (𝑥) = 𝑥2+ 𝑥3+ 5, we can define the following function in
+Python:
+MattSchlenker 168
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 169 ---
+MachineLearningforTrading(ML4T)‑Complete
+1def func (x):
+2 pow(x, 2) + pow(x, 3) + 5
+Second,wedeclaretheinitialargumentstothefunction. Ideally,wewanttouseargumentsthatare
+close to the optimal arguments, but if we have no idea what those values should be, random argu‑
+mentsaresufficient.
+Finally, wecallthe optimizer, passinginthe functionand theinitial arguments. The optimizercalls
+thefunctionmanytimes,slightlychangingtheargumentseachtimeuntilitfindsasolution.
+8.2 MinimizationExample
+Let’stakealookatthefunction 𝑓 (𝑥) = (𝑥 − 1.5)2+ 0.5,whichisgraphedbelow.
+Fromthegraph, wecanseethatthefunctioniscenteredhorizontallyabouttheline 𝑥 = 1.5witha
+globalminimumat (1.5, 0.5) . Whilewecanfindthisminimumfairlyintuitively,aminimizer,ofcourse,
+cannot.
+Wemustsupplytheminimizerwithaninitialvalueof 𝑥andletititerativelymoveclosertothemini‑
+mum. Let’ssupposewetelltheminimizertostartwithavalueof 𝑥 = 2.
+MattSchlenker 169
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 170 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thefirstthingtheminimizerdoesisevaluate 𝑓 (2), whichequals0.75. Itthenteststwoverynearby
+values ‑ one greater than 2 and one smaller than 2 ‑ and computes the slope of the line connecting
+thosetwopoints.
+Theslopeofthelineconnectingthetwopointsgivestheminimizerinsightintohowtoadjust 𝑥. Since
+theslopeispositive,increasesin 𝑥resultinincreasesin 𝑓 (𝑥). Sincetheminimizerwantstominimize
+𝑓 (𝑥),itknowstodecrease 𝑥.
+Thisiterativeprocess‑adjusting 𝑥,computing 𝑓 (𝑥),findingtheslope,andthenincreasingordecreas‑
+ing 𝑥appropriately‑isknownas gradientdescent . Readmoreaboutgradientdescent here.
+MattSchlenker 170
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 171 ---
+MachineLearningforTrading(ML4T)‑Complete
+Afterseveralroundsofgradientdescent, theminimizerfindstheminimaat (1.5, 0.5) andceasesits
+search.
+8.3 MinimizerinPython
+Let’soptimizethefunction 𝑓 (𝑥) = (𝑥 − 1.5)2+ 0.5usingPython. Forthistask,wewillneedtoimport
+anewmodule, scipy .optimize :
+1import scipy .optimize asspo
+Wecandefine 𝑓 (𝑥)inPythonwiththefollowingcode. Notethatweaddaprintlinesowecantrace
+theiterationsoftheminimizer.
+1def f(x):
+2 y= (x- 1.5)**2 + 0.5
+3 print ("X={}, Y={}".format (X,Y))#for tracing
+4 return y
+Nowweturntothe minimize functionofthe scipy .optimize module. Generally,wecanminimize
+afunction fstartingwithaninitialvalue xlikeso:
+1spo.minimize (f,x)
+Inourcase,wecall minimize withaninitialvalueof2.0. Additionally,wepassavalueforthe method
+parameter,whichspecifiesthetypeofalgorithmusedtominimize f.
+1minimized =spo.minimize (f, 2.0, method ="SLSQP ",options ={'disp ':True
+})
+Notethatwealsosupplythe dispoptionsetto Truewhichaddssomeadditionalprintmessages.
+Perhapssurprisingly,thevalueof minimized isnotanumber,butanobject. Wecanaccessthevalue
+ofxandthecorresponding,minimizedvalueof f(x)likeso:
+1minimized .x#x
+2minimized .fun #f(x)
+Ifwerunouroptimizerandprintoutourminimizedvalues,weseethefollowingoutput.
+MattSchlenker 171
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 172 ---
+MachineLearningforTrading(ML4T)‑Complete
+Weseetheiterativeprogressoftheminimizerthankstotheprintstatementsweplacedin f. Wesee
+someadditionaloutput‑aresultofthe {'disp ':True }option‑thatprovidesinformationonthe
+numberofiterationsandfunctionevaluationsrequiredduringtheminimizationprocess. Finally,we
+seetheminimum.
+To visually verify that the minimizer found the correct value, we can plot fand place a point at the
+valueof (minimized .x,minimized .fun).
+MattSchlenker 172
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 173 ---
+MachineLearningforTrading(ML4T)‑Complete
+8.3.1 Documentation
+•scipy.optimize.minimize
+8.4 HowtoDefeataMinimizerQuiz
+Whichofthefollowingfunctionswouldbehardfortheminimizertosolve?
+MattSchlenker 173
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 174 ---
+MachineLearningforTrading(ML4T)‑Complete
+8.5 HowtoDefeataMinimizerQuizSolution
+Thefirstgraphishardbecauseofthe“flat”areasoneithersideoftheparabola. Aminimizertesting
+apointinthemiddleofthisareawouldn’tbeabletofindanygradienttofollow,soitwouldn’tknow
+howtoadjustthevalueitwascurrentlytesting.
+Thesecondgraphishardbecauseithasseverallocalminimathataren’tnecessarilytheglobalmin‑
+imum. A minimizer might “get stuck” in a local minimum, even though a more significant, global
+minimumexists.
+Thefourthgraphischallengingbothbecauseofthe“flat”areaandthediscontinuitybetweenthetwo
+halves.
+8.6 ConvexProblems
+Minimizersarebestatminimizingconvexfunctions. AccordingtoWikipedia:
+Inmathematics,areal‑valuedfunctiondefinedonann‑dimensionalintervaliscalledconvexif
+thelinesegmentbetweenanytwopointsonthegraphofthefunctionliesaboveoronthegraph.
+Inotherwords,picktwopointsonthegraphofafunctionanddrawalineconnectingthepoints. Ifthe
+graphofthefunctiondoesnotintersectthatline,thenthefunctionisconvexbetweenthosepoints.
+Let’slookatthreeexamples.
+MattSchlenker 174
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 175 ---
+MachineLearningforTrading(ML4T)‑Complete
+We can see that the first function is convex between the two points we have selected (actually, it’s
+convexeverywhere).
+Wecanseethatthesecondandthirdfunctionsarenotconvexbetweenthetwopointsasaportionof
+thegraphineachliesabovethelinebetweenthepoints.
+As a result, we can observe some properties required for convexity. If a function is to be convex, it
+musthaveonlyonelocalminimum‑theglobalminimum‑andcannothaveany“flat”regionswith
+zeroslope.
+If the function you want to minimize is convex, the algorithms we examine will find the minimum
+quicklyandeasily. Algorithmsthatcanfindminimafornon‑convexfunctionsexist,buttheyrequirea
+bitofrandomnessandaren’tguaranteedtofindtheglobalminimum.
+Sofar,wehavelookedatfunctionsthatonlyhaveonedimensionin 𝑥,suchastheparabolawemini‑
+mizedpreviously. Considerthefollowinggraph,whichdepictsafunctionthathastwodimensionsin
+𝑥.
+MattSchlenker 175
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 176 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thegoodnewsisthatminimizerscansolvethesemulti‑dimensionalproblemswithgradientdescent
+justaseffectivelyastheycansolveone‑dimensionalproblems.
+8.7 BuildingaParameterizedModel
+Let’slookatafunctionthatwehaveallseenbefore:
+𝑓 (𝑥) = 𝑚𝑥 + 𝑏
+Thisfunction,whichisalsotheequationforaline,hasoneargument, 𝑥,andtwoparameters: 𝑚and
+𝑏.
+Note: Forconvenience,inourcodewereferto 𝑚and 𝑏and 𝐶0and 𝐶1,respectively.
+Nowlet’slookatsomedatapoints. Let’ssaywearebuddingmeteorologistsandwanttounderstand
+therelationshipbetweenhumidityandrainfall. Wecollectdailyhumiditymeasurementsandobserve
+howmuchitrains,andwecreatethefollowingplot.
+MattSchlenker 176
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 177 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecanseearelationshipbetweenhumidityandrainfall,andourintuitionisthatwemightbeableto
+modelthisrelationshipwithaline. Thelinemightlooksomethinglikethis.
+Ourtaskistofindtheparameters 𝐶0and 𝐶1thatdescribethelinethatbestfitsourdata. Sinceweare
+workingwithminimizers,weneedtoreframethisproblemasaminimizationproblem.
+Whatisitwearetryingtominimize? Let’slookatasimplerexample.
+MattSchlenker 177
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 178 ---
+MachineLearningforTrading(ML4T)‑Complete
+Looking at the graph above, suppose we’ve collected the data points plotted in green, and we are
+tryingtoevaluatehowthebluelinefitsthesepoints.
+We can evaluate the line by examining the vertical distance between each point and the candidate
+line.
+Itistheseverticaldistances,or errors,thatwewanttominimize.
+MattSchlenker 178
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 179 ---
+MachineLearningforTrading(ML4T)‑Complete
+8.8 WhatisaGoodErrorMetricQuiz
+Let’sassumethatapoint 𝑝𝑖hasanerror 𝑒𝑖,whichistheverticaldistancebetween 𝑝𝑖andthebest‑fit
+linecurrentlyunderconsideration. Givenanumberofsucherrors 𝑒0, 𝑒1, ..., 𝑒𝑛,whichofthefollowing
+expressionsdescribesthemetricwewanttominimize?
+8.9 WhatisaGoodErrorMetricQuizSolution
+Wewanttominimizethesumoftheerrors, butwewanttoensurethaterrorsaboveandbelowthe
+MattSchlenker 179
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 180 ---
+MachineLearningforTrading(ML4T)‑Complete
+linedonotcancelout. Toaccomplishthis,weneedtomakeeacherrorpositivebyeithersquaringit
+ortakingitsabsolutevalue.
+8.10 MinimizerFindsCoefficients
+Let’slookatthefollowingdata.
+Wewanttouseaminimizertofindthelinethatbestfitsthisdata,sowefirsthavetodefineafunction
+tominimize. Wearegoingtousethe sumofsquarederror functionwesawabove,namely:
+𝐸 = ∑
+𝑖𝑒2
+𝑖
+Additionally,wehavetogivetheminimizerourinitialguessfor 𝐶0and 𝐶1,andwemightchoosethe
+valuesoneandzero,respectively. Wewouldgive 𝐸,𝐶0,and 𝐶1totheminimizerandletitrunfrom
+there. Theminimizeriterativelyadjusts 𝐶0and 𝐶1,observinghow 𝐸changeswitheachadjustment,
+untileventuallysettlingonvaluesof 𝐶0and 𝐶1thatminimize 𝐸.
+8.11 FitaLinetoGivenDataPoints
+Let’swalkthroughsomeexamplecodethatgeneratesabest‑fitlineforasetofdatapoints.
+Rememberthatweareusinganoptimizertoaccomplishthistask,sothefirstthingthatwehaveto
+doisdefinethefunctionwewanttheoptimizertominimize.
+MattSchlenker 180
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 181 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thisfunction,whichwecall error,takesintwoarguments: lineanddata. The lineargumentis
+a tuple containing the parameters ‑ 𝐶0and 𝐶1‑ of the current line under consideration. The data
+argumentisatwo‑dimensionalarraycontainingx‑andy‑valuesfromourdataset.
+Wecanimplement errorinPythonlikeso:
+1def error (line ,data ):
+2return np.sum((data [:, 1] - ( line [0] * data [:, 0] + line [1])) ** 2)
+Let’swalkthroughwhatthisfunctiondoes. First,foreveryx‑valuegiven,wecomputethecorrespond‑
+ingy‑valueusingtheequationofthebest‑fitline:
+1line [0] * data [:, 0] + line [1]
+Next,wesubtracttheseexpectedvaluesfromtheobservedy‑valuesinourdata:
+1data [:, 1] - ( line [0] * data [:, 0] + line [1])
+Third,wesquarethedifferences:
+1(data [:, 1] - ( line [0] * data [:, 0] + line [1]) ** 2)
+Finally,wesumthesquareddifferences:
+1np.sum((data [:, 1] - ( line [0] * data [:, 0] + line [1])) ** 2)
+Nowthatwehave error,thefunctionwewanttominimize,let’stestourminimizer. Ourtestconsists
+ofthreesteps,showninPythonbelow.
+First,wedefinethelinethatwewanttheminimizertodiscover. Thevariable l_orgholdstheparam‑
+MattSchlenker 181
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 182 ---
+MachineLearningforTrading(ML4T)‑Complete
+etersofthisline,whichhasaslopeof4anday‑interceptof2. Wecreateanarrayofevenly‑spacedx‑
+values Xorigusing np.linspace andanarrayofthecorrespondingy‑values Yorig. Weplot Xorig
+against Yorigtodrawourline.
+Second,inanattemptto“fool”theminimizer,weaddsomerandomnoisetothey‑valuesin Yorig.
+WecangeneratethisnoisebysamplingaGaussiandistributionwithameanofzeroandastandard
+deviation of three. We combine Xorigwith the new, noisy y‑values into an array data, which we
+plot.
+Third,wecallthe fit_line function,passingin dataanderror,whichrunstheminimizationtask
+andgivesusthecoefficientsofthebestfitline. Finally,weplotthisline.
+Let’slookat fit_line .
+1def fit_line (data ,error ):
+2l=np.float32 ([0, np.mean (data [:, 1])])
+3
+4#Plotting code for initial guess omitted
+5
+6result =spo.minimize (error ,l,args =(data ,), method ="SLSQP ",options
+={'disp ':True })
+7
+8return result .x
+First, wedefine our initial guess lforthe parametersthatminimize error. We choose aslope of 0
+anday‑interceptequaltothemeanofthey‑valuesin data.
+Next,wepass errorandltospo.minimize .
+Rememberthat errortakestwoarguments: the parametersof the line and the datafromwhich it
+computestheerror. Bydefault,theminimizerpassesthelineparametersto error. However,wehave
+tomanually tellthe optimizerto pass dataas well, which is why we specify the argsparameterin
+thecallto spo.minimize .
+Additionally,wespecifythe methodandpassinsomeverbosity options .
+Wecanfinallyrunourtest,andweseethefollowingchart.
+MattSchlenker 182
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 183 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ouroriginallineistheblueline,andthegreendotsarethenoisydatawegeneratedfrompointson
+thatline. Thepurplelineistheoriginalguessthatwepassedtotheminimizer. Theminimizerfitthe
+redlinetothedata,and,indeed,itisquiteclosetotheblueline.
+8.11.1 Documentation
+•numpy.linspace
+•scipy.optimize.minimize
+8.12 AnditWorksforPolynomialsToo
+Wecanfitevenmorecomplicatedfunctionstodata,suchasthepolynomialwefittothedatabelow.
+MattSchlenker 183
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 184 ---
+MachineLearningforTrading(ML4T)‑Complete
+Let’slookattheoutputfromtheminimizerthatgeneratedthispolynomial.
+Wecanseethatthecoefficientsofthefittedpolynomialareverysimilartothoseoftheoriginalpoly‑
+nomial.
+Let’s look at how we structured this minimization problem in Python. First, our errorfunction
+changedslightly:
+1def error (C,data ):
+2 return np.sum((data [:, 1] - np.polyval (C,data [:, 0])) ** 2)
+MattSchlenker 184
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 185 ---
+MachineLearningforTrading(ML4T)‑Complete
+Sincewearefittingapolynomialtoourdata,wecannolongerusetheequationofalinetogenerate
+expectedy‑valuesfromourx‑values. Instead,weuse np.polyval .
+Additionally,ourfitfunction,nowcalled fit_poly ,isdifferent:
+1def fit_poly (data ,error ,degree =3)
+2 Cguess =np.poly1d (np.ones (degree + 1))
+3
+4 #Plotting code for initial guess omitted
+5
+6 result =spo.minimize (error ,Cguess ,args =(data ,), method ="SLSQP ",
+options ={'disp ':True })
+7
+8 return np.poly1d (result .x)
+Notably, ourinitialguessisnolongeranarraycontainingtwoparameters, butratheranarrayofall
+ones,oflength degree + 1. Additionally,weturnthisarrayintoanobjectrepresentingthepolyno‑
+mialitparameterizesusing np.poly1d.
+8.12.1 Documentation
+•numpy.polyval
+•numpy.poly1d
+9 Optimizers: HowtoOptimizeaPortfolio
+9.1 WhatisPortfolioOptimization
+Givenasetofassetsandatimeperiod, portfoliooptimization seekstofindanallocationoffunds
+toassetsthatmaximizeperformance. Wecanchoosetooptimizeforoneofseveraldifferentperfor‑
+mancemetrics,suchascumulativereturn,volatility/risk,orSharperatio.
+9.2 TheDifferenceOptimizationcanMake
+Considerthisportfolio,whichcontainsequalallocationstofourstocks‑GOOG,AAPL,GLD,andXOM‑
+heldfromthebeginningtotheendof2010.
+MattSchlenker 185
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 186 ---
+MachineLearningforTrading(ML4T)‑Complete
+Notethattheperformanceofthisunoptimizedportfolio,plottedinblue,outperformsSPY,plottedin
+green.
+Let’soptimizethisportfolioforSharperatioandseehowthereturnschange.
+WecanseethatthisoptimizedportfoliooutperformsbothSPYandtheprevious,unoptimizedportfo‑
+MattSchlenker 186
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 187 ---
+MachineLearningforTrading(ML4T)‑Complete
+lio.
+Note the blend of asset allocations required for this performance. Whereas before we had equal al‑
+locations between assets, here we have a 40/60 split between AAPL and GLD, with GOOG and XOM
+receivingnoallocation.
+Ofcourse,it’seasytogointothepastandoptimizeforvaluesthatweknow. Theimportantquestion
+is: doesthistypeofoptimizationhelpusinthefuture? Indeed,ifweoptimizeourportfolioforSharpe
+ratioandreoptimize,or rebalance ,ourallocationsmonthbymonth,weoftenseehigherreturnsthan
+wewouldhaveifwestuckwithequalallocations.
+9.3 WhichCriteriaisEasiesttoSolveForQuiz
+Let’sassumewehaveaportfoliooffourstocks,andwewanttofindtheoptimalallocationsthatmax‑
+imizesomeperformancemetric. Whichofthefollowingmetricswouldbeeasiesttooptimizefor?
+MattSchlenker 187
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 188 ---
+MachineLearningforTrading(ML4T)‑Complete
+9.4 WhichCriteriaisEasiesttoSolveForQuizSolution
+Itwouldbeeasiesttowriteanoptimizerforcumulativereturn. Todoso,allweneedtodoisallocate
+100%ofourportfoliointowhicheverstockhadthehighestcumulativereturn.
+OptimizingforminimumvolatilityorSharperatioinvolvesevaluatingvariouscombinationsofstocks,
+whichismorecomplicatedthansimplyputtingalloureggsinonebasket.
+9.5 FramingtheProblem
+Aswe’vesaid, wewanttooptimizeourportfoliosuchthatwemaximizeSharperatio. We’vesolved
+optimizationproblemsusingminimizersinthepast,andsoweneedtoreframeourSharperatiomax‑
+imizationtaskasaminimizationproblem.
+Recall that using a minimizer involves three steps. First, we define a function 𝑓 (𝑥)that we want to
+minimize. Second,wedefineaninitialguessfor 𝑥. Finally,wepass 𝑓 (𝑥)and 𝑥totheoptimizerand
+letitfindthevalueof 𝑥thatminimizes 𝑓 (𝑥).
+In this case, 𝑥is a list of the asset allocations in our portfolio. We want the optimizer to vary these
+valuestodiscoverthesetofallocationsthatminimizes 𝑓 (𝑥).
+We might think to set 𝑓 (𝑥)equal to the Sharpe ratio expression, but this is incorrect. Remember
+thattheminimizer minimizes 𝑓 (𝑥), sosetting 𝑓 (𝑥)equaltotheSharperatioresultsinanallocation
+MattSchlenker 188
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 189 ---
+MachineLearningforTrading(ML4T)‑Complete
+thatproducesthesmallestSharperatio. Wecanfixthisbyinsteadsetting 𝑓 (𝑥)equaltothenegative
+Sharperatio.
+9.6 RangesandConstraints
+Before we start tweaking our portfolio allocations, we have to consider two other concepts: ranges
+andconstraints.
+Weneedtotelltheoptimizerthatitshouldonlylookforcandidatevaluesof 𝑥withinspecificranges.
+Forexample,foreachofthevariousallocationsin 𝑥,itonlymakessensetolookatvaluesbetween0
+and1. Wecan’thaveanegativeallocation,andwecan’tallocatemorethan100%ofourportfolioto
+aparticularasset.
+Limitingtherangeofvaluestheoptimizerhastosearchoverallowstheoptimizertoconvergemuch
+morequicklytothesolution.
+Additionally,wecangivetheoptimizerconstraints: propertiesof 𝑥thatmustbetrueforthat 𝑥tobe
+consideredasolution. Inourcase,wehavetheconstraintthatthesumofourallocations‑thevalues
+in𝑥‑mustequal1.
+10 HowMachineLearningisUsedataHedgeFund
+10.1 TheMLProblem
+Inmostcases,weusemachinelearningalgorithmstobuildamodel. A modelisessentiallyafunction:
+itreceivesaninput 𝑋andproducesanoutput 𝑌.
+Typically, 𝑋isameasurementorsetofmeasurementsthatwehavetakenorobserved. Themodel
+processes 𝑋andproducestheoutput 𝑌,whichisusuallyapredictionabouttheworld. Forexample,
+𝑋mightbethecurrentpriceofastock,and 𝑌mightbethefuturepriceofthatstock.
+𝑋canalsobemultidimensional;inotherwords,wemighthaveamodelthatconsidersmultiplefea‑
+turesatonce. Forexample, 𝑋mightbeanarraycontainingthecurrentprice,P/Eratio,andBollinger
+bandsforastock. 𝑌istypicallyasinglevalueandrepresentstheone‑dimensionalpredictionthatwe
+aretryingtomake.
+Ofcourse,therearemanymodelsthatpeoplehavebuiltthatdon’tusemachinelearningatall,such
+astheBlackScholes modelthatpredictsoptionsprices. Modelslikethesearemathematicalmodels,
+whicharederivedanalytically.
+MattSchlenker 189
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 190 ---
+MachineLearningforTrading(ML4T)‑Complete
+Machinelearningmodelsaredifferent. Themachinelearningprocessinvolvesrunninghistoricaldata
+throughamachine‑learningalgorithmtoderiveamodelbasedonthatdata. Later,whenweneedto
+usethemodel,wepassinnewexamplesandreceivefreshpredictions.
+10.2 What’sXandYQuiz
+Let’s think about building a model to use in trading. Which of the following factors might be input
+values( 𝑋)tothemodel,andwhichmightbeoutputvalues( 𝑌)?
+MattSchlenker 190
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 191 ---
+MachineLearningforTrading(ML4T)‑Complete
+10.3 What’sXandYQuizSolution
+Sincewe oftenuse models to predictvalues in the future, both futureprice and future returnmake
+MattSchlenker 191
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 192 ---
+MachineLearningforTrading(ML4T)‑Complete
+sense as output values. Our model might make these predictions byconsidering price momentum,
+currentprice,andBollingervaluesasinput.
+10.4 SupervisedRegressionLearning
+Theparticularflavorofmachinelearningthatwearegoingtofocusonrightnowiscalled supervised
+regressionlearning . Let’sbreakdowneachoftheseterms.
+Whenwetalkabout regression ,wearetalkingaboutmakinganumericalapproximationorprediction.
+Forexample, predictingstockpricesisaregressionproblem. Regressionlearningsitsincontrastto
+classificationlearning ,whichinvolvesclassifyinganobjectintooneofseveraltypes.
+Insupervised learning,wepresentthealgorithmwiththecorrectanswersduringthetrainingperiod.
+Inotherwords, weshowthemachinean 𝑋valueanditscorresponding 𝑌value. Afterseeingasuf‑
+ficient number of input/output pairs, the algorithm is ready to predict 𝑌values for new, previously
+unseen 𝑋values.
+Finally,whenwetalkabout learning,wearetalkingabouttrainingwithdata. Inthisclass,forexample,
+weareoftentakinghistoricalstockdataandtrainingthesystemtopredictthefuturepriceofthestock.
+We“teach”thealgorithmtomakenewpredictionsbyshowingitrelevantdatafromthepast.
+Many different algorithms use supervised regression learning techniques, and we can discuss four
+brieflyhere: linearregression,K‑nearestneighbor,decisiontrees,anddecisionforests.
+Linearregression involves finding the coefficients of a line that best fits the data. The coefficients
+aretheparametersofthemodel,andlinearregressionisknownasatypeof parametriclearning .
+K‑nearestneighbors (KNN)isanotherpopularapproachthatevaluatesanincoming 𝑋byexamining
+theK‑nearest (𝑋, 𝑌 )pairs. Sincethisalgorithmcomparesincomingdatatoinstancesofalready‑seen
+datapoints,thisapproachisknownas instance‑basedlearning .
+Decisiontrees redirectincoming 𝑋valuesdownindividualbranchesbasedonevaluationsoffactors
+of𝑋thatoccurateachnode. Theregressionvaluesarestoredintheleavesofthetree,andtheoutput
+ofadecisiontreeforagiven 𝑋istheleafinwhichthe 𝑋endsup.
+Decisionforests arecomposedofmanydecisiontreesqueriedinturnandcombinedinsomewayto
+provideanoverallresult.
+10.5 RobotNavigationExample
+Note: Thereisnowrite‑upforthisvideo. Honestly,thisrobotnavigationexamplerunsprettyfar
+afieldofthecorecoursecontent. Ifyouarereallyinvested,watchthefullvideo here
+MattSchlenker 192
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 193 ---
+MachineLearningforTrading(ML4T)‑Complete
+10.6 HowitWorkswithStockData
+Let’sconsiderhowwecangeneratethetypeofdatawecanfeedintoamachinelearningalgorithmin
+ordertobuildamodel.
+AssumewehaveapandasDataFramecontaininghistoricalfeaturesofaparticularstock,arrangedin
+theusualway: onerowforeachdatewithcolumnsrepresentingeachmetric.
+Wemighthavemanyfeaturesforeachstock,suchasBollingerBands,momentum,andP/Eratio. We
+canrepresenteachfeatureinaDataFrame,andthen“stack”theDataFramesonebehindtheother.
+MattSchlenker 193
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 194 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thesefeaturesmakeuptheinputvalues‑the 𝑋‑forthemodelthatthemachinelearningalgorithm
+synthesizes. In most cases, we want to use our model to produce a future price ‑ the 𝑌‑ given this
+historicalfeaturedataasinput.
+To generate the model, we need to supply the machine learning algorithm with training examples
+containingstockfeaturesandthecorrespondingfutureprice. Sincewedon’thavepricesinthefuture,
+wehavetousehistoricalprices.
+Let’sseehowwecangeneratetheseexamplesstartingfromthefirstdate dforwhichwehavedata.
+Wecanlookatthestockfeaturesfor d,andthepriceatsomefuturedate,suchas d+ 5. Notethat
+eventhoughthepriceishistorical,it’sinthefuturerelativeto d.
+MattSchlenker 194
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 195 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thispairingbetweenfeatures 𝑋atdandfutureprice 𝑌atd+ 5comprisesourfirsttrainingexample.
+Wecanstepforwardday‑by‑daytogeneratesubsequentexamplesmapping 𝑋atd+nto 𝑌atd+
+5 + n. Oncethisprocessiscomplete,wewillhavealargesetofexamplesthatwecanusetobuild
+ourmodel.
+10.7 ExampleataFinTechCompany
+Wecanusethisprocesstobuildamachine‑learning‑basedforecasterataFinTechcompany.
+MattSchlenker 195
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 196 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thefirststepistoselectwhichfactorswethinkareessentialintheforecastwewanttogenerate.These
+factors ‑ Bollinger Bands, P/E ratio, and others ‑ are our 𝑋values. They are measurable quantities
+aboutacompanythatcanbepredictiveofitsstockprice.
+Thenextstepistoselectthe 𝑌thatwewanttopredict. Usually,wewanttopredictachangeinprice
+orthefuturepriceofastock.
+Nowthatweknowour 𝑋and 𝑌,weneedtoconsiderthescopeofdatawearegoingtousetotrainour
+system. Forexample, weneedtoselecttherangeofdateswewanttoconsider, beitthreemonths,
+three years, or three decades. Additionally, we need to consider which symbols from the stock uni‑
+versewewanttoincludeintraining.
+Wecanthenselectourhistorical 𝑋and 𝑌values,scopedbytheconstraintswe’veoutlined,tocreate
+thedatathatweusetotrainthemodel.
+Next,wepassthisdatatoourmachinelearningalgorithm‑KNN,linearregression,decisiontrees,or
+somethingelse‑andthealgorithmconvertsthedataintoamodel.
+Oncewehavethemodel,wearereadytouseittogeneratepredictions. Wemeasurethepertinentfea‑
+turesofthestockweareinterestedinandplugthemintothemodel,whichoutputstheprediction.
+10.8 PriceForecastingDemo
+Note: Thereisnowrite‑upforthisvideo. Transcribingawalkthroughofsomeproprietaryappli‑
+cationthatyouandIarenevergoingtouseispointless. Ifyouarereallyinterested, watchthe
+fullvideo here.
+10.9 Backtesting
+Oncewehaveourmodel,wemightstarttogetcuriousabouttheaccuracyoftheforecastsitprovides
+andwhetherwecanactonthem.
+We can evaluate the performance of our model through backtesting. Backtesting is the process of
+applyingatradingstrategyoranalyticalmethodtohistoricaldatatoseehowaccuratelythestrategy
+ormethodwouldhavepredictedactualresults.
+First,welimitourdatatosomesubsetandtrainamodelonjustthatdata. Next,weaskthemodelfor
+aforecastofsometimeinthesimulatedfuture. Third,weplaceordersonthebasisthattheforecast
+isaccurate,shortingorlongingstocksasappropriate.
+MattSchlenker 196
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 197 ---
+MachineLearningforTrading(ML4T)‑Complete
+We can then roll time forward and see how the performance of our portfolio ‑ measured by Sharpe
+ratio,dailyreturn,orsomethingsimilar‑changesastheforecastdoesordoesnotcometofruition.
+Finally,werepeatthisprocess. Wetrainamodelbasedonamorerecentsubsetofthedata,makea
+prediction,andplotperformancebasedonordersmadeinlinewiththeprediction.
+MattSchlenker 197
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 198 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecanbacktestourstrategyagainsthistoricaldatatosimulatetheperformanceofourportfolioac‑
+cordingtothestrategy. Ultimately,theperformanceinformsuswhetherthestrategyisworthadopt‑
+ing.
+10.10 MLToolinUse
+Note: Thereisnowrite‑upforthisvideo. Transcribingawalkthroughofsomeproprietaryappli‑
+cationthatyouandIarenevergoingtouseispointless. Ifyouarereallyinterested, watchthe
+fullvideo here.
+10.11 ProblemsWithRegression
+Regression‑based forecasting is not without its issues. First, the forecasts we generate with this ap‑
+proach are often noisy and uncertain. Second, it’s hard to know how confident we should be in a
+forecast. Additionally,it’snotclearhowlongtoholdapositionorhowtoallocatetoapositionthat
+hasarisenfromaforecast.
+We can use reinforcement learning to address some of these issues. In reinforcement learning, the
+systemlearnsapolicythatguidesitsactions. Inourcase,thepolicyinformsthesystemofwhetherto
+buyorsellastock.
+MattSchlenker 198
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 199 ---
+MachineLearningforTrading(ML4T)‑Complete
+10.12 ProblemsWeWillFocusOn
+Fortherestofthisclass,wearegoingtolookatdatafromaspecificperiod,trainourmodelsoverthat
+data,andthentradeoversomeotherperiod.
+Forexample,wecanusedatafrom2009totrainourmodels. Then,throughout2010and2011,wecan
+useourmodelstogenerateordersbasedonforecasts. Astimepasses,wecanwatchtheperformance
+ofourportfoliochangeastheforecastsdoordonotcometrue.
+11 Regression
+11.1 ParametricRegression
+Wearefirstgoingtofocuson parametricregression , wherebywefitamodeltodatausingasetof
+parameters.
+Let’s start with a simple example. Suppose we want to build a model that can predict how much it
+willraintodaybasedonchangesinbarometricpressure.
+Generally,adeclineinbarometricpressureindicatesthatbadweatherandrainarecoming,whilean
+increaseinbarometricpressuremeansthatfairerweatherisimminent.
+Let’slookatthefollowingscatterplot,whereeachpointmapsachangeinbarometricpressureonthe
+𝑥‑axistothecorrespondingamountofrainfallonthe 𝑦‑axis.
+MattSchlenker 199
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 200 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecanseeageneraltrendhere,andindeeditfollowsourintuition: asbarometricpressureincreases,
+rainfalltendstodecrease.
+Wewanttocreateamodel,basedonthisdata,thatwecanqueryforanychangeinbarometricpres‑
+sure‑notjusttheexampleswe’vealreadyseen‑andgetaresultingpredictionforrainfall.
+Theclassicsolutiontothisproblemistofitalinetothedata,andwe’veplottedonesuchlinebelow.
+Thisapproachiscalled linearregression ,andtheresultingmodelcanbedescribedusingtheequa‑
+tionforaline: 𝑦 = 𝑚𝑥 + 𝑏 . Inthismodel, 𝑥istheobservedchangeinbarometricpressure, 𝑦isthe
+predictedamountofrainfall,and 𝑚and 𝑏aretheparametersthatwemustlearn.
+MattSchlenker 200
+hrishishahh@gmail.com 26 Jan 2026
+

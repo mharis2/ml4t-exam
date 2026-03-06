@@ -1,0 +1,446 @@
+--- Page 451 ---
+MachineLearningforTrading(ML4T)‑Complete
+totakefulladvantageofmarketperformance.
+Indownwardmarkets,wewanttheopposite: asmaller 𝛽. Indeed,aportfoliowithasmaller 𝛽𝑝falls
+lesssharplyinadownwardmarket,whileaportfoliowithalarger 𝛽𝑝crasheshard.
+27.18 HowHedgeFundsUsetheCAPM
+27.18.1 TwoStockScenarioQuiz
+Let’sconsideranotherscenarionow.
+Instead of staying flat, suppose that the market went up 10%. What are the relative and absolute
+returnsforbothstocks,andwhatisourtotalreturn,bothrelativeandabsolute?
+Let’salsoconsiderthescenariowherethemarketgoesdown10%. Whataretherelativeandabsolute
+returnsforbothstocks,andwhatisourtotalreturn,bothrelativeandabsolute?
+MattSchlenker 451
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 452 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.18.2 TwoStockScenarioQuizSolution
+Let’sfirstlookatthecasewherethemarketrisesby10%.
+ConsiderstockA,whichhasa 𝛽of1.0andan 𝛼of0.01. A 𝛽of1.0tellsusthatforeverypercentage
+pointthatthemarketmoves,stockAmovesonepercent. An 𝛼of0.01tellsusthatstockAwillmove
+1%aboveitsmovementwiththemarket.
+Asaresult,stockAmoves10%plus1%,foratotalrelativereturnof11%,andatotalabsolutereturn
+MattSchlenker 452
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 453 ---
+MachineLearningforTrading(ML4T)‑Complete
+of$5.50,11%ona$50investment.
+Let’s consider stock B now, which has a 𝛽of 2.0 and an 𝛼of ‑0.01. A 𝛽of 2.0 tells us that for every
+percentagepointthemarketmoves,stockAmovestwopercent. An 𝛼of‑0.01tellsusthatstockAwill
+move1%belowitsmovementwiththemarket.
+Asaresult,stockBmoves20%minus1%,foratotalrelativereturnof19%. However,sinceweshorted
+stockB,thisreturnisactually‑19%,andwehavelost$9.50.
+Let’scomputethetotalreturn. Sincewegained$5.50onstockAandlost$9.50onstockB,ourtotal
+absolutereturnis‑$4.
+Calculating the relative return is a little tricky; that is, we can’t just add 11% and ‑19% to get ‑8%.
+Instead,sincewesplitourinvestmentacrossstockAandstockB,ouractualreturnisone‑halfof11%
+plusone‑halfof‑19%,or‑4%.
+Now,let’slookatthecasewherethemarketfalls10%.
+In this case, stock A falls with the market, but does 1% better, for a total relative loss of 9%, which
+equatestoa$4.50lossona$50investment.
+StockBfallstwiceashardasthemarket,anddoes1%worseontopofthat,foratotalrelativelossof
+21%. However,sinceweshortedstockB,thislossisactuallya21%gain,oragainof$10.50ona$50
+investment.
+Overall,thismarketscenarionetsus6%,or$6ona$100investment.
+MattSchlenker 453
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 454 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.18.3 AllocationsRemoveMarketRiskQuiz
+Let’slookatourtwostocksagain. StockAhasa 𝛽of1.0andan 𝛼of0.01. StockBhasa 𝛽of2.0andan
+𝛼of‑0.01. WhatshouldtheweightsbeforstockAandstockBsothatwecanminimizemarketrisk?
+27.18.4 AllocationsRemoveMarketRiskQuizSolution
+Weneedtosolvethefollowingequation.
+MattSchlenker 454
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 455 ---
+MachineLearningforTrading(ML4T)‑Complete
+0 = 0.01𝑤𝐴+ 0.02𝑤𝐵
+𝑤𝐴= −2𝑤𝐵
+Wealsoknowthatthesumoftheabsolutevalues 𝑤𝐴and 𝑤𝐵shouldequalone.
+|𝑤𝐴| + |𝑤𝐵| = 1
+Ifwesubstitute −2𝑤𝐵for 𝑤𝐴,wecansolvefor 𝑤𝐵.
+| − 2𝑤𝑏| + |𝑤𝑏| = 1
+| − 3𝑤𝑏| = 1
+|𝑤𝑏| =1
+3
+However,sincewewanttoshortB, 𝑤𝐵isactually−1
+3,not1
+3. Wecannowsolvefor 𝑤𝐴.
+|𝑤𝐴| + |𝑤𝐵| = 1
+|𝑤𝐴| + | −1
+3| = 1
+|𝑤𝐵| =2
+3
+Ifweplugthesetwoweightsbackintoouroriginalequation,wecanverifythatwedogetanoverall
+𝛽𝑝of0.
+𝛽𝑝= 0.01𝑤𝐴+ 0.02𝑤𝐵
+𝛽𝑝= (0.01 ∗ 0.66) + (0.02 ∗ −0.33)
+MattSchlenker 455
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 456 ---
+MachineLearningforTrading(ML4T)‑Complete
+𝛽𝑝= 0.66 − 0.66
+𝛽𝑝= 0
+27.19 TechnicalAnalysis
+27.19.1 PotentialIndicatorsQuiz
+Nowthatweknowsomedifferencesbetweenthetypesofdatausedforfundamentalandtechnical
+analysis,let’slookatthefollowingfourfactors. Whichofthesearefundamental,andwhicharetech‑
+nical?
+MattSchlenker 456
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 457 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.19.2 PotentialIndicatorsQuizSolution
+Rememberthattechnicalanalysisconsidersonlypriceandvolumedata,whereasfundamentalanal‑
+ysisincorporatesothertypesofdata.
+The moving average of price and the percent change in volume consider only price and volume, re‑
+spectively,sotheyarebothtechnicalindicators.
+P/Eratioconsidersbothpriceandearnings,makingitafundamentalfactor,aswellasintrinsicvalue,
+whichisbasedondividends
+27.19.3 BuyorSellQuiz
+Let’s consider how we might trade using Bollinger Bands. Consider the four events below, each of
+which involves the price of a stock crossing over a Bollinger Band. For each event, determine if the
+eventdemonstratesabuyingopportunity,asellingopportunity,ornoopportunityatall.
+MattSchlenker 457
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 458 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.19.4 BuyorSellQuizSolution
+Forthefirstevent,weseethepricecrossingfromtheoutsidetotheinsideoftheupperBollingerBand.
+Thiseventindicatesthatthepriceismovingbacktowardsthemovingaverageafterastrongupward
+excursion. Thisisasellsignal.
+Forthesecondevent,weseethepricecrossingfromtheinsidetotheoutsideofthelowerBollinger
+Band. Thisisnotasignal,althoughitdoesindicateasignificantexcursionfromthemovingaverage.
+MattSchlenker 458
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 459 ---
+MachineLearningforTrading(ML4T)‑Complete
+Forthethirdandfourthevents,weseethepricecrossingfromtheoutsidetotheinsideofthelower
+BollingerBand. Theseeventsindicatethatthepriceismovingbacktowardsthemovingaverageafter
+astrongdownwardexcursion. Correspondingly,theyarebothbuysignals.
+27.20 DealingWithData
+27.20.1 PriceAnomalyQuiz
+ConsiderthefollowingplotofIBMstockpricesovertime.
+Noticethesuddendropsinprice.Inoneexample,thepricedropsfrom$300pershareto$75pershare;
+inanother,thepricedropsfrom$250pershareto$125pershare. Thesedropsrepresenta75%and
+a50%pricedecline,respectively.
+Undoubtedly,thevalueofIBMdidnotdropthatmuchinoneday,so,whichofthefollowingreasons
+mightexplainthesuddendropinstockprice?
+MattSchlenker 459
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 460 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.20.2 PriceAnomalyQuizSolution
+What we see here is a stock split , whereby a single share becomes 𝑛shares, and the price of each
+shareisdividedby 𝑛.
+Forexample,considerthedropinpricefrom$300pershareto$75pershare. This75%dropinprice
+is consistent with a 4‑for‑1 stock split, whereby one share becomes four shares. Note that the total
+valueofthesharesispreserved‑four$75sharesstillequals$300worthofIBM‑butthenumberof
+overallshareshasincreased.
+MattSchlenker 460
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 461 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.20.3 SplitAdjustmentQuiz
+Considerthefollowingplotofclosepricesforaparticularstockovertime. Noticethe2:1stocksplit.
+Foreachofthethreedaysidentifiedbelow,whatistheadjustedclosepriceforthisstock?
+MattSchlenker 461
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 462 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.20.4 SplitAdjustmentQuizSolution
+Foreachdaysincethestocksplit,theadjustedcloseisequivalenttotheactualclose. Asaresult,the
+adjustedcloseforthemostrecentofthethreedaysis$100.
+Foralldaysbeforethe2:1split,wecalculatetheadjustedclosebydividingtheactualclosebytwo. As
+aresult,theadjustedclosepricesfortheprevioustwodays,movingbackwardfromthesplit,are$50
+and$25,respectively.
+Consider buying one share of stock, on the first of the three days, for $50. After the split, we would
+havetwoshares,eachworth$50,andbythethirdday,ourshareswouldbeworth$100apiece. This
+trajectoryrepresentsafour‑foldincreaseinvalue,from$50to$200worthofstock.
+Note that using the adjusted close accurately reflects this quadrupling of value, whereas the actual
+closeseemstoindicate,incorrectly,onlyadoublingofvalue.
+27.20.5 DividendsQuiz
+Whatsharepricedoweexpecttoseethedaybeforethedividendispaid?Howaboutafterthedividend
+ispaid?
+MattSchlenker 462
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 463 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.20.6 DividendsQuizSolution
+Thedaybeforethedividendispaid,weshouldexpecttoseethestockpriceriseto$101. Ashareprice
+of$101reflectstheunderlyingvalueof$100pershare,forwhichthereisconsensus,plustheexpected
+MattSchlenker 463
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 464 ---
+MachineLearningforTrading(ML4T)‑Complete
+$1dividendpayment.
+Ontheverynextday,weshouldexpectthepricetodropby$1to$100pershare. Sincethedividend
+hasbeenpaid,thesharepriceshoulddropbackdowntothepricealignedwithitsfundamentalvalue:
+$100pershare.
+Note that the overall value for investors who bought before the dividend was paid is still $101 per
+share: $100pershareplus$1incashpershare.
+27.21 EfficientMarketsHypothesis
+27.21.1 TheEMHProhibitsQuiz
+Considerthethreeformsoftheefficientmarketshypothesis: weak,semi‑strong,andstrong. Which
+formsprohibitwhichofthefollowingdifferentanalyses?
+MattSchlenker 464
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 465 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.21.2 TheEMHProhibitsQuizSolution
+TheweakversionoftheEMHprohibitsusfromprofitingusingtechnicalanalysisbutissilentonfunda‑
+mentalanalysisandinsiderknowledge. Thesemi‑strongversionprohibitstechnicalandfundamental
+analysisbutissilentoninsiderknowledge. Thestrongversionprohibitsallthree.
+27.22 TheFundamentalLawofActivePortfolioManagement
+27.22.1 WhichBetisBetterQuiz
+Let’sconsidertwodifferentwaystobet.
+Oneapproachistoputall1000tokensononetableandzerotokensontheother999tables. Another
+approachistoputonecoinoneachofthe1000tables. Whichoftheseapproachesisbetter,orisitthe
+casethattheyareequivalent?
+MattSchlenker 465
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 466 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.22.2 WhichBetisBetterQuizSolution
+Thefirstbetisveryrisky;thatis,thereisa49%chancethatwearegoingtoloseallofourmoneywith
+thesingleflipofacoin. Thesecondbetismuchlessrisky. Bydistributingourtokensacrossallone
+thousandtables,weonlyloseallofourmoneyifweloseall1000bets:averylowprobabilityindeed.
+Sincetheexpectedreturnforeachofthesebetsisthesame,thesecondbetisabetterchoicefromthe
+perspectiveofrisk‑adjustedreward.
+MattSchlenker 466
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 467 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.22.3 Coin‑FlipCasino: RewardQuiz
+Tofigureoutwhichofthesedifferentscenariosisbest,weneedtoconsiderrewardandrisk. Whenwe
+talkaboutrewardinthissituation,wearetalkingabout expectedreturn .
+Inthesingle‑betcase,wherewebet1000chipsatonce,ourexpectedreturnisthechanceofwinning
+thebettimestheamountthatwewouldwinplusthechanceoflosingthebettimestheamountthat
+wewouldlose.
+Sinceweareusingabiasedcoin,wehavea51%chanceofwinning1000tokensanda49%chanceof
+losing1000tokens. Ifwemultiplythisout,weseethatourexpectedreturnis20tokens.
+𝔼 = 0.51 ∗ 1000 + 0.49 ∗ −1000 = (0.51 − 0.49) ∗ 1000 = (0.02) ∗ 1000 = 20
+What is the expected return in the multi‑bet case, where we bet 1000 tokens across 1000 different
+tables?
+MattSchlenker 467
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 468 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.22.4 Coin‑FlipCasino: RewardQuizSolution
+Inthiscase, wehavethesamechancesofwinningandlosing‑51%and49%, respectively‑butthe
+amount we stand to win or lose on any bet is only one dollar. Since we are placing 1000 bets, our
+overallexpectedvalueis1000timestheexpectedvalueofanyindividualbet.
+𝔼 = 1000 ∗ (0.51 ∗ 1 + 0.49 ∗ −1) = (0.51 − 0.49) ∗ 1000 = (0.02) ∗ 1000 = 20
+Noticethatforboththesingle‑betandmulti‑betscenarios,theexpectedreturn‑thereward‑ispre‑
+ciselythesame. Tounderstandwhythemulti‑betsetupisabetterchoice,wehavetoalsoconsider
+theriskinherentineachscenario.
+27.22.5 Coin‑FlipCasino: Reward/RiskQuiz
+Nowwecanconsidertherisk‑adjustedreward.
+Let’slookatthesingle‑betcasefirst. Inthiscase,theexpectedrewardis$20,andtheexpectedriskis
+$31.62. Ifwedividetherewardbytherisk,wegetavalueof0.63.
+Whatistherisk‑adjustedrewardcalculationforthemulti‑betcase?
+MattSchlenker 468
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 469 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.22.6 Coin‑FlipCasino: Reward/RiskQuizSolution
+Inthemulti‑betcase,therewardwasthesame‑$20‑buttheriskwasmuchsmaller:$1. Thus,therisk‑
+adjustedrewardforthisscenariois20,whichismuchhigherthanthatofthesingle‑betscenario.
+The take‑home message here is that we can increase the risk‑adjusted reward simply by spreading
+ourmoneyacrossalargenumberofbets.
+MattSchlenker 469
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 470 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.22.7 Simonsvs.BuffetQuiz
+How can we relate the performance of Renaissance Technologies ‑ really, Jim Simons ‑ and Warren
+Buffett?
+For this problem, let’s assume that Simons and Buffett both have the same information ratio. Let’s
+alsoassumethatSimons’sstock‑pickingalgorithmsareonlyabout1/1000thassmartasBuffett’s;in
+otherwords,Simon’sinformationcoefficientis1/1000ththatofBuffett.
+IfBuffetttrades120timesayear,howmanytimesmustSimonstradetomaintainthesameinforma‑
+tionratioasBuffett?
+MattSchlenker 470
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 471 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.22.8 Simonsvs.BuffetQuizSolution
+If Buffett trades only 120 times per year, Simons has to trade 120,000,000 times to match Buffett’s
+performance.
+Let’sstepthroughthemath. SinceBuffettandSimonsbothhavethesameinformationratio,wecan
+settheequationfor 𝐼 𝑅𝐵equaltotheequationfor 𝐼 𝑅𝑆.
+𝐼 𝐶𝐵∗√𝐵𝐵= 𝐼 𝐶𝑆∗√𝐵𝑆
+Furthermore,weknowthatSimons’sICis1/1000thBuffett’sIC.
+𝐼 𝐶𝐵∗√𝐵𝐵=𝐼 𝐶𝐵∗√𝐵𝑆
+1000
+Wecanmanipulatethisequationtoisolate 𝐵𝑆.
+1000 =𝐼 𝐶𝐵∗√𝐵𝑆
+𝐼 𝐶𝐵∗√𝐵𝐵
+1000 =√𝐵𝑆
+√𝐵𝐵
+MattSchlenker 471
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 472 ---
+MachineLearningforTrading(ML4T)‑Complete
+1000 ∗ √𝐵𝐵= √𝐵𝑆
+1000000 ∗ 𝐵𝐵= 𝐵𝑆
+Sinceweknowthat 𝐵𝐵= 120,wecansolvefor 𝐵𝑆.
+1000000 ∗ 120 = 𝐵𝑆= 120, 000, 000
+27.23 PortfolioOptimizationandtheEfficientFrontier
+27.23.1 BuildingaPortfolioQuiz
+Let’sconsiderthethreefollowingportfolios.
+Eachgreendotrepresentsanassetheldintheportfolio,andthesizeofthedotrepresentstheweight
+ofthatasset.
+Ifweweretoaggregatetheriskandreturnoftheindividualstocksintoonevalue,whichofthefollow‑
+ingplots‑inorangebelow‑wouldmatchwhichportfolio?
+MattSchlenker 472
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 473 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.23.2 BuildingaPortfolioQuizSolution
+Thefirstportfolioemphasizestwohigh‑riskstocks: onewithlowreturnandonewithhighreturn. Of
+thethreeplots,Blooksbest‑alignedforthisallocation.
+Thesecondportfolioemphasizesthreelow‑riskstockswithanaggregatemiddle‑of‑the‑roadreturn.
+Ofthethreeplots,Alooksbest‑alignedforthisallocation.
+Finally,thethirdportfolioemphasizestwolow‑returnstocks: onewithlowriskandonewithhighrisk.
+MattSchlenker 473
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 474 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ofthethreeplots,Clooksbest‑alignedforthisallocation.
+27.24 ReinforcementLearning
+27.24.1 TradingasanRLProblemQuiz
+Wewanttousereinforcementlearningalgorithmstotrade;todoso,wehavetotranslatethetrading
+problemintoareinforcementlearningproblem.
+Considerthefollowingitems. Foreachitem,selectwhethertheitemcorrespondstoacomponentof
+theexternalstate 𝑆,anaction 𝑎wemighttakewithintheenvironment,orareward 𝑟thatwemight
+usetoinformourpolicy 𝜋.
+MattSchlenker 474
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 475 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.24.2 TradingasanRLProblemQuizSolution
+Buyingandsellingstockarebothactionsthatweexecuteuponourenvironment.
+HoldinglongandBollingervaluearebothpartsofthestate. Holdinglongtellsusaboutourpositionin
+aparticularstock,andBollingervaluetellsusaboutthecurrentpricecharacteristicsofastock. Both
+ofthesepiecesofinformationmightdrivesubsequentaction.
+Thereturnfromatradeisourreward. Ifourreturnispositive,soisourreward. Ontheotherhand,a
+negativerewardindicatesthatwelostmoneyontheposition. Dailyreturncouldbeeitheracompo‑
+nentofthestate‑afactorweconsiderbeforegeneratinganaction‑butitcouldalsobeareward.
+27.24.3 WhichApproachGets$1MQuiz
+Which of the following approaches leads our robot to a policy that causes it to reach the $1 million
+reward?
+MattSchlenker 475
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 476 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.24.4 WhichApproachGets$1MQuizSolution
+Withaninfinitehorizon,therobotmayexclusivelygrabthe$1adinfinitum,oritmightfirstgrabthe$1
+millionbeforereturningtothe$1. Asaresult,obtainingthe$1millionispossiblewithinfinitehorizon,
+butnotguaranteed.
+Withafinitehorizonoflengthfour,therobotdoesnotreachthe$1million. Ajourneytowardsthe$1
+millionresultsinfourpenalties,whereasheadingtowardsthe$1resultsinapositivereward.However,
+ifweincreasethehorizontoten,therobotdoesreachthe$1million.
+MattSchlenker 476
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 477 ---
+MachineLearningforTrading(ML4T)‑Complete
+Inthediscountedscenario,eachrewardinthefutureissuccessivelydevaluedby5%. Evenso,the$1
+millionrewardissolargethatseekingthisrewardisstilltheoptimalstrategy.
+27.25 Q‑Learning
+27.25.1 TheTradingProblem: RewardsQuiz
+Therewardsthatourlearnerreapsshouldrelateinsomewaytothereturnsofourstrategy. Thereare
+atleasttwodifferentwaysthatwecanthinkaboutrewards.
+Ontheonehand, wecanthinkabouttherewardforapositionasthedailyreturnofastockheldin
+ourportfolio. Ontheotherhand,wecanthinkabouttherewardforapositionbeingzerountilweexit
+theposition,atwhichpointtherewardisthecumulativereturnofthatposition.
+Whichoftheseapproachesresultsinafasterconvergencetotheoptimalpolicy?
+MattSchlenker 477
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 478 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.25.2 TheTradingProblem: RewardsQuizSolution
+If we choose the delayed paradigm ‑ where the reward is zero until the end of the trade cycle ‑ the
+learnerhastoinferthecorrectsequenceofactionsleadinguptothefinalactionthatbroughtabout
+thelargewindfall. Ifwerewardalittlebiteachday,however,thelearnercanlearnmuchmorequickly
+becauseitreceivesmuchmorefrequentrewards.
+27.25.3 TheTradingProblem: StateQuiz
+Consider the following factors and select which should be part of the state that we examine when
+selectinganappropriateaction.
+MattSchlenker 478
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 479 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.25.4 TheTradingProblem: StateQuizSolution
+NeitheradjustedclosenorSMAaloneareusefulcomponentsofthestatebecausetheydon’tparticu‑
+larlymeanmuchasabsolutevalues. Forexample,ifGOOGclosesat$1000pershare,andXYZcloses
+at$5pershare,wecannotdetermine,basedonthatinformationalone,whetherweshouldbuy,sell,
+orholdeitherofthosestocks.
+However,theratioofadjustedclosetoSMAcanbeavaluablepieceofstate. Forexample,apositive
+ratio indicates that the close is larger than the SMA, which may be a sell signal. Additionally, other
+MattSchlenker 479
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 480 ---
+MachineLearningforTrading(ML4T)‑Complete
+technicalandfundamentalindicatorssuchasBollingerBandsandP/Eratiocanbeessentialpartsof
+ourstate.
+Whetherornotwearecurrentlyholdingastockthatweareexaminingisanimportantpieceofstate.
+Forexample,ifweareholdingastock,itmightbeadvantageoustogetridofit. Alternatively,ifweare
+notholdingastock,wemaynotwanttosellbecausewedon’twanttoenterashortposition.
+Finally,ourreturnsinceweenteredapositionmightbeapieceofourstate. Forexample,wemight
+decidetoselloffaparticularlyvolatilestockafterwehavelockedinsomeamountofreturn.
+27.26 Dyna
+27.26.1 HowtoEvaluateTQuiz
+Assume we have been interacting with the real world for a while, and we would like to consult our
+modelof 𝑇. Canyouwriteanequationfor 𝑇intermsof 𝑇𝑐?
+MattSchlenker 480
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 481 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.26.2 HowtoEvaluateTQuizSolution
+NOTE:Thedenominatorinthisequationshouldreference 𝑇𝑐,not 𝑇.
+Whatwewanttofindhereistheprobabilityofaparticularresultingstate, 𝑠′,givenacurrentstate, 𝑠
+andanaction, 𝑎. Thus,weneedafractionwherethenumeratoristhenumberoftransitionsfrom 𝑠to
+𝑠′,bywayof 𝑎,andthedenominatoristhetotalnumberoftransitionsoutof 𝑠,bywayof 𝑎.
+Let’sconsiderthenumeratorfirst. Thetotalnumberoftransitionsfrom 𝑠to𝑠′,asaresultof 𝑎,issimply
+therecordedvalue, 𝑇𝑐[𝑠, 𝑎, 𝑠′].
+Next,let’sconsiderthedenominator. Thetotalnumberoftimeswetransitionedoutof 𝑠bytaking 𝑎
+isthesum 𝑇𝑐[𝑠, 𝑎, 𝑠1] + 𝑇𝑐[𝑠, 𝑎, 𝑠2] + ... + 𝑇𝑐[𝑠, 𝑎, 𝑠𝑛],where 𝑛isthesizeof 𝑆,thestatespace.
+Altogether,wehavethefollowingequation:
+𝑇 [𝑠, 𝑎, 𝑠′] =𝑇𝑐[𝑠, 𝑎, 𝑠′]
+∑𝑛
+𝑖𝑇𝑐[𝑠, 𝑎, 𝑠𝑖]
+MattSchlenker 481
+hrishishahh@gmail.com 26 Jan 2026
+

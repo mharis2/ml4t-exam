@@ -1,0 +1,1017 @@
+--- Page 251 ---
+MachineLearningforTrading(ML4T)‑Complete
+Atanygiventime,therearehundredsofthousands,ifnotmillionsofordersenteringexchanges. Ifthe
+pricesdifferedsignificantlybetweenexchanges,investorswouldmovetheirorderstotheexchanges
+thatofferedmorefavorableprices.
+Thisactofshiftingordersenmasse,however,wouldhavetheeffectofreducingthefavorabilityofthe
+pricesonthatexchange. Asaresult,thepricestendnottobeverydifferentbetweenexchanges.
+Now,let’sassumeourbrokeragehasanotherclient,Joe. Joewantstosellsomestock. Thebrokerage
+can“match”clientsthatwanttobuywithclientswhowanttosellandfulfilltheorderswithouteven
+goingtotheexchanges.
+Fulfillingtheorderin‑housecanbeadvantageousforthebrokersincetheycanavoidpayingfeesto
+theexchangetofacilitatetheorder. Thisprocessisalsosafeforthebuyerandsellersince,according
+tothelaw,thebrokeragemustfulfilltheirorderswithpricesthatareatleastasgoodasthoseoffered
+bytheexchange.
+Attheendofthetradingday,thebrokeragehastoregisterthetransactionwithoneoftheexchanges.
+Asaruleofthumb,thebrokerageusuallyrecordsthetransactionattheexchangewheretheparticular
+stockishomed.
+MattSchlenker 251
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 252 ---
+MachineLearningforTrading(ML4T)‑Complete
+Let’sconsideranotherexample.Inthiscase,Lisaalsowantstosellsomestock,butsheusesadifferent
+brokeragefirmthanus.
+Entitiescalled darkpools sitbetweenbrokeragesandexchangesandpaybrokersfortheprivilegeof
+lookingattheirordersbeforetheygototheexchanges.
+Darkpoolsareoftenmakingpredictionsaboutwhichdirectionstocksaregoingtogo,soiftheyseea
+profitabletradecomingfromabroker,theywilltakeit.
+Inthisexample,Lisa’ssellordermightberoutedfromherbrokerthroughthedarkpooltoourbroker
+andconnectwithourbuyorderwithoutevermakingittotheexchanges.
+MattSchlenker 252
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 253 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thesedays,80‑90%ofretailtraders’ordersnevermakeittotheexchanges; instead,theyareeither
+executedinternallywithinabrokerageorfilledusingadarkpool.
+15.7 HowHedgeFundsExploitMarketMechanics
+Let’ssupposethatJoeisaninvestorlivinginSeattle,andheiscurrentlylookingatstockpricesonhis
+computer. Hethinksthatpricesaregoingtogoup,soheissuesabuyorder.
+Hisordertravelsacrossthecountryand,sinceheisusing Etradeashisbroker,stopsinAtlantabefore
+beingroutedtotheNewYorkStockExchange(NYSE)inNewYorkCity.
+Foreachstock,NYSEmaintainsanorderbook,whichisvisibletoinvestorslikeJoeaswellastrading
+computerscolocatedintheexchange.
+Supposeourhedgefundownsoneofthesecolocatedcomputers. Thiscomputermightsit100meters
+from the central exchange computer that holds the order book. Information about the order book
+travelsfromtheexchangecomputertoourcomputerinabout0.3microseconds.
+The distance between the exchange and Joe, on the other hand, is about 2500 miles. As a result,
+changes in the order book take at least 12 milliseconds to reach Joe, and Joe’s subsequent order
+takesatleast12millisecondstoreachtheexchange.
+MattSchlenker 253
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 254 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ourhedgefundiscontinuallyobservingtheorderbook,and,basedonwhatitsees,itthinksthatthe
+priceisgoingtorise. Asaresult,webuysomestock.
+BackinSeattle,Joeisthinkingthesamething,soheentersabuyorder,whichstartsmakingitsway
+acrossthecountry. Ashisordertravels,thepricebeginstoriseasaresultofthebuyorderswesub‑
+mitted.
+Eventually,hisorderreachestheNYSE.Bythistime,wehavealreadyboughtthestockandwatched
+thepricerise. Wetheneffectivelysellthestockatahigherpriceto“lagging”investorslikeJoe. We
+mightonlyholdthisstockforafewmilliseconds,butwecanusethisstrategytogeneratesmallprofits
+consistently.
+Let’s look at another type of exploit, which takes advantage of small price differences between ex‑
+changes.
+Considertwoexchanges:onelocatedinNewYorkCityandanotherlocatedinLondon.Ourhedgefund
+mightplaceaserverateachexchangeandconnectthemwithanultrahighspeed,dedicatedconnec‑
+tion. Theserverscontinuouslymonitortheorderbooksateachexchangeandcompareprices.
+Becauseofthedistancebetweenthetwoexchanges,thepricesforagivensecuritymightdriftslightly.
+SupposeadifferenceemergessuchthatthepriceinNYCisalittlebitlower,andthepriceinLondon
+isalittlebithigher.
+Our hedge fund will immediately buy shares in New York and sell shares in London. Note that the
+bought shares and the sold shares don’t have to be the same set of shares; instead, we might buy
+onesetandsellanotherset. Thepointisthatweexploitthedifferenceinprices,astrategyknownas
+arbitrage ,tonetasmallprofit.
+MattSchlenker 254
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 255 ---
+MachineLearningforTrading(ML4T)‑Complete
+Becausehedgefundsmonitorthepricedifferencesacrossexchangesallovertheworld, thesesorts
+ofdifferencesarerarelygreaterthanafractionofacent. But,suchdifferencesdooccasionallyarise,
+becausethereareinefficienciesinthemarket,andtherearehedgefundsreadytopickthosepennies
+upofftheground.
+15.8 AdditionalOrderTypes
+Theexchangesonlyexecuteordersacrosstwoprimarydimensions:buy/sell,andmarket/limit. There
+areothertypesoforders,however,thatabrokermightimplement.
+Ifwewanttosellastockonceitdipsbelowaspecificprice,wemightissuea stop‑loss order. Similarly,
+ifwewanttosellastockonceitsurpassesaspecificprice,wemightissuea stopgain order.
+Atrailingstop orderissimilartoastop‑lossorder,exceptthethresholdpricemoves. Forinstance,we
+mightissueatrailingstopat$0.10behindtheprice. Asthepricerises,thevalueatwhichwewantto
+sellthestockrisesaswell. Whenthepricedropsmorethan$0.10,thebrokerissuesasellorder.
+Thesethreeordersrelyonourbrokerwatchingthemarketuntiltheconditionswespecifyaremetand
+thenissuingasimplebuyorsellordertoanexchange.
+Perhapsthemostimportant,impactfulkindoforderthatbrokersimplementissellingshort. Selling
+shortallows us to take a negative position on a stock; in other words, we can borrow stock from a
+brokerandimmediatelysellitifwebelieveitspriceisgoingtogodown.
+MattSchlenker 255
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 256 ---
+MachineLearningforTrading(ML4T)‑Complete
+15.9 MechanicsofShortSelling: Entry
+SupposethatwewanttotakeashortpositioninIBM,whichiscurrentlysellingat$100pershare.
+Joeholds100sharesofIBM,andhelikesIBM,sohewantstoholdontotheshareslong‑term. However,
+heiswillingtolendushis100sharesintheshort‑term.
+LisathinksIBMisgoingtogoupinprice,soshewantstobuyIBMnow. Weborrowthe100sharesfrom
+JoeandsellthemtoLisa,whopaysus$10,000.
+Aftereverythingsettles,wehave$10,000inourbrokerageaccount,butwealsooweJoe100shares
+ofIBM.IfJoedecidesthathewantshissharesback,wehavetopurchasethemfromthemarketand
+returnthemtohim.
+15.10 ShortSellingQuiz
+Supposewe’vebeenwatchingIBM,andwedecidetoshortitwhenitreaches$100becausewethink
+thatitisgoingtogodown. Ifweshort100sharesat$100pershareandsubmitanordertobuyback
+thesharesat$90persharetocloseoutourposition,whatisournetreturn?
+MattSchlenker 256
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 257 ---
+MachineLearningforTrading(ML4T)‑Complete
+15.11 ShortSellingQuizSolution
+EachtimeIBMdrops$1inprice,wemake$100becauseweareshorting100shares. Altogether,the
+stockdropped$10,sowemade$1000.
+15.12 MechanicsofShortSelling: Exit
+Wenowhave$10,000inouraccountfromsellingJoe’s100sharestoLisaat$100pershare, andwe
+oweJoe100sharesofIBM.
+Let’ssupposethat,sincethattransaction,IBMhasdroppedinpriceandisnowsellingat$90pershare.
+Wecanmakeaprofitfromthatpricedifferential,sowedecidetocloseourposition. Todoso,weneed
+tobuy100sharesfromsomeonewhowantstosellthem,likeNate.
+Webuy100sharesfromNateandreturnthemtoJoe,thusfulfillingourobligationtoJoe. SinceIBM
+wassellingat$90ashare,andweowedJoe100shares,wehadtobuy$9000worthofstock. However,
+wehad$10,000inouraccountfromourinitialsaletoLisa,sowehavenetted$1000.
+Inreality, wedon’tmakeanyagreementswithindividualinvestorslikeJoe, Lisa, orNate. Wemake
+agreementswithourbroker,whofacilitatesthesetypesoftradesforus.
+15.13 WhatCanGoWrong
+Let’ssupposewehaven’tyetclosedourshortposition. Weowe100sharesofIBM,andweneedtobuy
+thosesharesatapriceofunder$100persharetomakeaprofit.
+MattSchlenker 257
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 258 ---
+MachineLearningforTrading(ML4T)‑Complete
+If the price of IBM goes up to, say, $150 a share, instead of down to $90 a share, our short becomes
+unprofitable. Whenwegotoexitourposition,itcostsus$15,000tobuybacktheshareswesoldfor
+$10,000,leavinguswitha$5,000loss.
+Generally,ifweshortastockandthepriceofthatstockgoesupinsteadofdown,welosemoney. Since
+thepriceofastockcanrisewithoutbound,wecanpotentiallylosesignificantamountsofmoney.
+16 WhatIsaCompanyWorth
+16.1 WhatIsaCompanyWorthQuiz
+Supposethereisacompanythatconsistentlygenerates$1peryear. Whatisthatcompanyworth?
+MattSchlenker 258
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 259 ---
+MachineLearningforTrading(ML4T)‑Complete
+16.2 WhatIsaCompanyWorthQuizSolution
+16.3 WhyCompanyValueMatters
+In general, the fundamental value of a company increases monotonically over time, as seen by the
+followingplot.
+Thisfundamentalvalueisdistinctfromthevalueasestimatedbythemarket. Inotherwords, what
+the stock market says a company is worth is often different than what a company is actually worth.
+MattSchlenker 259
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 260 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ononeparticularday,thestockmarketmightovervalueacompany;onanother,itmightundervalue
+thecompany.
+Manytradingstrategiesfocusonidentifyingwherethecurrentstockpricedivergesfromthetruevalue
+of the company. For example, if we see a stock price that surpasses this value, we know to sell the
+stock. Conversely,astockpricethatfallsbelowthisvaluesignalsthatweshouldbuythestock.
+Therearemanydifferentwayswecanestimatethetruevalueofacompany, suchasintrinsicvalue,
+bookvalue,andmarketcapitalization.
+Intrinsicvalue basesthevalueofthecompanyonfuturedividends. A dividend isacashpayment,
+MattSchlenker 260
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 261 ---
+MachineLearningforTrading(ML4T)‑Complete
+often a few dollars per share, that companies award to shareholders on a quarterly or yearly basis.
+Intrinsicvalueaccumulatesallofthefuturedividendsacrossallsharesofstocktoprovideavaluation
+foracompany.
+Bookvalue determineshowmuchacompanyisworthbylookingatthevalueoftheassetsthatthe
+companyowns. Inotherwords,ifthecompanyweretoselleverything‑factories,inventory,invest‑
+ments,andsoon‑theamountofmoneytheywouldreceiveinthesalewouldbetheirbookvalue.
+Finally,marketcapitalization calculatescompanyvalueastheproductofthenumberofoutstanding
+shares in the market and the current share price. For example, if Apple has 1,000,000 outstanding
+shares,pricedat$1,000pershare,itsvalue,basedonmarketcap,wouldbe$1billion.
+16.4 TheBalchBondQuiz
+Assumethatweareinapositiontoreceiveoneofthreedifferentassets.
+The first asset is a $1 bill: cold, hard cash. The second asset is a Tucker Balch bond; essentially, a
+promisecertifiedbytheprofessorthathewillpayus$1inoneyear.ThethirdassetisaUSGovernment
+bond,whichalsopaysout$1inoneyear,butisbackedbytheUnitedStatesgovernment.
+Whichoftheseassetswouldyouratherreceive? Rankthechoicesfrom1(best)to3(worst).
+MattSchlenker 261
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 262 ---
+MachineLearningforTrading(ML4T)‑Complete
+16.5 TheBalchBondQuizSolution
+The most valuable asset among these three is the $1 delivered right now because you can spend it
+right now. The other two are promises for a reward at some point in the future. Among these two
+bonds, the one backed by the US government is likely more valuable than the one backed by the
+professor.
+16.6 TheValueofaFutureDollar
+As we just saw, a dollar delivered today is more valuable than the promise of a dollar delivered at
+some point in the future. Additionally, we agreed that the promise of a future dollar is worth more
+whenbackedbytheUSgovernmentthanwhenbackedbyProfessorBalch.
+Weneedtoaccountfortwofactorswhenthinkingaboutthevalueofapromiseddollar:whoismaking
+thepromiseandhowlongwehavetowaitforthemtodeliverthedollar.
+Formally, wearetryingtofindthepresentvalue 𝑃 𝑉ofadollardeliveredinthefutureasafraction
+ofitsfuturevalue 𝐹 𝑉. Keepinmindthatthefuturevalueisnothingmorethanthevaluethatweare
+promised;forthisexample,thefuturevalueofapromiseof$1is$1.
+Given an interest rate, 𝐼 𝑅and a waiting period, 𝑖, measured in years, we can calculate 𝑃 𝑉as fol‑
+lows.
+𝑃 𝑉 =𝐹 𝑉
+(1 + 𝐼 𝑅)𝑖
+MattSchlenker 262
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 263 ---
+MachineLearningforTrading(ML4T)‑Complete
+Let’sfirstconsiderthecaseofreceivingaone‑dollarbillrightnow. Sincewedon’thavetowait, 𝑖 = 0
+and 𝑃 𝑉 = 𝐹 𝑉 . Inotherwords, thepaymentisfulfilledimmediatelyandisworththefacevalueof
+thebill: $1.
+Let’slookatadifferentexample. SupposethattheUnitedStatesgovernmentoffersabondata1%
+interestrate. Thepresentvalueof$1,paidtousinoneyear,ata1%interestrateis
+𝑃 𝑉 =$1
+(1 + 0.01)1
+𝑃 𝑉 =$1
+1.01
+𝑃 𝑉 ≈ $0.99
+Inotherwords,weshouldonlybuythisgovernmentbondifwehavetopay$0.99orless.
+Now consider the Tucker Balch Bond. Professor Balch can’t sell us his bond with the same interest
+rateasthegovernmentbond;sinceheislesstrustworthythantheUSgovernment,asmartinvestor
+wouldpickthegovernmentbondeverytime.
+ProfessorBalchcanonlyattractinvestorsbyofferingahigherinterestrate,suchas5%. Thepresent
+valueof$1,paidtousinoneyear,ata5%interestrateis
+𝑃 𝑉 =$1
+(1 + 0.05)1
+𝑃 𝑉 =$1
+1.05
+𝑃 𝑉 ≈ $0.95
+In other words, if Professor Balch wants to attract us to buy his $1 bond, he could only charge us
+$0.95.
+Wecanplotthepresentvalueofa$1bondbackedbyboththeUSgovernmentandTuckerBalch,asa
+functionof 𝑖.
+MattSchlenker 263
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 264 ---
+MachineLearningforTrading(ML4T)‑Complete
+Hereweseetwocurvesdemonstratingexponentialdecay. Asourabovecalculationshaveconfirmed,
+thepresentvalueofthelesstrustworthybond,withthehigherinterestrate,isalwaysworthlessthan
+thepresentvalueofthemoretrustworthybond,withthelowerinterestrate,foranyvalueof 𝑖.
+16.7 IntrinsicValue
+Intrinsicvalueusesdividendstomeasurethevalueofacompany. Rememberthatdividendsarecash
+paymentsawardedtoshareholdersonaquarterlyoryearlybasis.
+In some respect, then, dividends are similar to the bonds we described above in that they are a
+promiseofafuturepayment. Wecanexaminethepresentvalueofasingledividendinjustthesame
+waywecomputedthepresentvalueofasinglebond.
+Wecanalsocomputethepresentintrinsicvalue, 𝐼 𝑉,ofthewholecompanybytakingthesumofthe
+presentvaluesofalldividendstobedistributed.
+𝐼 𝑉 =∞
+∑
+𝑖=1𝐹 𝑉
+(1 + 𝐼 𝑅)𝑖
+While a bond issuer states the interest rate, 𝐼 𝑅, that a bond buyer is going to receive, the process
+worksdifferentlyregardingdividends. Insteadofinterestrate,weconsiderthe discountrate ,which
+isameasureofhowriskywethinkaninvestmentinacompanymightbe.
+Forexample, wemightthinkthatinvestinginAppleisverysafe, assafe, infact, aspurchasingaUS
+governmentbond. Inthiscase,wewouldsetthediscountrateequaltotheUSbondrateforApple.
+MattSchlenker 264
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 265 ---
+MachineLearningforTrading(ML4T)‑Complete
+However, if we are less sure that a company can fulfill its promise to deliver dividends, we need to
+increasethediscountrate. Byincreasingthediscountrate,weimplythatweexpectahigherfuture
+paymentinexchangeforasomewhatriskierupfrontinvestment.
+Givenadiscountrate, 𝐷𝑅,wecancompute 𝐼 𝑉asfollows.
+𝐼 𝑉 =∞
+∑
+𝑖=1𝐹 𝑉
+(1 + 𝐷𝑅)𝑖
+Thisinfinitesumreducestoasimpleexpression.
+𝐼 𝑉 =𝐹 𝑉
+𝐷𝑅
+Let’sconsideracompanythatgeneratesa$1dividend. Supposethat,aftermuchresearch,wedecide
+thattherisklevelofaninvestmentinthiscompanyissuchthatwedeservefuturedividendsata5%
+discountrate.
+Thepresentvalueofthiscompanyis
+$1
+0.05= $20
+16.8 IntrinsicValueQuiz
+Consider a company that pays a dividend of $2 per year. Given a discount rate of 4%, what is the
+intrinsicvalueofthiscompany?
+MattSchlenker 265
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 266 ---
+MachineLearningforTrading(ML4T)‑Complete
+16.9 IntrinsicValueQuizSolution
+Thepresentvalue, 𝑃 𝑉,ofacompanyisequaltothefuturevalue, 𝐹 𝑉,dividedbythediscountrate,
+𝐷𝑅. Given 𝐹 𝑉 = 2and 𝐷𝑅 = 0.04 ,
+𝑃 𝑉 =$2
+0.04= $50
+16.10 BookValue
+Aclassicdefinitionofbookvalueistotalassetsminusintangibleassetsandliabilities.
+Tangible assets are those that are easy to price: factories, offices, inventory, and so on. Intangible
+assets,likepatents,orthevalueofabrand,aremuchhardertoprice. Liabilitiesrefertothingsthat
+areowed,likeloans,debts,orotherobligations.
+Let’sconsideracompanythatownsfourfactories,eachpricedat$10million,andthreepatents,each
+valuedat$5million. Additionally,supposethecompanyhasoneliability,aloanworth$10million.
+Ifwetakethetotalvalueoftheassets,$55million,andsubtracttheintangibleassets,$15millionin
+patents,andthe$10millionliability,wegetabookvalueof$30millionforthiscompany.
+16.11 MarketCapitalization
+Alternatively, we can let the market determine the value of a company. Market capitalization is the
+product of the number of outstanding shares and the share price. For instance, a company with
+MattSchlenker 266
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 267 ---
+MachineLearningforTrading(ML4T)‑Complete
+1,000,000sharesandasharepriceof$100hasamarketcapitalizationof$100,000,000.
+16.12 WhyInformationAffectsStockPrice
+Ifyoufollowthestockmarket, youmayhavenoticedthatwhennewscomesoutaboutaparticular
+company,thatcompany’sstockpricemaychangeconsiderably.
+Thereasonforthisisthatbuyingandsellingstockistheprimarymechanismbywhichinvestorsvoice
+their support, or lack thereof, for a particular company. If they think that a company is overvalued,
+theyaregoingtosell,andthestockpriceisgoingtodrop. Conversely,iftheythinkthatacompanyis
+undervalued,theyaregoingtobuy,andthestockpriceisgoingtoincrease.
+Asanexample,let’sconsideranislandcompanywhosebusinessistogrowandsellcoconuts.Suppose
+newscomesoutthattheCEOofthiscompanyisill.Perhapshehascancerorsomeotherdiseasethat
+preventshimfromeffectivelycollectingcoconuts.
+Certainly,thisnewsshoulddrivethestockpricedownward. ThehealthoftheCEOaffectsthehealth
+ofthecompany,whichreduceseitherthesizeofourdividends,orthelikelihoodthatwewillreceive
+them,orboth. Asaresult,theintrinsicvalueofthecompanydecreasessharply.
+Let’sconsideradifferentpieceofnews. Recentreportsareshowingthatthesoilontheislandiscon‑
+taminated. Thistypeofnewsisknownas sectornews ;inotherwords,itaffectsallofthecompanies
+inthebusinesssectorofgrowingcoconutsonthisisland.
+Let’sconsiderafinalpieceofnews. Newdatacomesoutdemonstratingthesea‑levelisrising. This
+typeofnewsisknownas market‑widenews asitaffectsallcompaniesonallislands.
+Anyofthesestoriesmayreduceaninvestor’sbeliefintheabilityofthecoconutcompanytoprovide
+futuredividends. Thisreductionmightleadsuchaninvestortosellofftheirstock,thusdrivingdown
+theshareprice.
+16.13 ComputeCompanyValueQuiz
+Considerafictitiousairlinecompany.
+Thiscompanyowns10airplanes,eachvaluedat$10million. Additionally,ithasabrandnameworth
+another$10million. Finally,ithasanoutstandingloanfor$20million. Whatisthebookvalueofthis
+company?
+Thiscompanypays$1millionperyearindividends. Assuminga5%discountrate,whatistheintrinsic
+valueofthiscompany?
+MattSchlenker 267
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 268 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thiscompanyhasonemillionsharesofstockoutstanding. Givenastockpriceof$75pershare,what
+isthemarketcapitalizationofthiscompany?
+16.14 ComputeCompanyValueQuizSolution
+Tocalculatebookvalue,wetakethevalueofthetotalassetsandsubtracttheintangibleassets,like
+thebrand,andtheliabilities. Given$110,000,000intotalassets,a$10,000,000intangibleasset,anda
+$20,000,000liability,thebookvalueforthiscompanyis$80,000,000.
+MattSchlenker 268
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 269 ---
+MachineLearningforTrading(ML4T)‑Complete
+Tocomputetheintrinsicvalue,wedividethevalueofthedividends,$1,000,000,bythediscountrate,
+0.05,toget$20,000,000.
+Tocomputethemarketcapitalization,wetaketheproductoftheshareprice,$75,andthenumberof
+outstandingshares,1,000,000,toget$75,000,000.
+16.15 WouldyouBuythisStockQuiz
+Since this company has a market capitalization of $75,000,000, we could buy all of the shares and,
+effectivelythecompany,for$75,000,000. Shouldwe?
+MattSchlenker 269
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 270 ---
+MachineLearningforTrading(ML4T)‑Complete
+16.16 WouldyouBuythisStockQuizSolution
+Itmightseemlikeatrickyquestion,givensucharelativelylowintrinsicvalue,butit’snot. Weshould
+buythiscompanyfor$75,000,000andthenbreakitapartandselltheindividualassetsfor$80,000,000
+togetanimmediate$5,000,000profit.
+Stockpricesveryrarelydipbelowbookvalueforthisexactreason;otherwise,predatorybuyersswoop
+inandbuythewholecompanyjusttosellitforparts.
+17 TheCapitalAssetsPricingModel(CAPM)
+17.1 DefinitionofaPortfolio
+Aportfolio isaweightedsetofassets.
+Let’ssupposewehaveaportfolioofthreedifferentassets: Apple(AAPL),Google(GOOG),andOracle
+(ORCL).Let’salsoassumethatwehaveallocated60%oftheportfoliotoAPPL,and20%eachtoGOOG
+andORCL.
+Ifweconsidertheseallocationsasasetofweightsinsteadofpercentages,wewouldsaythatourAAPL
+positionhasaweightof0.6,whileourGOOGandORCLpositionseachhaveaweightof0.2.
+Wecanstipulatethatthesumoftheweightsofeachinvestmentequalsone;inotherwords,ourport‑
+folioallocationsmustaddto100%. Formally, given 𝑛investments, where 𝑤𝑖representstheweight
+oftheinvestmentinasset 𝑖,
+MattSchlenker 270
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 271 ---
+MachineLearningforTrading(ML4T)‑Complete
+𝑛
+∑
+𝑖𝑤𝑖= 1.0
+However,notallweightsneedtobepositive. Forexample,ifweshortGOOG,ourallocationmightbe
+‑0.2insteadof0.2. Wecanrefinetheconstraintaboveasfollows.
+𝑛
+∑
+𝑖|𝑤𝑖| = 1.0
+Foragivenday, 𝑡,wecancalculatethedailyreturnoftheportfolio, 𝑟𝑝(𝑡),astheweightedsumofthe
+dailyreturnsofeachoftheassetsonday 𝑡.
+𝑟𝑝(𝑡) =𝑛
+∑
+𝑖𝑤𝑖𝑟𝑖(𝑡)
+17.2 PortfolioReturnQuiz
+Consideraportfolioconsistingoftwostocks: StockAandStockB.75%oftheportfolioisinStockA,
+and‑25%oftheportfolioisinStockB;inotherwords,theportfoliohastakenashortpositioninStock
+B.
+Assumethat,today,thepriceofStockAincreasesby1%,whilethepriceofStockBdecreasesby2%.
+Whatisthereturnonthisportfolio?
+MattSchlenker 271
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 272 ---
+MachineLearningforTrading(ML4T)‑Complete
+17.3 PortfolioReturnQuizSolution
+Remembertheformulatocalculateportfolioreturn.
+𝑟𝑝(𝑡) =𝑛
+∑
+𝑖𝑤𝑖𝑟𝑖(𝑡)
+If we plug in the weights and returns for Stock A and Stock B, we can compute a portfolio return of
+1.25%.
+𝑟𝑝(𝑡) = (0.75 ∗ 1) + (−0.25 ∗ −2)
+𝑟𝑝(𝑡) = 0.75 + 0.5
+𝑟𝑝(𝑡) = 1.25
+17.4 TheMarketPortfolio
+Whensomeonerefersto“themarket”,whattheyareusuallyreferringtoisanindexthatbroadlycovers
+alargesetofstocks.
+ThebestexampleofsuchanindexintheUnitedStatesistheS&P500,whichrepresentsthe500largest
+MattSchlenker 272
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 273 ---
+MachineLearningforTrading(ML4T)‑Complete
+companiestradedonstockexchanges. ThevalueoftheS&P500changeseachdayasaresultofstock
+pricefluctuationsamongitsconstituentcompanies.
+Therearesimilarstockmarketindicesinothercountries,suchasFTAintheUnitedKingdomandTOPIX
+inJapan. Additionally,therearespecializedindicesthattrackcompaniesonlywithinspecificindus‑
+tries,suchashealthcareortechnology.
+Stockmarketindicesarecomposedofmanyindividualstocks,andthe marketportfolio isthecombi‑
+nationofthosestocksaccordingtoaparticularweighting. Mostindicesare capitalization‑weighted ,
+which means that the individual weight of each stock in the portfolio is proportional to that stock’s
+marketcapitalization.
+Formally,givenatotalmarketcapitalization 𝑀𝑡𝑜𝑡𝑎𝑙ofallofthestocksintheindex,theweightofan
+individualstockwithamarketcapitalizationof 𝑀𝑖𝑛𝑑𝑖𝑣𝑖𝑑𝑢𝑎𝑙 is
+𝑀𝑖𝑛𝑑𝑖𝑣𝑖𝑑𝑢𝑎𝑙
+𝑀𝑡𝑜𝑡𝑎𝑙
+Somestockshavesurprisinglylargeweightings. Forexample,AppleandExxoneachcompriseabout
+5%oftheS&P500,andthe10largestcompaniesaccountforover20%oftheperformanceoftheindex.
+Smallerstocksmaycompriseonlyone‑tenthofonepercent.
+17.5 TheCAPMEquation
+Thecoreofthe capitalassetspricingmodel (CAPM)iscapturedinthefollowingequation.
+𝑟𝑖(𝑡) = 𝛽𝑖𝑟𝑚(𝑡) + 𝛼𝑖(𝑡)
+Thereturn, 𝑟𝑖,foranindividualstock, 𝑖,onaparticularday, 𝑡,isequaltosomestock‑specificfactor,
+𝛽𝑖,timesthereturnonthemarket, 𝑟𝑚(𝑡),plusanotherstock‑specificfactor, 𝛼𝑖(𝑡).
+Rememberthatwhenwearetalkingaboutthemarket,weareexplicitlytalkingaboutastockmarket
+index,suchastheS&P500,ofwhichstock 𝑖isamember.
+Lookingattheequationabove,weseethatthecapitalassetspricingmodelassertsthatasignificant
+portionofthereturnforaparticularstockisduetothemarket. Inotherwords,themovementofthe
+marketstronglyaffectsthepriceofeveryindividualstockinthatmarket.
+The 𝛽factorencapsulatestheextenttowhichthemarketaffectsaparticularstock. Manystockshavea
+𝛽near1,whichmeansthatwhenthemarketmoves1%,thestockalsomoves1%. Alarger 𝛽indicates
+thatastockmovesmorethan1%whenthemarketmoves1%.
+MattSchlenker 273
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 274 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ifwetrytocomputethehistoricalreturnforaparticularstockbasedsolelyonthemarketreturnand
+𝛽,wewon’tcalculatethecorrectvalue. Thereisgoingtobesomething“leftover”. The 𝛼component
+oftheCAPMequationcapturesthis residual.
+AcrucialassertionofCAPMisthattheexpectationfor 𝛼is0. Technically, 𝛼isarandomvariablewith
+anexpectedvalueof0.
+Howdowearriveatvaluesfor 𝛼and 𝛽foraparticularstock? Primarily,welookatdailyreturnsand
+examinehowthedailyreturnsofthatstockmeasureagainstthedailyreturnsofthemarket.
+Forexample,considerthefollowingplotoftheS&P500dailyreturnsalongsidethedailyreturnsfor
+fictionalstockXYZ.
+Foreachday, itlookslikeXYZismorereactivethantheS&P500; inotherwords, whentheS&P500
+goesupalittlebit,XYZgoesupalot. Additionally,XYZappearstohaveahigherabsolutereturn,on
+average,thantheS&P500.
+WecancreateascatterplotofthereturnsforXYZagainstthereturnsfortheS&P500.
+MattSchlenker 274
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 275 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecouldpotentiallyfitthefollowinglinetothisscatterplot.
+Likeanyline,thelineabovecanbedescribedbytwoparameters: slopeandy‑intercept. Theslopeis
+𝛽,andthey‑interceptis 𝛼.
+MattSchlenker 275
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 276 ---
+MachineLearningforTrading(ML4T)‑Complete
+Notethatthiscalculationof 𝛼and 𝛽isafter‑the‑fact. Justbecauseaparticularstockhadacertain 𝛼
+historicallydoesn’tmeanthatwecanexpectthatvaluetoremaininthefuture. Again,CAPMsaysthat
+weshouldexpect 𝛼tobezero;inreality,though, 𝛼isnotalwayszero.
+17.6 CompareAlphaandBetaQuiz
+Considerthefollowingtwoscatterplots. Theplotontheleftshowsthedailyreturnsofafictionalstock
+XYZagainstthedailyreturnsoftheS&P500. Theplotontherightshowsthedailyreturnsofafictional
+stockABCagainstthedailyreturnsoftheS&P500.
+Giventhesetwoplots,whichassethasahigher 𝛼andwhichhasahigher 𝛽?
+MattSchlenker 276
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 277 ---
+MachineLearningforTrading(ML4T)‑Complete
+17.7 CompareAlphaandBetaQuizSolution
+Recallthat 𝛽istheslopeofthefitline,and 𝛼isthey‑interceptofthefitline. Wecantellfromtheplots
+thatABChasbothahigher 𝛼andahigher 𝛽.
+MattSchlenker 277
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 278 ---
+MachineLearningforTrading(ML4T)‑Complete
+17.8 CAPMvs.ActiveManagement
+You may have heard about the debate between passive investing versus active investing. Passive
+investing advisesinvestorstobuyanindexportfolio‑forexample,anETFlikeSPYthattrackstheS&P
+500‑andholditandletitgrow. Activeinvesting ,ontheotherhand,isallaboutpickingindividual
+stocks.
+Let’sconsideractiveandpassiveinvestingwithregardtotheCAPMequation,listedbelow.
+𝑟𝑖(𝑡) = 𝛽𝑖𝑟𝑚(𝑡) + 𝛼𝑖(𝑡)
+Bothactivemanagersandpassivemanagersagreewiththefirstpartofthisequation;inotherwords,
+theyagreethathowastockmoveseachdayismostsignificantlyinfluencedbythemarket,andthe
+amountthatitmovescanbecapturedby 𝛽.
+However, they disagree concerning the treatment of the 𝛼factor. Remember that CAPM says two
+essential things about 𝛼: it’s random, and it’s expected value is zero. Passive investors agree with
+CAPM.
+Activemanagers,ontheotherhand,believethat 𝛼isneitherrandomnorcenteredaroundzero. They
+thinkthattheycanexaminestocksandpredictwhicharegoingtoriseorfallrelativetothemarket.
+Theymightnotbeexactlyrightoneverysinglepick,buttheybelievethat,onaverage,theyarebetter
+thanrandomandbetterthanzero.
+Ifyoubelievewhatactivemanagerssay,youmightconsiderleveraginghistoricalinformationaswell
+asmachinelearningtofindstocksthathaveapositiveornegative 𝛼. Fromthere,youmightbeable
+toselectabasketofstocksthatcanoutperformthemarket.
+IfyoubelieveCAPM,thenyoushouldbeapassiveinvestor.
+17.9 CAPMforPortfolios
+Supposenowthatinsteadoflookingatjustonestock,wewanttoconsideranentireportfolio. Recall
+thatforaparticularstock, 𝑖,it’sreturn, 𝑟𝑖(𝑡),onanparticularday, 𝑡,isequalto
+𝑟𝑖(𝑡) = 𝛽𝑖𝑟𝑚(𝑡) + 𝛼𝑖(𝑡)
+Tocomputethereturnfortheentireportfolio, 𝑟𝑝(𝑡), wecomputethereturnforeachstock, 𝑖, multi‑
+pliedbytheweight, 𝑤𝑖,ofthatstockintheportfolio,andsumoverallthestocksintheportfolio.
+MattSchlenker 278
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 279 ---
+MachineLearningforTrading(ML4T)‑Complete
+𝑟𝑝(𝑡) = ∑
+𝑖𝑤𝑖(𝛽𝑖𝑟𝑚(𝑡) + 𝛼𝑖(𝑡))
+Wecancalculatethe 𝛽fortheoverallportfolio, 𝛽𝑝,astheweightedsumoftheindividual 𝛽valuesfor
+eachstock.
+𝛽𝑝= ∑
+𝑖𝑤𝑖𝛽𝑖
+Wecansimplifytheequationfor 𝑟𝑝(𝑡)bypluggingin 𝛽𝑝.
+𝑟𝑝(𝑡) = 𝛽𝑝𝑟𝑚(𝑡) + 𝛼𝑝(𝑡)
+Noticethatwealsohavean 𝛼𝑝(𝑡)term,whichisostensiblyderivedasaweightedsumoftheindivid‑
+ual 𝛼𝑖(𝑡)terms. However,sinceCAPMtellsusthattheexpectedvalueof 𝛼iszero,wedon’tneedto
+compute 𝛼𝑝directly;instead,wecanestimateit.
+Anactiveportfoliomanagerdoesn’tbelievethat 𝛼isarandomvariablecenteredatzero. Asaresult,
+theyincorporatetheweightedsumofindividualstock 𝛼valuesintothe 𝑟𝑝(𝑡)calculation.
+𝑟𝑝(𝑡) = 𝛽𝑝𝑟𝑚(𝑡) + ∑
+𝑖𝑤𝑖𝛼𝑖(𝑡)
+17.10 ImplicationsofCAPMQuiz
+Ifweareinanupwardmarket,dowewantaportfoliowithalarger 𝛽𝑝orasmaller 𝛽𝑝? Howaboutif
+weareinadownwardmarket?
+MattSchlenker 279
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 280 ---
+MachineLearningforTrading(ML4T)‑Complete
+17.11 ImplicationsofCAPMQuizSolution
+In upward markets, we want a portfolio with a larger 𝛽𝑝. For example, a portfolio with a 𝛽𝑝greater
+thanonerisesevenhigherthanthemarket,whileaportfoliowitha 𝛽𝑝smallerthanonewon’tbeable
+totakefulladvantageofmarketperformance.
+Indownwardmarkets,wewanttheopposite: asmaller 𝛽. Indeed,aportfoliowithasmaller 𝛽𝑝falls
+lesssharplyinadownwardmarket,whileaportfoliowithalarger 𝛽𝑝crasheshard.
+MattSchlenker 280
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 281 ---
+MachineLearningforTrading(ML4T)‑Complete
+17.12 ImplicationsofCAPM
+RememberthatCAPMdictatesthatthereturnofaportfolio, 𝑟𝑝(𝑡)dependsonthreethings:the 𝛽𝑝and
+𝛼𝑝(𝑡)oftheportfolio,andthemarketreturn, 𝑟𝑚(𝑡).
+𝑟𝑝(𝑡) = 𝛽𝑝𝑟𝑚(𝑡) + 𝛼𝑝(𝑡)
+ThefirstpointtorememberisthatCAPMsaysthat 𝛼isarandomvariablewithanexpectedvalueof
+zero. Thisassertionexcludessmart 𝛼selectionfromourtoolboxofwaystomakemoney.
+Theonlywaywecanbeatthemarketnowisbycleverlychoosing 𝛽. Whenthemarketisgoingup,we
+want to invest in a portfolio with a large 𝛽. When the market is going down, we want to invest in a
+portfoliowithasmall,evennegative, 𝛽.
+Unfortunately,theefficientmarketshypothesis‑whichwearegoingtocoversoon‑essentiallysays
+thatyoucan’tpredictthemarket. Asaresult,thestrategyofswitchingintoportfolioswithoptimal 𝛽
+valuesbasedonexpectedmarketperformancefallsflat.
+IfwebelieveCAPM,thenwemustconcedethatwecannotbeatthemarket. ProfessorBalchdoesnot
+believeCAPM.
+17.13 ArbitragePricingTheory
+Theclassicalvalueof 𝛽relatestheperformanceofastocktotheperformanceoftheentirestockmar‑
+ket. However,researchersrealizedthat,sinceaparticularstockmighthaveexposuretomultiplesec‑
+torsofthemarket,perhapsitoughttohavea 𝛽valuerelatingitsperformancetothatofeachsector.
+Thisisknownas arbitragepricingtheory (APT).
+Forexample,aparticularstock, 𝑖,mighthaveexposuretothefinancialsector, 𝐹,sowecouldcompute
+thecomponentofreturnfor 𝑖dueto 𝐹astheproductof 𝛽𝑖𝐹andthereturn 𝑟𝐹for 𝐹forthatday.
+Wecancontinuethisprocess, computingan individual 𝛽foreachsectorthatimpactsthe stock. By
+breakingouttheoverall 𝛽intothesesectorcomponents, wecangetamoreaccurateforecastofre‑
+turns.
+MattSchlenker 281
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 282 ---
+MachineLearningforTrading(ML4T)‑Complete
+18 HowHedgeFundsUsetheCAPM
+18.1 RisksforHedgeFunds
+Atypicalhedgefunddevelopsmethodstofindperformantstocks. Theinformationaledgetheyare
+seeking is usually market‑relative, meaning that they are looking for stocks that rise more than the
+marketwhenthemarketgoesuporstocksthatfalllessthanthemarketwhenthemarketgoesdown.
+Iftheinformationtheyhaveisreliable,theycantakeadvantageoftheCAPMtovirtuallyguaranteea
+positivereturn.
+18.2 TwoStockScenario
+AsanillustrationofhowhedgefundsuseCAPM,let’sconsideratwo‑stockscenario.
+SupposeourhedgefundhasdonesomeresearchandtheythinkthatstockAisgoingtogoup1%over
+themarketinthenext10days;inotherwords,theyarepredictingan 𝛼of0.01forstockA.Aswell,they
+haveusedhistoricalpricinginformationtoobservea 𝛽of1.0forstockA.
+OurhedgefundhasalsodonesomeresearchonstockB,andtheyarepredictingan 𝛼valueof‑0.01
+forthisstock. Additionally,theyhaveobservedahistorical 𝛽of2.0forstockB.
+WeshouldlongstockAandshortstockBsincewethinktheformerisgoingtogouprelativetothe
+market,whilethelatterisgoingtogodown. Thistypeoflong‑shortportfolioiswidespreadamongst
+hedgefunds.
+MattSchlenker 282
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 283 ---
+MachineLearningforTrading(ML4T)‑Complete
+Considerthefollowingscenario. Let’sassumethatthemarketstaysflat,returning0%,overthenext
+10daysandthatweenterthefollowingpositionstoday: a$50longpositioninstockAanda$50short
+position in stock B. Let’s also assume that our predictions are perfect. Stock A rises 1% above the
+market,andstockBfalls1%belowthemarket.
+ConsiderthereturnsofstockA,usingtheCAPMequation.
+𝑟𝐴= 𝛽𝐴𝑟𝑚+ 𝛼𝐴
+Sincethemarketreturned0%,theequationsimplifies.
+𝑟𝐴= 𝛼𝐴
+Since 𝛼𝐴is0.01,ourreturnis1%of$50,or$0.50.
+Now,considerthereturnsofstockB,usingtheCAPMequation.
+𝑟𝐵= 𝛽𝐵𝑟𝑚+ 𝛼𝐵
+Again,sincethemarketreturned0%,theequationsimplifies.
+𝑟𝐵= 𝛼𝐵
+Sinceboth 𝛼𝐵andourinvestmentinstockBarenegative,weactuallymadeaprofit: ‑1%of‑$50,or
+$0.50.
+Altogetherwemade$1,a1%returnonourtotalinvestment.
+18.3 TwoStockScenarioQuiz
+Let’sconsideranotherscenarionow.
+Instead of staying flat, suppose that the market went up 10%. What are the relative and absolute
+returnsforbothstocks,andwhatisourtotalreturn,bothrelativeandabsolute?
+MattSchlenker 283
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 284 ---
+MachineLearningforTrading(ML4T)‑Complete
+Let’salsoconsiderthescenariowherethemarketgoesdown10%. Whataretherelativeandabsolute
+returnsforbothstocks,andwhatisourtotalreturn,bothrelativeandabsolute?
+18.4 TwoStockScenarioQuizSolution
+Let’sfirstlookatthecasewherethemarketrisesby10%.
+MattSchlenker 284
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 285 ---
+MachineLearningforTrading(ML4T)‑Complete
+ConsiderstockA,whichhasa 𝛽of1.0andan 𝛼of0.01. A 𝛽of1.0tellsusthatforeverypercentage
+pointthatthemarketmoves,stockAmovesonepercent. An 𝛼of0.01tellsusthatstockAwillmove
+1%aboveitsmovementwiththemarket.
+Asaresult,stockAmoves10%plus1%,foratotalrelativereturnof11%,andatotalabsolutereturn
+of$5.50,11%ona$50investment.
+Let’s consider stock B now, which has a 𝛽of 2.0 and an 𝛼of ‑0.01. A 𝛽of 2.0 tells us that for every
+percentagepointthemarketmoves,stockAmovestwopercent. An 𝛼of‑0.01tellsusthatstockAwill
+move1%belowitsmovementwiththemarket.
+Asaresult,stockBmoves20%minus1%,foratotalrelativereturnof19%. However,sinceweshorted
+stockB,thisreturnisactually‑19%,andwehavelost$9.50.
+Let’scomputethetotalreturn. Sincewegained$5.50onstockAandlost$9.50onstockB,ourtotal
+absolutereturnis‑$4.
+Calculating the relative return is a little tricky; that is, we can’t just add 11% and ‑19% to get ‑8%.
+Instead,sincewesplitourinvestmentacrossstockAandstockB,ouractualreturnisone‑halfof11%
+plusone‑halfof‑19%,or‑4%.
+Now,let’slookatthecasewherethemarketfalls10%.
+MattSchlenker 285
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 286 ---
+MachineLearningforTrading(ML4T)‑Complete
+In this case, stock A falls with the market, but does 1% better, for a total relative loss of 9%, which
+equatestoa$4.50lossona$50investment.
+StockBfallstwiceashardasthemarket,anddoes1%worseontopofthat,foratotalrelativelossof
+21%. However,sinceweshortedstockB,thislossisactuallya21%gain,oragainof$10.50ona$50
+investment.
+Overall,thismarketscenarionetsus6%,or$6ona$100investment.
+18.5 TwoStockCAPMMath
+RecallhowweusetheCAPMtorepresentthereturn, 𝑟𝑝,forouroverallportfolio. Foreachindividual
+stock, 𝑖, wecomputereturn, 𝑟𝑖, astheproductof 𝛽𝑖andthereturnonthemarket, 𝑟𝑚, plus 𝛼𝑖. The
+valueof 𝑟𝑝isthesumofeach 𝑟𝑖multipliedbyitscorrespondingweight, 𝑤𝑖.
+𝑟𝑝= ∑
+𝑖𝑤𝑖(𝛽𝑖𝑟𝑚+ 𝛼𝑖)
+Let’sexpandthissum,consideringourtwostocks,AandB,frombefore.
+𝑟𝑝= (𝑤𝐴𝛽𝐴+ 𝑤𝐵𝛽𝐵)𝑟𝑚+ 𝑤𝐴𝛼𝐴+ 𝑤𝐵𝛼𝐵
+StockAhasa 𝛽of1.0andan 𝛼of0.01. StockBhasa 𝛽of2.0andan 𝛼of‑0.01. Ourportfoliohasa
+50% investment in stock A and a ‑50% investment in stock B. Let’s plug these values into the CAPM
+equation.
+MattSchlenker 286
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 287 ---
+MachineLearningforTrading(ML4T)‑Complete
+𝑟𝑝= (0.5 ∗ 1.0 − 0.5 ∗ 2.0)𝑟𝑚+ 0.5 ∗ 0.01 − 0.5 ∗ −0.01
+𝑟𝑝= 0.01 − 0.5𝑟𝑚
+UsingtheCAPM,wehavedeterminedthatourexpectedreturnforthisportfolioisequalto1%minus
+one‑halfofthemarketreturn.
+Wecandouble‑checkthisresultbyplugginginthemarketreturnfromoneofourpreviousexamples.
+Let’slookatthecasewherethemarketwentup10%.
+𝑟𝑝= 0.01 − 0.5𝑟𝑚
+𝑟𝑝= 0.01 − (0.5 ∗ 0.1)
+𝑟𝑝= 0.01 − 0.05
+𝑟𝑝= −0.04
+Rememberhowwearrivedatthe1%portfolio 𝛼. Weresearchedthestocksthatweselectedforour
+portfolioandfoundinformationthatledustobelievethatonewouldoutperformthemarketby1%
+andthattheotherwouldunderperformthemarketby1%.
+Ontheotherhand,wedon’thaveanyknowledgeaboutwhatisgoingtohappeninthemarketoverall;
+thatis, wehavenocontroloverthecomponentofCAPMthatincorporatesmarketreturn. Ifwecan
+eliminatethiscomponent,wecanguaranteeour1%return, regardless ofmarketmovement.
+We can eliminate market risk by making 𝛽𝑝= 0. Since we can’t change the individual 𝛽𝐴and 𝛽𝐵
+valuestomakethishappen,weneedtoadjustourallocationsinstead. Essentially,weneedtosolve
+thefollowingequationfor 𝑤𝐴and 𝑤𝐵.
+0 = 𝑤𝐴𝛽𝐴+ 𝑤𝐵𝛽𝐵
+MattSchlenker 287
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 288 ---
+MachineLearningforTrading(ML4T)‑Complete
+18.6 AllocationsRemoveMarketRiskQuiz
+Let’slookatourtwostocksagain. StockAhasa 𝛽of1.0andan 𝛼of0.01. StockBhasa 𝛽of2.0andan
+𝛼of‑0.01. WhatshouldtheweightsbeforstockAandstockBsothatwecanminimizemarketrisk?
+18.7 AllocationsRemoveMarketRiskQuizSolution
+Weneedtosolvethefollowingequation.
+MattSchlenker 288
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 289 ---
+MachineLearningforTrading(ML4T)‑Complete
+0 = 0.01𝑤𝐴+ 0.02𝑤𝐵
+𝑤𝐴= −2𝑤𝐵
+Wealsoknowthatthesumoftheabsolutevalues 𝑤𝐴and 𝑤𝐵shouldequalone.
+|𝑤𝐴| + |𝑤𝐵| = 1
+Ifwesubstitute −2𝑤𝐵for 𝑤𝐴,wecansolvefor 𝑤𝐵.
+| − 2𝑤𝐵| + |𝑤𝐵| = 1
+| − 3𝑤𝐵| = 1
+|𝑤𝐵| =1
+3
+However,sincewewanttoshortB, 𝑤𝐵isactually−1
+3,not1
+3. Wecannowsolvefor 𝑤𝐴.
+|𝑤𝐴| + |𝑤𝐵| = 1
+|𝑤𝐴| + | −1
+3| = 1
+|𝑤𝐴| =2
+3
+Ifweplugthesetwoweightsbackintoouroriginalequation,wecanverifythatwedogetanoverall
+𝛽𝑝of0.
+𝛽𝑝= 0.01𝑤𝐴+ 0.02𝑤𝐵
+𝛽𝑝= (0.01 ∗ 0.66) + (0.02 ∗ −0.33)
+MattSchlenker 289
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 290 ---
+MachineLearningforTrading(ML4T)‑Complete
+𝛽𝑝= 0.66 − 0.66
+𝛽𝑝= 0
+18.8 HowDoesItWork
+NowthatwehavecalculatedweightsforstockAandstockBthateliminatemarketrisklet’sseehow
+theyworkusingthemarketconditionswehavebeenexamining.
+Let’slookatthescenariowherethemarketgoesup10%. Usingweights 𝑤𝐴= 0.66and 𝑤𝐵= −0.33,
+wecanusetheCAPMtocomputeportfolioreturn.
+𝑟𝑝= 𝑤𝐴𝛽𝐴𝑟𝑚+ 𝑤𝐴𝛼𝐴+ 𝑤𝐵𝛽𝐵𝑟𝑚+ 𝑤𝐵𝛼𝐵
+Becauseoftheworkwehavealreadydone,weknowthatthesumofthecomponentsthatconsider
+marketreturnequalszero,sowecandropthemfromtheequation.
+𝑟𝑝= 𝑤𝐴𝛼𝐴+ 𝑤𝐵𝛼𝐵
+Let’splugintheappropriatevariables.
+𝑟𝑝= 0.66 ∗ 0.01 + −0.33 ∗ −0.01
+𝑟𝑝= 0.01
+Wecanseethattheexpectedreturnforourportfoliois1%, irrespective ofmarketmovement.
+Weneedtoaddsomecaveatshere. Specifically,thevaluesof 𝛽and 𝛼thatwecalculatedusinghistor‑
+icaldataare notguaranteedtocarryintothefuture. Thisportfolioisnotaguaranteedinvestment,by
+anymeans,butratheranexampleofhowwecanuselong‑shortinvestingtoreduceoverallexposure
+tothemarket.
+MattSchlenker 290
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 291 ---
+MachineLearningforTrading(ML4T)‑Complete
+19 TechnicalAnalysis
+19.1 TechnicalVs. FundamentalAnalysis
+Therearetwobroadcategoriesofapproachestousewhenchoosingstockstobuyorsell:fundamental
+analysisandtechnicalanalysis.
+Fundamentalanalysis involveslookingataspectsofacompanyinordertoestimateitsvalue. Fun‑
+damentalinvestorstypicallylookforsituationswherethepriceofacompanyisbelowitsvalue.
+Technicalanalysis , on the other hand, isn’t concerned with the underlying value of a company; in‑
+stead,technicianslookforpatternsortrendsinastock’sprice.
+19.2 Characteristics
+Oneofthemostimportantthingstorememberabouttechnicalanalysisisthatitconsidersonlyprice
+andvolumedata,asopposedtofundamentalanalysis,whichlooksatfactorssuchasearnings,divi‑
+dends,cashflows,bookvalue,andmore.
+In technical analysis, we look back at historical price and volume data to compute statistics, also
+knownasindicators. These indicators serveasheuristicsthatmighthintatbuyingorsellingoppor‑
+tunities.
+Thereissignificantcriticismofthetechnicalapproach,andmanypeopleconsideritaninappropriate
+methodforinvestingbecauseitdoesn’tconsiderthevalueofthecompany. Instead,wemightthink
+oftechnicalanalysisasatradingapproach,ratherthananinvestingapproach.
+However,therearereasonstobelievethattechnicalanalysismighthavevalue. Thereisinformation
+in price and price change, as these data points reflect sentiments of buyers and sellers. Especially
+when the price for a particular stock is moving against the overall market, pricing data and volume
+canpresenttradingopportunities.
+Additionally, while we know that heuristics cannot guarantee outcomes, we also know, from other
+domainsofartificialintelligence,thatheuristicsarevaluableandarefrequentlyusedtoinformcritical
+decisions.
+19.3 PotentialIndicatorsQuiz
+Nowthatweknowsomedifferencesbetweenthetypesofdatausedforfundamentalandtechnical
+analysis,let’slookatthefollowingfourfactors. Whichofthesearefundamental,andwhicharetech‑
+nical?
+MattSchlenker 291
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 292 ---
+MachineLearningforTrading(ML4T)‑Complete
+19.4 PotentialIndicatorsQuizSolution
+Rememberthattechnicalanalysisconsidersonlypriceandvolumedata,whereasfundamentalanal‑
+ysisincorporatesothertypesofdata.
+The moving average of price and the percent change in volume consider only price and volume, re‑
+spectively,sotheyarebothtechnicalindicators.
+P/Eratioconsidersbothpriceandearnings,makingitafundamentalfactor,aswellasintrinsicvalue,
+MattSchlenker 292
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 293 ---
+MachineLearningforTrading(ML4T)‑Complete
+whichisbasedondividends.
+19.5 WhenIsTechnicalAnalysisValuable
+Let’sconsiderhowwecanusetechnicalanalysistoderivemeaningfulinformationaboutastock.
+Backinthe1980sand1990s,whenmanyofthewell‑knownindicatorsweredeveloped,theymayhave
+hadreliablepredictivepower. Sincethattime,however,morepeoplehavebeentradingaccordingto
+theseindicators.Generally,themorepeoplethatfollowaparticularinvestingapproach,thelessvalue
+anyoneinvestorrealizes. Asaresult,individualindicatorsareonlyweaklypredictivetoday.
+Thatbeingsaid,combiningmultipleindicatorsstilladdsvalue.Combinationsofthreetofivetechnical
+indicators,inamachinelearningcontext,mayprovideamuchstrongerpredictivesystemthanjusta
+singleindicator.
+Technical analysis can also be useful at highlighting contrast; in other words, revealing when two
+stocks ‑ or one stock and the market ‑ have widely different values for a particular indicator. Such
+acontrastmightbeindicativeofanactionableopportunity.
+Finally,technicalanalysisgenerallyworksbetterovertheshorttermthanoverthelongterm.
+19.6 WhenIsTechnicalAnalysisValuable,PartTwo
+Tounderstandthevalueoftechnicalanalysisascomparedtofundamentalanalysis,weneedtocon‑
+siderthetradinghorizon : theamountoftimethatelapsesbetweenbuyingandsellingastock. Trad‑
+inghorizonscanvaryfrommillisecondstoyears.
+Let’sfirstconsiderfundamentalfactors. Ifweareahigh‑frequencytrading(HFT)fundoperatingover
+tradinghorizonsofmilliseconds,howmuchdofundamentalfactorslikeP/Eratioandbookvaluecon‑
+tributetothechangeinpriceovertheseshortperiodsoftime?
+When we are rapidly executing trade orders, the only factors that matter are those present on the
+stockexchange,suchaspricemovementandtradingvolume. Fortheseveryshorttradinghorizons,
+fundamentalfactorshavequitelowvalue.
+Let’s now consider a trading horizon of years. We know from, for instance, Warren Buffet’s success
+thatfundamentalfactorsoverlongperiodsoftimemayhavesignificantvalue.
+For a trading horizon of days, fundamental factors may have some value; in general, the longer the
+tradinghorizon,themorevaluablefundamentalfactorsare.
+Let’snowconsidertechnicalfactors. Howvaluableisatechnicalindicator,suchasa20‑daymomen‑
+tum,indeterminingthepriceofastockyearslater? Suchindicatorshavelittlevaluewhenconsidering
+atradinghorizonofyears.
+MattSchlenker 293
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 294 ---
+MachineLearningforTrading(ML4T)‑Complete
+Foraveryshorttradinghorizon,however,technicalanalysiscanshine. Inthespanofafewmillisec‑
+onds,theonlyfactorsaboutastockthathavechangedaretechnicalfactors,and,asaresult,technical
+analysiscanpotentiallyhavehighvalueovertradinghorizonsofthissize.
+Foratradinghorizonofdays,technicalfactorsmayhavesomevalue;ingeneral,thelongerthetrading
+horizon,thelessvaluabletechnicalfactorsare.
+Let’s consider the value of decision complexity and decision speed across the range of trading hori‑
+zons.
+Over a period of years, a lot can happen to a company, and, correspondingly, its stock price. As a
+result,wecanappreciateacomplexdecision‑makingprocessforinvestmentswithatradinghorizon
+ofthislength.
+Decisionspeedisnotasimportantwhenconsideringinvestmentsthatweplantoholdforyears. Rel‑
+ativetothisinvestmenthorizon,itdoesn’tsomuchmatterifittakesusaminuteoradaytomakean
+investmentdecision.
+Whenconsideringamuchshortertradinghorizon,decisionspeedisofutmostimportance. Ifwewant
+tobuyandsellstockovertheperiodofmilliseconds,wecan’ttakesecondstomakedecisions. Corre‑
+spondingly,wealsovaluedecisioncomplexitylessatatradinghorizonofthissize.
+Wecanlookatthisrangeoftradinghorizonsandthinkaboutwhichregionsaremoresuitedforhuman
+investorsandwhicharemoresuitedforcomputationalinvestment.
+Whentradingatveryhighfrequencies,weneedtoleveragetechnicalanalysistomakemanysimple
+decisionsveryquickly. Thankfully, thesedecisionsareoftensimpleenoughtocaptureincomputer
+code. Asaresult,weoftenseecomputerstradingovertheseshortertradinghorizons.
+MattSchlenker 294
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 295 ---
+MachineLearningforTrading(ML4T)‑Complete
+Overalongertradinghorizon,wheredecisionspeedislessofafactor,andthedecisionsarecomplex,
+humanstypicallyoutperformcomputers.
+Let’sthinkaboutthedifferenttypesofhedgefundswemightfindinthewild. Ontheonehand, we
+might see an HFT‑based fund using technical analysis to trade over a millisecond horizon. On the
+other hand, we might find an insight‑driven, human‑based hedge fund holding positions for much
+longer. Inbetween,weoftenseehumansandcomputersworkingtogether.
+19.7 AFewIndicators: Momentum
+The first technical indicator that we are going to consider is momentum. Momentum refers to the
+relativechangeinpriceforastockoveracertainnumberofdays.
+Ifweconsiderthetwopointsonthepricechartbelow,wecanseepositivemomentum.
+MattSchlenker 295
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 296 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ifweconsiderthesetwopoints,wecanseenegativemomentum.
+Theslopeofthelineconnectingthetwopointsindicatesthestrengthofthemomentum,eitherposi‑
+tiveornegative.
+We can incorporate momentum into a trading strategy. Many folks choose to buy on positive mo‑
+mentumandsellonnegativemomentumbecausetheyanticipatethatthecurrenttrendisgoingto
+continue.
+While we have seen what momentum looks like visually, we need a quantitative representation of
+momentumthatwecanuseinamachinelearningcontext.
+MattSchlenker 296
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 297 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wesaidthatmomentumreferstotherelativepricechangeoveracertainnumberofdays. Tocalculate
+momentum,wehavetodefinehowmanydayswewanttouse. Forexample,wemightconsiderafive‑
+daymomentumthatcomparespricesfromfivedaysagotopricestodayoraten‑daymomentumthat
+usesanequivalentcomparison.
+Generally,ifwewanttocalculatethe 𝑛‑daymomentum, 𝑚,atday 𝑡,usingasequenceofprices, 𝑝,we
+canusethefollowingformula.
+𝑚𝑡=𝑝𝑡
+𝑝𝑡−𝑛− 1
+Thisformulagivesusanumberindicatinghowmuchthepriceofastockhasrisenorfallenbetween
+day 𝑡 − 𝑛and day 𝑡. We typically see numbers for momentum between ‑0.5, for a significant price
+drop,and0.5,forasignificantpricejump.
+19.8 AFewIndicators: SimpleMovingAverage
+Ournextindicatoris simplemovingaverage (SMA),which,given 𝑛,computestheaveragepriceover
+theprevious 𝑛days,knownasan 𝑛‑daywindow.
+Wedon’thavetocomputetheSMAforonlyasingleday. Instead,wecanrepeatedlyslideourwindow
+forwardonedaytocomputethe 𝑛‑daySMAforeverydayfrom 𝑛totoday. TheplotofsuchanSMAis
+shownbelow.
+NotethattheSMAplotessentiallylookslikeasmoothedversionofthepricechart. Also,noticethat
+the movement of the SMA data lags that of the pricing data; in other words, the peaks and troughs
+MattSchlenker 297
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 298 ---
+MachineLearningforTrading(ML4T)‑Complete
+thatappearinthepricingdatadon’tappearintheSMAdataforseveraldays.
+There are at least two different ways that technicians use simple moving averages in their trading
+strategies. First, they look for places where the current price crosses through the SMA, as seen be‑
+low.
+Suchcrossoverstendtobesignificantevents,especiallywhen 𝑛isquitelarge. Coupledwithsupport‑
+ingmomentum,acrossovermightconstituteastrongbuyorsellsignal.
+Technicians might also use simple moving average as a proxy for underlying value. In other words,
+ifwecalculatetheaveragepriceoveralargeenoughwindow,wemightbeabletoestimatethetrue
+valueofthecompany.
+If we see a large excursion from such a simple moving average, we should expect that the price is
+goingtoregresstowardthataverage. Giventhatknowledge,excursionsmaypresenttradingoppor‑
+tunities.
+Forexample,wecanuncoveronepotentialbuysignalandtwopotentialsellsignalsbelowbylooking
+atsuchexcursions.
+MattSchlenker 298
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 299 ---
+MachineLearningforTrading(ML4T)‑Complete
+Just as we saw with momentum, a visual representation of simple moving averages is not enough.
+We need a quantitative representation of SMAs if we are to use them in our machine learning algo‑
+rithms.
+Generally,ifwewanttocalculatethe 𝑛‑daysimplemovingaverage, 𝑆𝑀 𝐴,atday 𝑡,usingasequence
+ofprices, 𝑝,wecanusethefollowingformula.
+𝑆𝑀 𝐴𝑡=∑𝑡
+𝑖=(𝑡−𝑛)𝑝𝑖
+𝑛
+Wecanalsoquantifybuyandsellsignals.
+𝑓 (𝑆𝑀 𝐴𝑖𝑡, 𝑝𝑖) =⎧{
+⎨{⎩𝐵𝑢𝑦,𝑆𝑀 𝐴𝑖𝑡
+𝑝𝑖− 1 > 0
+𝑆𝑒𝑙𝑙,𝑆𝑀 𝐴𝑖𝑡
+𝑝𝑖− 1 < 0
+Similartomomentum,valuesforSMAtypicallyrangefrom‑0.5to0.5.
+19.9 AFewIndicators: BollingerBands
+Supposewehavethefollowingplotdemonstratingthepriceofastockovertime.
+MattSchlenker 299
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 300 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wewanttoleveragesimplemovingaveragestoinformusofpotentialbuyingandsellingopportuni‑
+ties. Let’saddthesimplemovingaveragetotheplot.
+Wearetryingtodecidehowmuchofanexcursionfromthesimplemovingaverageweshoulduseas
+atradingsignal. Wemightchooseafixedpercentageof,say,1%.
+However,aswestepforwardintime,weseethatmostofthepricemovementisatleast1%. According
+toourstaticrule,we’dbeconstantlytrading. Clearly,afixednumberisnotthewaytogo.
+Ourpricingchartshowstwodistinctregions: oneoflowvolatilityandoneofhighvolatility.
+MattSchlenker 300
+hrishishahh@gmail.com 26 Jan 2026
+

@@ -1,0 +1,706 @@
+--- Page 101 ---
+MachineLearningforTrading(ML4T)‑Complete
+3.20.1 Documentation
+•Indexing
+3.21 ArithmeticOperations
+Arithmeticoperationsonndarraysarealwaysappliedelement‑wise. Let’sfirstcreateanndarray a:
+1a=np.array ([
+2 (1, 2, 3, 4, 5),
+3 (10, 20, 30, 40, 50)
+4])
+Wecanmultiplyeachelementin abytwo:
+12 * a
+Ifweprinttheresultofthismultiplication,weseethefollowing.
+MattSchlenker 101
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 102 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecandivideeachelementin abytwo:
+1a/ 2
+Ifweprinttheresultofthisdivision,weseethefollowing.
+MattSchlenker 102
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 103 ---
+MachineLearningforTrading(ML4T)‑Complete
+Notethatboththedivisorandtheelementsinthendarrayareintegers. Asaresult,integerdivision
+(roundingdown,roughly)isperformed,whichiswhy1/2equals0.
+Wecancasttheresultingarrayintofloatvaluesbyensuringthatthedivisorisafloat:
+1a/ 2.0
+Ifweprinttheresultofthisdivision,weseethefollowing.
+MattSchlenker 103
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 104 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ourarithmeticcapabilitiesarenotlimitedtojustoperationsbetweenndarraysandscalarvalues. We
+canalsoperformoperationsthatcombinetwondarrays. Let’screateasecondndarray b.
+1a=np.array ([
+2 (100, 200, 300, 400, 500),
+3 (1, 2, 3, 4, 5)
+4])
+Wecanadd aandb:
+1a+b
+Ifweprinttheresultofthisaddition,weseethefollowing.
+MattSchlenker 104
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 105 ---
+MachineLearningforTrading(ML4T)‑Complete
+Notethattheshapeof aandbshouldbesimilarbeforetryingtoperformoperationsthatinvolveboth
+ndarrays;otherwise,NumPywillthrowanerror.
+Themultiplicationoperatorallowsustomultiplytwondarraysinanelement‑wisemanner. Notethat
+otherlanguagescommonlyusethemultiplicationoperatortosignifythedotproduct. NumPydoes
+notdothis.
+Wecanmultiply aandbinanelement‑wisefashion:
+1a*b
+Ifweprinttheresultofthismultiplication,weseethefollowing.
+MattSchlenker 105
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 106 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecandivide abyb:
+1a/b
+Ifweprinttheresultofthisdivision,weseethefollowing. Rememberthatwearedoingintegerdivi‑
+sionhere.
+MattSchlenker 106
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 107 ---
+MachineLearningforTrading(ML4T)‑Complete
+4 StatisticalAnalysisofTimeSeries
+4.1 GlobalStatistics
+In this lesson, we are going to look at the various types of statistics that we can take on time series
+data.
+Let’sconsiderouroldDataFrame dffromapreviouslecture.
+MattSchlenker 107
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 108 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecantakethemeanofeachcolumnin dflikethis:
+1df1.mean ()
+This statement will create a new one‑dimensional ndarray whose elements are the means of the
+columnsin df.
+DataFramescontainmanyhelpfulstatisticalmethods,andsomecommononesarelistedbelow.
+1df.mean ()
+2df.median ()
+3df.mode ()
+MattSchlenker 108
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 109 ---
+MachineLearningforTrading(ML4T)‑Complete
+4df.std()#Standard Deviation
+5df.sum()#Column -wise sum ofelements
+6df.prod ()#Column -wise product ofelements
+7#And many others !
+4.1.1 Documentation
+•Computations/descriptivestats
+4.2 ComputeGlobalStatistics
+GivenourDataFrame dfthatcontainsstockdataforSPY,XOM,GOOG,andGLD,wecanretrievethe
+meanpriceforeachstockwiththefollowingcode:
+1df.mean ()
+Ifweprintthemeans,weseethefollowing.
+Similarly,wecancomputethemedianpriceofeachstock:
+1df.median ()
+Recall that while the mean is the average value ‑ the sum of all elements divided by the number of
+elements ‑ the median is the middle value. That is, given a sorted dataset, the median value is the
+valuesuchthatanequalnumberofvaluescomebeforeandafter.
+Ifweprintoutthemedianpriceforeachstock,weseethefollowing.
+MattSchlenker 109
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 110 ---
+MachineLearningforTrading(ML4T)‑Complete
+Additionally,wecancomputethestandarddeviationofthepricesofeachstock:
+1df.std()
+Mathematically, the standard deviation is the square root of the variance. Intuitively, the standard
+deviationisameasureofdeviationfromacentralvalue;inthiscase,thecentralvalueisthemean.
+Ifweprintoutthestandarddeviationofthepricesofeachstock,weseethefollowing.
+WecanseethatGOOGhasthehigheststandarddeviationamongthestocks. Thismeansthepriceof
+GOOGhasvariedmoreovertimethanthepriceoftheotherstocks.
+MattSchlenker 110
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 111 ---
+MachineLearningforTrading(ML4T)‑Complete
+4.2.1 Documentation
+•pandas.DataFrame.mean
+•pandas.DataFrame.median
+•pandas.DataFrame.std
+4.3 RollingStatistics
+Let’stalkaboutanewkindofstatistics: rollingstatistics . Insteadofcomputingasinglestatisticover
+anentiresetofdata,wecomputearollingstatisticagainstasubset,orwindow,ofthatdata,andwe
+adjustthewindowwitheachnewdatapointweencounter.
+ConsiderthefollowinggraphofSPYpricedata.
+Wecancomputethe globalmeanofthisdataset,whichisasinglevaluedescribedbythelinebelow.
+MattSchlenker 111
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 112 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecanalsocomputean n‑dayrollingmean. Foragivenday d,then‑dayrollingmeanisequaltothe
+meanofthe d- (n- 1)through ddays. The window istheparameter n.
+Forexample,wecancomputea20‑dayrollingmeanasfollows. Foragivenday d,the20‑dayrolling
+meanisequaltothemeanofthe d- 19through ddays. Thewindowhereis20.
+Wecancalculatethe20‑dayrollingmeanforday d'=d+1asthemeanofthe d- 18through d
++ 1days. Generally,wecanimagine“sliding”thewindowthroughthedatasetandcomputingthe
+MattSchlenker 112
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 113 ---
+MachineLearningforTrading(ML4T)‑Complete
+rollingmeanateachdatapoint.
+Notethatourslidingmeancalculationsformacurvethatbegins20datapointsafterthebeginningof
+theSPYdata.
+Wecanseethatthisrollingmeanlinefollowstheday‑to‑dayvaluesoftheSPYpricedata,butitlags
+slightlyasithastoincorporatethepasttwentydaysintoitscalculation.
+The rolling mean is referred to as a simple moving average (SMA) by technical analysts . Technical
+analystsutilizeSMAsbylookingatpointswherethepricecrossesovertheSMA.
+Ahypothesisthatmanytechnicalanalystsabidebyisthattherollingmeanmaybeagoodrepresenta‑
+MattSchlenker 113
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 114 ---
+MachineLearningforTrading(ML4T)‑Complete
+tionofthetrue,underlyingpriceofthestockandthatsignificantdeviationsfromthatmeaneventually
+resultinareturntothemean.
+Asaresult,ifyoucanspotsignificantdeviationsfromthemean,youmightbeabletospotabuying
+opportunity.
+Achallengetothisstrategy,though,isunderstandingwhenadeviationissignificantenoughtowar‑
+rantattention. Smalldeviationsmaybenoisemoreoftenthannot.
+4.4 WhichStatistictoUseQuiz
+Assumeweareusingarollingmeantotrackthemovementofastock. Wearelookingforanoppor‑
+tunitytofindwhenthepricehasdivergedsignificantlyfarfromtherollingmean,aswecanusethis
+divergencetosignalabuyorasell.
+Whichstatisticmightweusetodiscoverifthepricehasdivergedsignificantlyenough?
+MattSchlenker 114
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 115 ---
+MachineLearningforTrading(ML4T)‑Complete
+4.5 WhichStatistictoUseQuizSolution
+Standarddeviationgivesusameasureofdivergencefromthemean. Therefore,ifthepricebreaches
+MattSchlenker 115
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 116 ---
+MachineLearningforTrading(ML4T)‑Complete
+thestandarddeviation,wemayconcludethatthepricehasmovedsignificantlyenoughforustocon‑
+siderbuyingorsellingthestock.
+4.6 BollingerBands
+Howcanweknowifadeviationfromtherollingmeanissignificantenoughtowarrantatradingsignal?
+Inthe1980s, JohnBollinger createdthe Bollingerbands toaddressthisquestion.
+Bollingerreasonedthatweoughttoconsidertherecentvolatilityofastockbeforebuyingorselling.
+If the stock is very volatile, we might discard movements above and below the rolling mean. If the
+stockisnotveryvolatile,however,asimilarly‑sizedmovementmightdeserveourattention.
+Hisideawastoaddtwobandstothegraphofpricemovement: onethatwastwostandarddeviations
+abovetherollingmean,andonethatwastwostandarddeviationsbelowtherollingmean.
+Withlowerband Landupperband Hinplace,wecandeviseasimpletradingstrategyasfollows. Price
+movementbelow Lfollowedbypricemovementabove Lsignalsabuy. Conversely,pricemovement
+above Hfollowedbypricemovementbelow Hsignalsasell.
+MattSchlenker 116
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 117 ---
+MachineLearningforTrading(ML4T)‑Complete
+4.7 ComputingRollingStatistics
+Pandas provides a number of functions to compute moving statistics. Given a DataFrame dfand a
+window window,wecancomputetherollingmeanofthecolumnsinaDataFramelikethis:
+1#NOTE :this issuper old syntax .
+2pd.rolling_mean (df,window =window )
+3
+4#NOTE :this isthe new syntax .
+5df.rolling (window ).mean ()
+Let’slookatsomestartercodeforreadingSPYdataintoaDataFrame dfandplottingit.
+MattSchlenker 117
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 118 ---
+MachineLearningforTrading(ML4T)‑Complete
+We can generate an ndarray rm_SPYcontaining the values of a 20‑day rolling mean over the SPY
+data:
+1#NOTE :this issuper old syntax .
+2pd.rolling_mean (df['SPY'],window =20)
+3
+4#NOTE :this isthe new syntax .
+5df['SPY'].rolling (20). mean ()
+Wecanplot rm_SPYonthesameplotweusedfortherawpricedatabypassinginthematplotlibaxis
+object axweassignedfromthepreviouscalltothe plotmethod:
+1#ax=df['SPY'].plot (...)
+2#...
+3
+4rm_SPY .plot (label ="Rolling mean ",ax=ax)
+Specifyingthelabelas“Rollingmean”isusefulwhenaddingaplotlegend. Let’sdothatnow,along
+withsomeaxislabels:
+1ax.set_xlabel ('Date ')
+2ax.set_ylabel ('Price ')
+3ax.legend (loc='upper left ')
+Ifwedisplaytheplot,weseethefollowing.
+MattSchlenker 118
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 119 ---
+MachineLearningforTrading(ML4T)‑Complete
+Observethattherollingmeanlinehasmissinginitialvalues. Sincewedefineda20‑daywindow,we
+can’tactuallycomputetherollingmeanuntilwehaveatleast20daysworthofpricingdata.
+Alsoobservethattherollingmeanappearstotrackthepricedata,butismuchsmootherthantheraw
+data.
+4.7.1 Documentation
+•pandas.DataFrame.rolling
+•pandas.DataFrame.plot
+•matplotlib.axes.Axes.set_xlabel
+•matplotlib.axes.Axes.set_ylabel
+•matplotlib.axes.Axes.legend
+4.8 CalculateBollingerBandsQuiz
+Computing Bollinger bands consists of three main steps: first, computing the rolling mean; second,
+computingtherollingstandarddeviationand;third,computingtheupperandlowerbands.
+Ourgoalistoimplementthethreefunctionsbelowtoaccomplishthesetasks.
+MattSchlenker 119
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 120 ---
+MachineLearningforTrading(ML4T)‑Complete
+4.9 CalculateBollingerBandsQuizSolution
+Givenanndarray valuesandawindow window,wecancalculatetherollingstandarddeviationas
+follows:
+1#OLD
+2pd.rolling_std (values ,window =window )
+3
+4#NEW
+5values .rolling (window ).std()
+Givenarollingmean rmandarollingstandarddeviation rstd,wecancalculatetheBollingerbands
+asfollows:
+1rm+ (2 * rstd ),rm- (2 * rstd )
+MattSchlenker 120
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 121 ---
+MachineLearningforTrading(ML4T)‑Complete
+4.9.1 Documentation
+•pandas.DataFrame.rolling
+4.10 DailyReturns
+Dailyreturns reflecthowmuchthepriceofastockincreasedordecreasedonaparticularday. We
+cancalculatethedailyreturnonagivenday twithasimpleequation:
+1(price [t] / price [t- 1]) - 1
+Forexample,let’ssupposethatyesterdayastockclosedat$100andtodaythestockclosedat$110.
+Thedailyreturnforthestocktodayis:
+1(110 / 100) - 1 #=1.1 -1=0.1 =10%
+Here’showachartfordailyreturnsmightlook.
+MattSchlenker 121
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 122 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecanseethedailyreturns“zigzag”aboveandbelowzero,indicatingthatthestockfinishedabove
+itspreviouscloseonsomedaysandfinishedbelowonothers.
+Wecanalsotaketheaverageoverthedailyreturnvalues,which,sincethestockseemstohaverisen
+moredaysthanitfell,wouldbeslightlyabovezero.
+Dailyreturnscanbeahelpfultoolforcomparingtwodifferentstocks,suchasXOM(Exxon)andSPY.
+The following plot of daily returns reveals an unusual feature: a day where SPY had a positive daily
+return,andXOMhadanegativedailyreturn.
+MattSchlenker 122
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 123 ---
+MachineLearningforTrading(ML4T)‑Complete
+4.11 ComputeDailyReturnsQuiz
+Our task is to implement a function compute_daily_returns that receives a DataFrame dfand
+returns a DataFrame consisting of the daily return values. The returned DataFrame must have the
+samenumberofrowsas df,andanyrowswithmissingdatamustbefilledwithzeroes.
+MattSchlenker 123
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 124 ---
+MachineLearningforTrading(ML4T)‑Complete
+4.12 ComputeDailyReturnsSolution
+GivenaDataFrame dfwithnrows,wecancreateanewDataFramewith n+mrowswhereeachrow
+isshifteddown mrowswiththefollowingcode:
+1df.shift (m)
+Notethatthenewlycreated mrowsatthetopoftheDataFramewillbefilledwith NaNvalues.
+Therefore,wecandivideeverypriceinourDataFrame dfbythepriceonthepreviousdaylikethis:
+1df/df.shift (1)
+Wecancompletethedailyreturncalculation,andgenerateaDataFrame daily_returns likeso:
+1df/df.shift (1) - 1
+Theonlythingwehavetoconsidernowisthefirstrowin daily_returns . Sincethefirstrowinthe
+shiftedDataFrameisfilledwith NaNvalues,anysubsequentmathematicaloperationsonthosevalues
+yield NaN.
+However,ourtaskwastofillanyrowswithmissingdatawithzeroes. Wecanfix daily_returns like
+this:
+1#Deprecated
+2daily_returns .ix[0, :] = 0
+3
+4#Use this
+5daily_returns .iloc [0] = 0
+MattSchlenker 124
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 125 ---
+MachineLearningforTrading(ML4T)‑Complete
+4.12.1 Documentation
+•pandas.DataFrame.shift
+•pandas.DataFrame.ix‑DEPRECATED
+•pandas.DataFrame.loc
+•pandas.DataFrame.iloc
+4.13 CumulativeReturns
+Let’slookatachartofSPYpricesfortheyear2012.
+This stock started 2012 at $125 and finished at $142. However, when we hear about a stock on the
+news,wedon’tusuallyhearbeginningandendprices,butrathersomethinglike: “SPYgained13.6%
+in2012.”
+That13.6%isthe cumulativereturn forSPYin2012. Inotherwords,thecumulativereturnforastock
+isthetotalreturnforthestockoveragivenrange.
+Wecancalculateacumulativereturnonaday twithasimpleequation:
+1(price [t] / price [0]) - 1
+Ifweset tequaltothelastdayin2012,wecancalculatethecumulativereturnas:
+1142 / 125 - 1 #=1.136 -1=13.6%
+Wecancalculateandchartcumulativereturnsfortheentiretimeperiod,justlikewedidwithother
+statistics,suchastherollingmean.
+MattSchlenker 125
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 126 ---
+MachineLearningforTrading(ML4T)‑Complete
+Note that the shape of this chart is identical to the price chart but just normalized. In fact, the ex‑
+pression for cumulative return is identical to the expression for normalization we saw in a previous
+lecture.
+5 IncompleteData
+5.1 PristineData
+People have many misconceptions when it comes to financial data, and one of the biggest is that
+thedataisalwayspristine. Peopleoftenimaginethatfinancialdataisperfectlyrecorded,minuteby
+minute,freeofgapsandothererrors.
+That’sjustnotthecase.
+Forexample,astockmightbetradedonmultipleexchanges‑theNewYorkStockExchange,theNAS‑
+DAQ,and BATS,amongothers. Atanyparticularminuteduringtheday,itmaytradeatonepriceon
+oneexchange,andadifferentpriceonanother.
+Asaresult,thereisnosinglepriceforastockataparticulartime,andit’shardtosaywhichexchange
+is“right”whenitcomestopricingastock. Therealityofthedatathatwegetisthatit’softenanamal‑
+gamationfromseveraldifferentsources,anddifferentdataproviderssupplydifferentnumbers.
+Additionally,notallstockstradeeveryday,sowecanseegapsinourdatainbetweenperiodsofactiv‑
+ity. Additionally,stockscomeintoandgooutofexistence,sowemightseedataforastocksuddenly
+beginorend.
+MattSchlenker 126
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 127 ---
+MachineLearningforTrading(ML4T)‑Complete
+5.2 WhyDataGoesMissing
+Let’sconsiderthefollowingplotofSPYpricingdata.
+SPY,anETFthattrackstheS&P500,isoneofthemostliquidandactively‑tradedETFsonthemarket.
+Becauseofitsfrequenttrading,wetypicallyuseSPYasaproxyforthestockmarketbeingopenand
+asatimeanddatereferenceforotherstocks.
+Let’slookatanotherstock: JAVA.
+MattSchlenker 127
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 128 ---
+MachineLearningforTrading(ML4T)‑Complete
+Aswecansee,JAVAwastradingfromthebeginningofourtimeframebutthenabruptlystopped. The
+reasonforthisisthatSunMicrosystems,tradingunderthetickerJAVA,wasacquiredbyOraclein2010.
+Onthatday,theJAVAtickerceasedtoexist. Fromthisdateforward,alldataforJAVAwillbe NaN.
+Interestingly,beforeJAVArepresentedSunMicrosystems,itwasthetickerforMr.Coffee. Ifyoulook
+historicallyfordataforJAVA,you’llfindtwodifferenttimeseriesfortheticker: oneforMr.Coffee,and
+oneforSunMicrosystems.
+Let’slookatanother,admittedlyfake,stock: FAKE1.
+MattSchlenker 128
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 129 ---
+MachineLearningforTrading(ML4T)‑Complete
+Asyoucansee,FAKE1didn’texistbeforeadateroughlyinthemiddleofourrange. Whilewesee NaN
+valuesafteraparticulardateforJAVA,wesee NaNvaluesbeforeaparticulardateforFAKE1.
+Let’slookatasecondfakestock: FAKE2.
+Wecanseethat,inadditiontonothavingdataatthebeginningoftherange,FAKE2alsohasserious
+MattSchlenker 129
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 130 ---
+MachineLearningforTrading(ML4T)‑Complete
+gapsinthedatathroughouttherange. Thisdataisnottypicalforaverylarge,liquidstocklikeGOOG
+orAPPL,butcanbetypicalforthinlytradedstocks,suchasthosethathaveasmallermarketcapital‑
+izationandtradeinfrequently.
+5.3 WhythisisBad/WhatwecanDo
+Whatdowedowhenwehavesignificantgapsinourdata? Let’stakeanotherlookatourfaketicker
+FAKE2.
+Thetruthofthematteristhat,betweenthetwopointsoneithersideofthegap,theresimplywasno
+trading;inotherwords,therewasnopriceforthisstock.
+However,ifwewanttocomputeanysortofstatisticoverthesegaps,weneedtofillthemwith some‑
+thingbecausewecan’trunstatisticsof NaNvalues.
+Ourfirstthoughtmightbetointerpolatethedata. Thatis,wecouldfillinthedatabetweenthetwo
+pointsoneithersideofthegapbydrawingalineconnectingthem.
+MattSchlenker 130
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 131 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thisisthewrongapproach.
+Supposewewerelookingforpatternsinthedata, andwehadrolledbacktimetostepthroughthe
+pricingdatadaybyday. Let’ssupposethecurrentdayweareexaminingisoneofthepointsthatwe
+interpolated.
+Tointerpolatethepointsinthegap, wehadtoknowthepointsatthebeginningandtheendofthe
+gap. However,fromtheperspectiveofanyindividualinterpolatedpoint,theendofthegapexistsin
+thefuture.
+Asaresult,wecannotconsideranyoftheinterpolatedpointswithoutconcedingthatwenecessarily
+bakedinformationfromthefuture(relativetothepoint)tobringaboutitsexistence. Sincewecan’t
+peekintothefutureinreallife,we cannottakethisapproachinsimulation.
+Abetterapproachisthe fillforward approach. Inthisapproach,eachdatapointinthegapisgiven
+thevalueofthelast‑seendatapoint.
+MattSchlenker 131
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 132 ---
+MachineLearningforTrading(ML4T)‑Complete
+However,westillhavemissingdataatthebeginningofourrange. Thefirstgapbeginssomewhereto
+theleftofthey‑axis,leavinguswithnovaluefromwhichtofillforward.
+Weneedtofillinthisgap,sowechooseto fillbackward fromthefirstknownpriceinthissituation.
+Generally, we fill forward first and fill backward second. This approach helps us avoid peeking into
+thefutureasmuchaspossible.
+MattSchlenker 132
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 133 ---
+MachineLearningforTrading(ML4T)‑Complete
+5.4 Pandasfillna()Quiz
+Ourtaskistofindtheparameterthatweneedtopassto fillnatofillforwardmissingvalues.
+5.5 Pandasfillna()QuizSolution
+MattSchlenker 133
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 134 ---
+MachineLearningforTrading(ML4T)‑Complete
+5.5.1 Documentation
+•pandas.DataFrame.fillna
+5.6 Usingfillna()
+Let’stakeanotherlookatthedataforFAKE2.
+Wenoticeagapinthedataatthebeginningofthedaterange,aswellasseveralgapsinthemiddle.
+GivenaDataFrame df,wecanforwardfillmissingvalueswiththefollowingmethodcall:
+1df.fillna (method ="ffill ")
+Let’splottheFAKE2pricesagain.
+MattSchlenker 134
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 135 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecanseethehorizontallineswherewehaveforwardfilledthegapsinthedata. However, weare
+stillmissingvaluesatthebeginningoftherange.
+5.6.1 Documentation
+•pandas.DataFrame.fillna
+5.7 FillMissingValuesQuiz
+Ifwelookatthefollowingplotofstockpricedata,wecanseeseveralgaps.
+MattSchlenker 135
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 136 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ourtaskistousethe fillnamethodtofillthesegaps.
+5.8 FillMissingValuesSolution
+Wecanuseforwardfillingforgapsthathaveadefinitivestartdate,andbackwardfillingforgapsthat
+havenobeginningorbeginbeforeourdaterange.
+MattSchlenker 136
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 137 ---
+MachineLearningforTrading(ML4T)‑Complete
+5.8.1 Documentation
+•pandas.DataFrame.fillna
+6 HistogramsandScatterPlots
+6.1 ACloserLookatDailyReturns
+Let’srecaphowwegeneratedailyreturnsfromatimeseriesofpricingdata.
+Given a series of stock prices, the daily return on day dis equal to the price at day ddivided by the
+priceat d- 1,minusone. Forexample,ifthestockclosedat$100onday d- 1andat$110onday
+d,thecorrespondingdailyreturnis:
+1110 / 100 - 1 #=1.1 -1=0.1 =10%
+Let’slookataplotofdailyreturndata.
+It’s hard to draw any exciting conclusions by looking at this data on a day‑to‑day basis. There are
+moreillustrativewaystovisualizethisdata,andthislessonconsiderstwotypesofvisualizations: his‑
+togramsandscatterplots.
+Let’s start by looking at histograms. A histogram is a type of bar chart in which all possible values
+aresegregatedintobins,andtheheightofeachbincorrespondstothenumberofdatapointsinthat
+bin.
+MattSchlenker 137
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 138 ---
+MachineLearningforTrading(ML4T)‑Complete
+6.2 WhatWoulditLookLikeQuiz
+Supposethatwe’vetakenalloftheSPYpricingdatafromovertheyears,generatedanarrayofdaily
+returns,andcreatedahistogramfromthosereturns.
+Whichofthefollowingshapeswouldthehistogrammostlikelyhave?
+MattSchlenker 138
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 139 ---
+MachineLearningforTrading(ML4T)‑Complete
+6.3 WhatWoulditLookLikeQuizSolution
+6.4 HistogramofDailyReturn
+Thereareseveralstatisticswecancomputethathelpuscharacterizeourhistogram.
+Forexample,wemightbeinterestedinthemean,whichtellsustheaveragereturn,orthestandard
+deviation,whichgivesusinformationabouthowthedataisdistributedaboutthemean.
+Another significant statistic is kurtosis. Kurtosis describes the tails of our distribution; specifically,
+kurtosisgivesusameasureofhowmuchthetailsofourdistributiondifferfromthoseofaGaussian,
+ornormal,distribution.
+MattSchlenker 139
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 140 ---
+MachineLearningforTrading(ML4T)‑Complete
+Inourcase,wehave“fattails”,whichmeansthatourdatacontainsmorevaluesfurtherfromthemean
+thanwewouldseeifthedistributionwascompletelynormal. Ifweweretomeasurethekurtosis,we
+wouldgetapositivevalue.
+On the other hand, a negative kurtosis indicates that there are fewer occurrences in the tails than
+wouldbeexpectedifthedistributioninquestionwasnormal.
+6.5 HowtoPlotaHistogram
+Let’slookatthedailyreturnsforSPYfrom2009through2012.
+MattSchlenker 140
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 141 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wewanttoturnthisdataintoahistogram. Ofcourse,wecan’tcreateanyplotswithoutmatplotlib:
+1import matplotlib .pyplot asplt
+GivenaDataFrame dfofSPYdailyreturns,wecancreateahistogramwithonelineofcode:
+1df.hist ()
+Let’sseetheplot.
+Notethatwedidnotspecifythenumberofbinsthatwewantedtouseinourhistogram,sowewere
+MattSchlenker 141
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 142 ---
+MachineLearningforTrading(ML4T)‑Complete
+giventen, thedefault. Ofcourse, pandasisflexibleandletsussupplythenumberofbinsusingthe
+binskeyword:
+1df.hist (bins =20)
+Let’sseeournewhistogram.
+Noticethatthewidthofeachbarhasdecreased,andthenumberofbarshasincreased.
+6.5.1 Documentation
+•pandas.DataFrame.hist
+6.6 ComputingHistogramStatistics
+Wecancalculatethemean meanandstandarddeviation stdoftheSPYdailyreturnsinourDataFrame
+df:
+1df['SPY'].mean ()
+2df['SPY'].std()
+Ifweprintoutthesevalues,weseethefollowing.
+MattSchlenker 142
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 143 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wewanttoaddthesevaluestoourdailyreturnshistogramplot. Thankfully, matplotlibexposesan
+axvline methodthatallowsustodrawverticallinesonthecurrentgraph.
+Wecandrawaverticallineatthex‑valueof meanlikeso:
+1plt.axvline (mean ,color ='w',linestyle ='dashed ',linewidth =2)
+Thismethodcallinstructsmatplotlibtodrawawhite,dashedlineofwidthtwoatthex‑valueof mean
+.
+Let’sseehowitlooks.
+MattSchlenker 143
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 144 ---
+MachineLearningforTrading(ML4T)‑Complete
+Wecandrawaverticallineatthex‑valuesofpositive stdandnegative stdlikeso:
+1plt.axvline (std,color ='r',linestyle ='dashed ',linewidth =2)
+2plt.axvline (-std,color ='r',linestyle ='dashed ',linewidth =2)
+Thesemethodcallsinstructmatplotlibtodrawared,dashedlineofwidthtwoatthex‑valueof +std
+and-std.
+Aside: Ithinkwhatshemeanttodowasplotthestandarddeviationoneithersideofthemean:
+1plt.axvline (mean +std,color ='r',linestyle ='dashed ',linewidth =2)
+2plt.axvline (mean -std,color ='r',linestyle ='dashed ',linewidth =2)
+Ifweplottheselines,weseethefollowingfigure.
+Wecanretrievethekurtosisofourdailyreturnsdatausingthe kurtosis method:
+1df.kurtosis ()
+Ifweprintthekurtosis,wegetapositivevalue,whichconfirmsthatwehavethe“fattails”described
+above.
+6.6.1 Documentation
+•pandas.Series.mean
+•pandas.Series.std
+•matplotlib.axes.Axes.axvline
+•pandas.Series.kurtosis
+MattSchlenker 144
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 145 ---
+MachineLearningforTrading(ML4T)‑Complete
+6.7 CompareTwoHistogramsQuiz
+Acommonpracticeinfinanceistoplothistogramsofthedailyreturnsofdifferentstockstogetherto
+assesshowthestocksrelatetoeachother.
+Below are the daily returns histograms for SPY and XYZ, as well as three statements describing the
+relationshipbetweenthetwo.
+Whichstatementdoyouthinkiscorrect?
+Notethat“vol”referstovolatilityandnotvolume.
+MattSchlenker 145
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 146 ---
+MachineLearningforTrading(ML4T)‑Complete
+6.8 CompareTwoHistogramsQuizSolution
+WecanseethatthemeanofSPYisslightlyhigherthanthemeanofXYZ,indicatingthatSPYoutper‑
+formsXYZ.
+Additionally,wecanseethattheXYZcurveis“flatter”thantheSPYcurve. Thisfeatureindicatesthat
+thedailyreturnsofXYZaremorespreadoutthanthoseofSPY,whicharemorecentralized.
+Insummary,XYZhasbothlowerreturnsandhighervolatilitythanSPY.
+6.9 PlotTwoHistogramsTogether
+Now we want to plot two histograms: one for SPY daily returns and one for XOM (Exxon) daily re‑
+turns.
+Givena daily_returns DataFramethatcontainsdailyreturnsforSPYandXOM,wecancreatethe
+twohistogramsweneedlikeso:
+1daily_returns .hist (bins =20)
+Ifweprintthehistograms,weseethefollowing.
+MattSchlenker 146
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 147 ---
+MachineLearningforTrading(ML4T)‑Complete
+Noticethatwehavetwodistinctsubplots. Instead,wewantthehistogramstoshareanx‑andy‑axis
+sothatwecanmoreeasilycomparethedata. Wecanaccomplishthislikeso:
+1daily_returns ['SPY'].hist (bins =20, label ="SPY")
+2daily_returns ['XOM'].hist (bins =20, label ="XOM")
+3plt.legend (loc="upper right ")
+Thelabelparameterwepasstothe histmethodhelpsusdifferentiatetheplotsbyaddinglabelsto
+thelegendgeneratedbythe legendmethod.
+Let’stakealookatthehistograms.
+MattSchlenker 147
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 148 ---
+MachineLearningforTrading(ML4T)‑Complete
+Nowthatthehistogramsareonthesameaxes,wecancomparetheirpeaksandtailsmoreeasily.
+6.9.1 Documentation
+•pandas.DataFrame.hist
+•matplotlib.pyplot.legend
+6.10 Scatterplots
+Let’scomparethedailyreturnsofSPYandXYZ.
+We can see that XYZ frequently moves in the same direction as SPY, although sometimes it moves
+further. Occasionally,SPYandXYZmoveindifferentdirections.
+WecanuseascatterplottovisualizetherelationshipbetweenSPYandXYZbetter. A scatterplot isa
+graphthatplotsthevaluesoftwovariablesalongtwoaxes.
+Inourcase,weplotthedailyreturnsofSPYagainstthedailyreturnsofXYZ.Eachdayinouroriginal
+databecomesapointinourscatterplot: thevalueofthex‑coordinateistheSPYreturn,andthevalue
+ofthey‑coordinateistheXYZreturn.
+MattSchlenker 148
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 149 ---
+MachineLearningforTrading(ML4T)‑Complete
+Let’sconsiderthedailyreturnscircledabove. Onthisday,thereturnofSPYwasabout1%,whilethe
+returnofXYZwasslightlyhigher. Thesereturnsmaptoapointof(1,~1.05)onourscatterplot.
+Let’sconsideranotherexample.
+On the second day circled above, SPY and XYZ were moving in different directions. SPY was in pos‑
+itive territory, while XYZ was in negative territory. These returns map to a point near (1, ‑1) on our
+scatterplot.
+Wecancontinuethisprocesstofilloutourscatterplot.
+MattSchlenker 149
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 150 ---
+MachineLearningforTrading(ML4T)‑Complete
+Eventhoughthedatapointsaresomewhatscattered,wedoseearelationshipbetweenthedailyre‑
+turnsofSPYandXYZ.
+6.11 FittingaLinetoDataPoints
+It’srelativelycommonpracticetotakethisscatterplotofdailyreturndataandfitalinetoitusinglinear
+regression.
+Wecanlookatsomepropertiesofthisbest‑fitline. Onepropertywemightbeinterestedinisthe slope.
+MattSchlenker 150
+hrishishahh@gmail.com 26 Jan 2026
+

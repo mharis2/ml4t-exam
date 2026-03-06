@@ -1,0 +1,744 @@
+--- Page 351 ---
+MachineLearningforTrading(ML4T)‑Complete
+Somewherewithintherobot,thereisanalgorithmthatsynthesizesinformationabout 𝑆,𝑟,and 𝑎over
+timetogenerate 𝜋.
+Torecap, 𝑆isthestateoftheenvironmentthattherobot“senses”,anditusesapolicy 𝜋todetermine
+whichaction 𝑎totake. Eachactioncomeswithanassociatedreward 𝑟,andtherobottriestorefine 𝜋
+overtimetomaximize 𝑟.
+In terms of trading, the environment is the market, and the available actions correspond to the ac‑
+tionsthatwecantakeinthemarket,suchasbuying, selling, orholding. 𝑆correspondstodifferent
+factorsaboutourcurrentportfoliothatwemightobserve,and 𝑟isthereturnwegetformakingspe‑
+MattSchlenker 351
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 352 ---
+MachineLearningforTrading(ML4T)‑Complete
+cifictrades.
+24.3 TradingasanRLProblemQuiz
+Wewanttousereinforcementlearningalgorithmstotrade;todoso,wehavetotranslatethetrading
+problemintoareinforcementlearningproblem.
+Considerthefollowingitems. Foreachitem,selectwhethertheitemcorrespondstoacomponentof
+theexternalstate 𝑆,anaction 𝑎wemighttakewithintheenvironment,orareward 𝑟thatwemight
+usetoinformourpolicy 𝜋.
+MattSchlenker 352
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 353 ---
+MachineLearningforTrading(ML4T)‑Complete
+24.4 TradingasanRLProblemQuizSolution
+Buyingandsellingstockarebothactionsthatweexecuteuponourenvironment.
+HoldinglongandBollingervaluearebothpartsofthestate. Holdinglongtellsusaboutourpositionin
+aparticularstock,andBollingervaluetellsusaboutthecurrentpricecharacteristicsofastock. Both
+ofthesepiecesofinformationmightdrivesubsequentaction.
+Thereturnfromatradeisourreward. Ifourreturnispositive,soisourreward. Ontheotherhand,a
+negativerewardindicatesthatwelostmoneyontheposition. Dailyreturncouldbeeitheracompo‑
+nentofthestate‑afactorweconsiderbeforegeneratinganaction‑butitcouldalsobeareward.
+24.5 MappingTradingtoRL
+Let’sthinkabouthowwecanframestocktradingasanRLproblem. Intrading,ourenvironmentisthe
+market. Thestatethatweprocessconsiders,amongotherfactors:marketfeatures,priceinformation,
+andwhetherweareholdingaparticularstock. Theactionswecanexecutewithintheenvironment
+are,generally,buy,sell,ordonothing.
+Inthecontextofbuyingaparticularstock,wemightprocesscertaintechnicalfeatures‑likeBollinger
+Bands‑todeterminewhatactiontotake. Supposethatwedecidetobuyastock. Oncewebuyastock,
+thatholdingbecomespartofourstate.
+Wehavetransitionedfromastateofnotholdingtoholdinglongthroughexecutingthebuyaction. We
+cantransitionfromastateofholdinglongtonotholdingbyexecutingthesellaction.
+MattSchlenker 353
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 354 ---
+MachineLearningforTrading(ML4T)‑Complete
+Supposethepriceincreases,andwedecidetoexecuteasell. Themoneythatwemade,orlost,isthe
+reward that corresponds to the actions we took. We can use this reward and its relationship to the
+actionsandthestatetorefineourpolicy,thusadjustinghowweactintheenvironment.
+24.6 MarkovDecisionProblems
+Let’sformalizesomeofthecomponentsthatwehavebeendiscussing.
+Wehaveasetofstates, 𝑆,whichcorrespondstoallofthedifferentstatesthatourrobotcanreceive
+asinput. Additionally,wehaveasetofactions, 𝐴,whichenumeratesallofthepotentialactionswe
+canexecutewithintheenvironment.
+Additionally,wehaveatransitionfunction, 𝑇. Thisfunctiontakesinthreearguments: acurrentstate,
+𝑆𝑐,anaction, 𝐴𝑖,andafuturestate 𝑆𝑓. Giventhesethreevalues,thetransitionfunctionreturnsthe
+probabilitythat 𝐴𝑖appliedto 𝑆𝑐bringsabout 𝑆𝑓.
+For a particular 𝑆𝑐and 𝐴𝑖, we are going to end up in somenew state. As a result, the sum of the
+probabilitiesofstatetransitionsfrom 𝑆𝑐tosome 𝑆𝑓in𝑆for 𝐴𝑖mustequal1.
+Finally, we have the reward function 𝑅, which receives an action, 𝐴𝑖, and a state, 𝑆𝑖, as input and
+returnstherewardforexecutingthatactioninthatstate.
+Aproblemparameterizedbythesefourcomponentsisknownasa Markovdecisionprocess .
+Theproblemforareinforcementlearningalgorithmistofindapolicy 𝜋thatmaximizesrewardover
+time. Werefertothetheoreticallyoptimalpolicy,whichthelearningalgorithmmayormaynotfind,
+as 𝜋∗.
+Thereareseveralalgorithmsthatwecandeploytofind 𝜋‑assumingweknow 𝑇or 𝑅‑suchaspolicy
+iterationandvalueiteration. Inthisclass,however,wedon’tknow 𝑇or 𝑅aheadoftime,sowecan’t
+useeitherofthesealgorithmsdirectly.
+24.7 UnknownTransitionsandRewards
+Mostofthetime, wedon’tknowthetransitionfunction, 𝑇, ortherewardfunction, 𝑅, apriori. Asa
+result, thereinforcementlearningagenthastointeractwiththeworld, observewhathappens, and
+workwiththeexperienceitgainstobuildaneffectivepolicy.
+Let’s say our agent observed state 𝑠1, took action 𝑎1, which resulted in state 𝑠′
+1and reward 𝑟1. We
+refertotheobject (𝑠1, 𝑎1, 𝑠′
+1, 𝑟1)asanexperiencetuple .
+Theagentiteratesthroughthissense‑think‑actcycleoverandoveragain,gatheringexperiencetuples
+along the way. Once we have collected a significant number of these tuples, we can use two main
+typesofapproachestofindtheappropriatepolicy, 𝜋.
+MattSchlenker 354
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 355 ---
+MachineLearningforTrading(ML4T)‑Complete
+Thefirstsetofapproachesismodel‑basedreinforcementlearning. In model‑basedreinforcement
+learning,welookattheexperiencetuplesovertimeandbuildamodelof 𝑇and 𝑅byexaminingthe
+transitionsstatistically. Forexample,foreachstate,actionpair 𝑠𝑖, 𝑎𝑖,wecanlookatthedistributions
+of the observed next state and reward, 𝑠′
+𝑖and 𝑟𝑖, respectively. Once we have these models, we can
+usevalueiterationorpolicyiterationtofindthepolicy.
+The second set of approaches is model‑free reinforcement learning. Model‑free reinforcement
+learning methodsderiveapolicydirectlyfromthedata. WearegoingtofocusonQ‑learninginthis
+class,whichisaspecifictypeofmodel‑freelearning.
+24.8 WhattoOptimize
+We haven’t gone into much detail about what exactly we are trying to optimize; currently, we have
+avagueideathatwearetryingtomaximizethesumofourrewards. Tomakeourdiscussionofopti‑
+mizationmoreconcrete,considerourrobotnavigatingthefollowingmaze.
+Thismazehasarewardof$1twospacesawayandamuchhigherrewardof$1millioneightspaces
+away. The$1rewardisuniqueinthattherobotcanreceiveitmultipletimes; forinstance,entering,
+exiting,andre‑enteringthe$1squareresultsina$2reward. Therobotcanonlyreceivethe$1million
+rewardonce.
+The red squares are obstacles, and the robot cannot occupy those spaces. The other squares are
+markedwiththeirrespectiverewardsor,inthecaseofnegativenumbers,penalties.
+Let’s say we wanted to optimize the sum of the robot’s rewards from now until infinity. We refer to
+thistimeframeasan infinitehorizon . Inthiscase,wedon’tparticularlycareiftherobotexclusively
+MattSchlenker 355
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 356 ---
+MachineLearningforTrading(ML4T)‑Complete
+grabsthe$1adinfinitum, orifitfirstgrabsthe$1millionbeforereturningtothe$1. Withregardto
+thereward,eitherstrategyissufficientsincebothresultinaninfinitereward.
+Moreoftenthannot,wehavea finitehorizon . Wemight,forexample,wanttooptimizeourreward
+overthenextthreemoves. Ifwetakethreestepstowardsthe$1millionreward,wearegoingtoexpe‑
+riencethreepenaltiesof‑1, foratotalpenaltyof‑3. Ifwetakethreestepstowardsthe$1, however,
+weexperiencearewardofzero,arewardof$1,andarewardof0,foratotalrewardof$1.
+If we extend our horizon out to eight moves, we see that the optimal path changes. Instead of re‑
+trieving the $1 reward four times, we can incur seven penalties of ‑1 in exchange for the $1 million
+reward.
+Wecannowarticulatetheexpressionthatwewanttomaximize. Givenahorizonofsize 𝑛,andnote
+that 𝑛canequalinfinity,wewanttomaximizetheexpression
+𝑛
+∑
+𝑖=1𝑟𝑖
+Rememberfromoneofourearlierlessonswherewetalkedaboutthepresentvalueandfuturevalue
+ofmoney. Oneofthemainpointsthatwearrivedatwasthatadollartomorrowisworthlessthana
+dollartoday.
+Wecanthinkaboutrewardsinasimilarfashion: arewardofonedollartodayismorevaluablethan
+a reward of one dollar tomorrow. We can reformulate our expression above to incorporate the dis‑
+countingoffuturerewards. Thatis,givenadiscountrate, 𝛾,wewanttomaximize
+∞
+∑
+𝑖=1𝛾𝑖−1∗ 𝑟𝑖
+Note: thisexpressionisalmostidenticaltotheexpressionweusedtocalculatethepresentvalueof
+allfuturecorporatedividendpayments.
+Wecanlookatthefirstfewtermsofthisexpressiontounderstandwhatishappening. Thevalueofan
+immediatereward, 𝑟1,isequalto 𝛾0∗ 𝑟1= 𝑟1. Thevalueofthenextmostimmediatereward, 𝑟2,is
+equalto 𝛾 ∗ 𝑟2. Thevalueofthethirdmostimmediatereward, 𝑟3,isequalto 𝛾2∗ 𝑟3. Thesefirstfew
+stepsdemonstratehowweuse 𝛾todevaluerewardsthatarefurtheroutinthefuture.
+The value of 𝛾is greater than zero and less than or equal to one. The closer it is to one, the more
+wevaluerewardsinthefuture(thelesswediscountthem). Thecloseritistozero,thelesswevalue
+rewardsinthefuture(themorewediscountthem).
+MattSchlenker 356
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 357 ---
+MachineLearningforTrading(ML4T)‑Complete
+24.9 WhichApproachGets$1MQuiz
+Which of the following approaches leads our robot to a policy that causes it to reach the $1 million
+reward?
+24.10 WhichApproachGets$1MQuizSolution
+Withaninfinitehorizon,therobotmayexclusivelygrabthe$1adinfinitum,oritmightfirstgrabthe$1
+millionbeforereturningtothe$1. Asaresult,obtainingthe$1millionispossiblewithinfinitehorizon,
+MattSchlenker 357
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 358 ---
+MachineLearningforTrading(ML4T)‑Complete
+butnotguaranteed.
+Withafinitehorizonoflengthfour,therobotdoesnotreachthe$1million. Ajourneytowardsthe$1
+millionresultsinfourpenalties,whereasheadingtowardsthe$1resultsinapositivereward.However,
+ifweincreasethehorizontoten,therobotdoesreachthe$1million.
+Inthediscountedscenario,eachrewardinthefutureissuccessivelydevaluedby5%. Evenso,the$1
+millionrewardissolargethatseekingthisrewardisstilltheoptimalstrategy.
+25 Q‑Learning
+25.1 Overview
+RecallthatQ‑learningisa model‑freeapproach, whichmeansthatit doesnotknowabout, noruse
+modelsof,thetransitionfunction, 𝑇,orrewardfunction, 𝑅.Instead,Q‑learningbuildsatableofutility
+valuesastheagentinteractswiththeworld,whichtheagentcanqueryateachsteptoselectthebest
+actionbasedonitscurrentexperience. Q‑learningisguaranteedtoprovideanoptimalpolicy.
+25.2 WhatisQ
+WeknowatahighlevelwhatQ‑learningis,butwhatisQ?Qcaneitherbewrittenasafunction, 𝑄(𝑠, 𝑎),
+oratable, 𝑄[𝑠, 𝑎]. Inthisclass,wethinkofQasatable. Regardlessoftheimplementation,Qprovides
+ameasureofthe valueoftakinganaction, 𝑎,inastate, 𝑠.
+The value that Q returns is actually the sum of two rewards: the immediate reward of taking 𝑎in 𝑠
+plusthediscountedreward,therewardreceivedforfutureactions. Asaresult,Qisnotgreedy;that
+is,itdoesnotonlyconsidertherewardofactingnowbutalsoconsidersthevalueofactionsdownthe
+road.
+Rememberthatwhatwedoinanyparticularstatedependsonthepolicy, 𝜋. Formally, 𝜋isafunction
+thatreceivesastate, 𝑠,asinputandproducesanaction, 𝑎,asoutput.
+We can leverage a Q‑table to determine 𝜋. For a particular state, 𝑠, we can consult the Q‑table and,
+across all possible actions, 𝐴, return the particular action, 𝑎, such that 𝑄[𝑠, 𝑎]is as large possible.
+Formally,
+𝜋(𝑠) = 𝑎𝑟𝑔𝑚𝑎𝑥𝑎(𝑄[𝑠, 𝑎]), 𝑎 ∈ 𝐴
+Note the syntax of 𝑎𝑟𝑔𝑚𝑎𝑥. The solution to the equation 𝑎 = 𝑎𝑟𝑔𝑚𝑎𝑥𝑖(𝑓 (𝑖))is the value of 𝑖that
+maximizes 𝑓 (𝑖).
+MattSchlenker 358
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 359 ---
+MachineLearningforTrading(ML4T)‑Complete
+If we run Q‑learning for long enough, we find that 𝜋(𝑠)eventually converges to the optimal policy,
+whichwedenoteas 𝜋∗(𝑠). Similarly,theoptimalQ‑tableis 𝑄∗[𝑠, 𝑎].
+Clearly,theQ‑tableisessentiallyfordevelopingthepolicy,andwehaveassumedherethatwehave
+theQ‑tableatourdisposal. Weneedtoconsidernexthowwemightbuildthistablefromtheexperi‑
+enceouragentgainsbyinteractingwiththeenvironment.
+25.3 LearningProcedure
+Let’snowfocusonhowwetrainaQ‑learner.
+Recallhowwepartitionourdataforamachinelearningproblem: weneedalargertrainingsetanda
+somewhatsmallertestingset. Sincewearelookingatstockfeaturesovertime‑ourdatasetisatime
+series‑wehavetoensurethatthedatesinthetrainingsetprecedethoseinthetestset.
+Wetheniteratethrougheachtimestepinourtrainingset. Weevaluatearowofdatatogetourstate,
+𝑠. Wethenconsultourpolicy, 𝜋,forthat 𝑠togetanaction, 𝑎. Weexecutethatactionandobservethe
+resultingstate, 𝑠′,andourreward, 𝑟.
+For each training example, we produce an experience tuple, containing 𝑠,𝑎,𝑠′, and 𝑟. We use this
+tupletoupdateourQ‑table,whicheffectivelyupdatesourpolicy.
+UpdatingourQ‑tablerequiresustohavesomesemblanceofaQ‑tableinplacewhenwebegintrain‑
+ing. Usually,weinitializeaQ‑tablewithsmallrandomnumbers,althoughvariousotherinitialization
+setupsexist.
+After we have finished iterating through our training data, we take the policy that we learned and
+applyittothetestingdata. Wemarkdowntheperformanceandthenrepeattheentireprocessuntil
+thepolicyconverges.
+Whatdowemeanbyconverged? Eachtimewetrainandthentestourlearner,wegetsomemeasure
+ofperformance. Weexpectthatperformanceisgoingtoimprovewitheachtrainingsessionsteadily;
+however, after a point, we reach the best possible policy for our data, and performance ceases to
+improvewithsuccessivetrainings. Atthispoint, wesaythatourpolicyandtheoptimalpolicyhave
+converged.
+MattSchlenker 359
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 360 ---
+MachineLearningforTrading(ML4T)‑Complete
+25.4 UpdateRule
+Afterreadinginsomestate, 𝑠,fromtheenvironment,arobotmustselectanaction, 𝑎,totake. Todo
+so, itqueriestheQ‑tabletofindtheactionthatcorrespondstothemaximumQ‑valueforthatstate.
+Takinganactionproducestwovalues: anewstate, 𝑠′,andareward, 𝑟. Therobotusestheexperience
+tuple, (𝑠, 𝑎, 𝑠′, 𝑟),toupdateitsQ‑table.
+Therearetwocomponentstotheupdaterule. ThefirstpartconcernsthecurrentQ‑valuefortheseen
+stateandtakenaction: 𝑄[𝑠, 𝑎]. Thesecondpartconcernsanimprovedestimate, 𝐸,oftheQ‑value. To
+combinethetwo,weintroduceanewvariable: 𝛼.
+𝑄′[𝑠, 𝑎] = (1 − 𝛼) ∗ 𝑄[𝑠, 𝑎] + 𝛼 ∗ 𝐸
+We refer to 𝛼as thelearning rate . It can take on any value between 0 and 1; typically, we use 0.2.
+Smallervaluesof 𝛼placemoreweightonthecurrentQ‑value, whereaslargervaluesof 𝛼putmore
+emphasison 𝐸. Wecanthinkaboutthisinanotherway: largervaluesof 𝛼makeourrobotlearnmore
+quicklythansmallervalues.
+Whenwetalkabouttheimprovedestimate, 𝐸, fortheQ‑value, wearetalkingaboutthesumofthe
+current reward, 𝑟, and the future rewards, 𝑓. Remember that we have to discount future rewards,
+whichwedowith 𝛾.
+𝑄′[𝑠, 𝑎] = (1 − 𝛼) ∗ 𝑄[𝑠, 𝑎] + 𝛼 ∗ (𝑟 + 𝛾 ∗ 𝑓 )
+MattSchlenker 360
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 361 ---
+MachineLearningforTrading(ML4T)‑Complete
+Similar to 𝛼,𝛾usually ranges from 0 to 1. A low value of 𝛾corresponds to a high discount rate and
+means that we value later rewards less. A high value of 𝛾indicates the opposite. Indeed, using a 𝛾
+valueof1meansthatwevalueareward20stepsintothefutureasmuchasarewardrightnow.
+If we think about the future rewards, 𝑓, what we are looking for is the Q‑value for the new state, 𝑠′.
+Thatis, thefuturerewardfortakingaction 𝑎instate 𝑠isthataction, 𝑎′, thatmaximizestheQ‑value
+withregardtostate 𝑠′.
+𝑄′[𝑠, 𝑎] = (1 − 𝛼) ∗ 𝑄[𝑠, 𝑎] + 𝛼 ∗ (𝑟 + 𝛾 ∗ 𝑄[𝑠′, 𝑎𝑟𝑔𝑚𝑎𝑥𝑎′(𝑄[𝑠′, 𝑎′])])
+25.5 TwoFinerPoints
+ThesuccessofQ‑learningdependstoalargeextentonexploration. Explorationhelpsuslearnabout
+thepossiblestateswecanencounteraswellasthepotentialactionswecantake. Wecanuserandom‑
+nesstointroduceexplorationintoourlearning.
+Insteadof alwaysselectingthe actionwith the highestQ‑valueforagivenstate, wecan, withsome
+probability, decide to choose a random action. In this way, we can explore actions that our policy
+doesnotadviseustotaketoseeif,potentially,theyresultinahigherreward.
+Atypicalwaytoimplementrandomexplorationistosettheprobabilityofchoosingarandomaction
+toabout0.3initially;then,overeachiteration,wedecaythatprobabilitysteadilyuntilweeffectively
+don’tchooserandomactionsatall.
+MattSchlenker 361
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 362 ---
+MachineLearningforTrading(ML4T)‑Complete
+25.6 TheTradingProblem: Actions
+Now that we have a basic understanding of Q‑learning, let’s see how we can turn the stock trading
+problemintoaproblemthatQ‑learningcansolve. Todothat,weneedtodefineouractions,states,
+andrewards.
+The model that we build is going to advise us to take one of three actions: buy, sell, or do nothing.
+Presumably,itisgoingtotellustodonothingmostofthetime,withafewbuysandsellsscattered
+hereandthere.
+Let’slookatstockXYZ.
+Thestatethatourmodelreadsinherearevariousfactors‑suchastechnicalindicators‑concerning
+thisstock. Ourmodelcontinuouslyreadsinstate,advisingustodonothinguntilsomethingtriggers
+andweseeabuyaction.
+MattSchlenker 362
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 363 ---
+MachineLearningforTrading(ML4T)‑Complete
+After we execute the buy action, our model tells us to do nothing until we enter a state in which it
+advisesustosell.
+Wecancontinuethisprocessthroughtherestofourtimeseries.
+MattSchlenker 363
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 364 ---
+MachineLearningforTrading(ML4T)‑Complete
+Let’sconsidernowhowthesebuysandsellsaffectourportfoliovalue. Ourportfoliovaluebeforeour
+first buy corresponds to whatever money we have in the bank. Once we execute a buy action, our
+portfoliovalueriseswiththepriceofthestock. Oncewesell,ourportfoliohoversatthepriceofthe
+sale. Wecanseehowthevalueofourportfoliorelatestotheactionswetakebelow.
+25.7 TheTradingProblem: RewardsQuiz
+Therewardsthatourlearnerreapsshouldrelateinsomewaytothereturnsofourstrategy. Thereare
+atleasttwodifferentwaysthatwecanthinkaboutrewards.
+MattSchlenker 364
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 365 ---
+MachineLearningforTrading(ML4T)‑Complete
+Ontheonehand, wecanthinkabouttherewardforapositionasthedailyreturnofastockheldin
+ourportfolio. Ontheotherhand,wecanthinkabouttherewardforapositionbeingzerountilweexit
+theposition,atwhichpointtherewardisthecumulativereturnofthatposition.
+Whichoftheseapproachesresultsinafasterconvergencetotheoptimalpolicy?
+25.8 TheTradingProblem: RewardsQuizSolution
+If we choose the delayed paradigm ‑ where the reward is zero until the end of the trade cycle ‑ the
+learnerhastoinferthecorrectsequenceofactionsleadinguptothefinalactionthatbroughtabout
+MattSchlenker 365
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 366 ---
+MachineLearningforTrading(ML4T)‑Complete
+thelargewindfall. Ifwerewardalittlebiteachday,however,thelearnercanlearnmuchmorequickly
+becauseitreceivesmuchmorefrequentrewards.
+25.9 TheTradingProblem: StateQuiz
+Consider the following factors and select which should be part of the state that we examine when
+selectinganappropriateaction.
+MattSchlenker 366
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 367 ---
+MachineLearningforTrading(ML4T)‑Complete
+25.10 TheTradingProblem: StateQuizSolution
+NeitheradjustedclosenorSMAaloneareusefulcomponentsofthestatebecausetheydon’tparticu‑
+larlymeanmuchasabsolutevalues. Forexample,ifGOOGclosesat$1000pershare,andXYZcloses
+at$5pershare,wecannotdetermine,basedonthatinformationalone,whetherweshouldbuy,sell,
+orholdeitherofthosestocks.
+However,theratioofadjustedclosetoSMAcanbeavaluablepieceofstate. Forexample,apositive
+ratio indicates that the close is larger than the SMA, which may be a sell signal. Additionally, other
+technicalandfundamentalindicatorssuchasBollingerBandsandP/Eratiocanbeessentialpartsof
+ourstate.
+Whetherornotwearecurrentlyholdingastockthatweareexaminingisanimportantpieceofstate.
+Forexample,ifweareholdingastock,itmightbeadvantageoustogetridofit. Alternatively,ifweare
+notholdingastock,wemaynotwanttosellbecausewedon’twanttoenterashortposition.
+Finally,ourreturnsinceweenteredapositionmightbeapieceofourstate. Forexample,wemight
+decidetoselloffaparticularlyvolatilestockafterwehavelockedinsomeamountofreturn.
+25.11 CreatingtheState
+InQ‑learning,weneedtobeabletorepresentourstateasaninteger;thatway,wecanuseittoindex
+intoourQ‑table,whichisoffinitedimension. Convertingourstatetoanintegerrequirestwosteps.
+First, we must discretize each factor, which essentially involves mapping a continuous value to an
+integer. Second,wemustcombineallofourdiscretizedfactorsintoasingleintegerthatrepresents
+MattSchlenker 367
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 368 ---
+MachineLearningforTrading(ML4T)‑Complete
+theoverallstate. Weassumeweareusingadiscretestatespace,whichmeansthatouroverallstate
+representsatonceallofthefactors.
+Forexample,wemighthaveastatecontainingfourdifferentfactors,eachofwhichisanumber. We
+passeachofthesefactorsthroughitsdiscretizationfunctiontomapitsvalueontoanintegerfrom0
+to9. Finally,we“stack”thediscretizedfactors,digitbydigit,toformthefinalstate.
+25.12 Discretizing
+Discretization isaprocessbywhichweconvertarealnumberintoanintegeracrossalimitedscale.
+Forexample,foraparticularfactor,wemightobservehundredsofdifferentrealvaluesfrom0to25.
+Discretizationallowsustomapthosevaluesontoastandardizedscaleofintegersfrom,say,0to9.
+Let’s look at how we might discretize a set of data. The first thing we need to do is determine how
+manybucketsweneed. Forexample, ifwewanttomapallvaluesontoanumberbetween0and9,
+weneed10buckets.
+Next,wedeterminethesizeofourbuckets,whichissimplythetotalnumberofdataelementsdivided
+by the number of buckets. For example, with 10 buckets and 100 data elements, our bucket size is
+10.
+Finally, we sort the data and determine the threshold for each bucket based on the step size. For
+example,with10bucketsand100sorteddataelements,ourthresholdforthediscretizedvalue,1,is
+thetenthelement,ourthresholdforthediscretizedvalue,2,isthetwentiethelement,andsoon.
+A consequence of this approach is that when the data are sparse, the thresholds are set far apart.
+Whenthedataisverydense,thethresholdsendupbeingveryclosetogether.
+MattSchlenker 368
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 369 ---
+MachineLearningforTrading(ML4T)‑Complete
+Todiscretizeanincomingfeaturevalue,wesimplyfindwhichthresholdthatvaluepasses. Forexam‑
+ple,avaluegreaterthanthefortiethsortedelementbutlessthanthefiftiethwouldhaveadiscretized
+valueof4.
+25.13 Q‑LearningRecap
+MattSchlenker 369
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 370 ---
+MachineLearningforTrading(ML4T)‑Complete
+26 Dyna
+26.1 Overview
+OneproblemwithQ‑learningisthatittakesmanyexperiencetuplestoconverge. Gatheringexperi‑
+encefromtherealworldisexpensivebecauseitrequiresustotakerealaction‑executingalivetrade
+inourcase‑togatherinformation.
+To address this problem, researchers developed a technique called Dyna. Dyna works by building
+modelsofthetransitionfunction, 𝑇,andrewardfunction, 𝑅. Then,aftereachrealinteractionwiththe
+world,wehallucinatemanyadditionalinteractions,typicallyafewhundred,whichweusetoupdate
+theQ‑table.
+26.2 Dyna‑QBigPicture
+Dyna‑Qis an algorithm developed by Richard Sutton intended to speed up learning, or policy con‑
+vergence, for Q‑learning. Remember that Q‑learning is a model‑free method, meaning that it does
+notrelyon,orevenknow,thetransitionfunction, 𝑇,andtherewardfunction, 𝑅. Dyna‑Qaugments
+traditionalQ‑learningbyincorporatingestimationsofboth 𝑇and 𝑅,basedonexperience.
+Let’squicklyrecaptheQ‑learningalgorithmwe’vebeenusingthusfar. WefirstinitializeourQ‑table,
+andthenwebeginiterating. Weobserveastate, 𝑠,executeanaction, 𝑎,afterwhichweobserveanew
+state, 𝑠′,andareward, 𝑟. Usingthisexperiencetuple,weupdateourQ‑table. Finally,werepeatthe
+process,continuouslygainingexperiencefromtheworldandimprovingourQ‑table.
+WhenweaugmentQ‑learningwithDyna‑Q,weaddthreenewpieces. First,weaddlogicthatenables
+us to build models of 𝑇and 𝑅. Then, for lack of a better term, we hallucinate a number of experi‑
+ences. Finally, we update our Q‑table according to the experience tuples we generated during the
+hallucination. Werepeatthesestepspotentiallyseveralhundredtimesforeachrealexperience.
+MattSchlenker 370
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 371 ---
+MachineLearningforTrading(ML4T)‑Complete
+Whenwetalkaboutupdatingourmodel,whatwewanttodoisfindnewvaluesfor 𝑇and 𝑅. Remem‑
+berthat 𝑇istheprobabilitythatifweareinstate 𝑠andtakeaction 𝑎wewillendupinstate 𝑠′,while
+𝑅isourexpectedrewardfromtakingaction 𝑎instate 𝑠.
+Before we talk about how we hallucinate an experience, it’s essential to understand why we might
+wanttodothisinthefirstplace. Theissueisthatinteractingwiththerealworldcanbeveryexpensive,
+intermsoftime,money,orsomeotherresource,whilehallucinationsarecheap. Byhallucinatinga
+largenumberofexperiences‑say100or200‑foreveryrealexperience,wecanamortizethecostofa
+realexperienceovermanyQ‑tableupdates.
+Wecanhallucinateanexperienceintwosteps. First,werandomlyselectastate, 𝑠,andanaction, 𝑎.
+Next, we infer the new state, 𝑠′, using 𝑇, and we infer the reward, 𝑟, using 𝑅. Using this synthetic
+experiencetuple,wecanupdateourQ‑table.
+MattSchlenker 371
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 372 ---
+MachineLearningforTrading(ML4T)‑Complete
+26.3 LearningT
+Rememberthat 𝑇 [𝑠, 𝑎, 𝑠′]representstheprobabilitythatifweareinstate, 𝑠, andwetakeaction, 𝑎,
+weendupinstate, 𝑠′. Tolearnamodelof 𝑇,weneedtoobserveandrecordthefrequencywithwhich
+statetransitionsoccur.
+Wecanintroduceanewtable, 𝑇𝑐,ofdimensions, (𝑆, 𝐴, 𝑆) ,where 𝑆isthenumberoftotalpossible
+states,and 𝐴isthenumberoftotalpossibleactions. Weinitializethecellsin 𝑇𝑐toaverysmallnumber
+toavoidapotentialdivide‑by‑zerosituation.
+AsweiteratethroughtheQ‑learningprocess,weaccumulateexperiencetuples. Foreach 𝑠,𝑎,and 𝑠′
+thatweacquire,weincrementthecountin 𝑇𝑐[𝑠, 𝑎, 𝑠′]. Inthisfashion,wecanrecordthefrequencyof
+statetransitions,whichservesasanempiricalmodelof 𝑇.
+26.4 HowtoEvaluateTQuiz
+Assume we have been interacting with the real world for a while, and we would like to consult our
+modelof 𝑇. Canyouwriteanequationfor 𝑇intermsof 𝑇𝑐?
+MattSchlenker 372
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 373 ---
+MachineLearningforTrading(ML4T)‑Complete
+26.5 HowtoEvaluateTQuizSolution
+NOTE:Thedenominatorinthisequationshouldreference 𝑇𝑐,not 𝑇.
+Whatwewanttofindhereistheprobabilityofaparticularresultingstate, 𝑠′,givenacurrentstate, 𝑠
+andanaction, 𝑎. Thus,weneedafractionwherethenumeratoristhenumberoftransitionsfrom 𝑠to
+𝑠′,bywayof 𝑎,andthedenominatoristhetotalnumberoftransitionsoutof 𝑠,bywayof 𝑎.
+Let’sconsiderthenumeratorfirst. Thetotalnumberoftransitionsfrom 𝑠to𝑠′,asaresultof 𝑎,issimply
+MattSchlenker 373
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 374 ---
+MachineLearningforTrading(ML4T)‑Complete
+therecordedvalue, 𝑇𝑐[𝑠, 𝑎, 𝑠′].
+Next,let’sconsiderthedenominator. Thetotalnumberoftimeswetransitionedoutof 𝑠bytaking 𝑎
+isthesum 𝑇𝑐[𝑠, 𝑎, 𝑠1] + 𝑇𝑐[𝑠, 𝑎, 𝑠2] + ... + 𝑇𝑐[𝑠, 𝑎, 𝑠𝑛],where 𝑛isthesizeof 𝑆,thestatespace.
+Altogether,wehavethefollowingequation:
+𝑇 [𝑠, 𝑎, 𝑠′] =𝑇𝑐[𝑠, 𝑎, 𝑠′]
+∑𝑛
+𝑖𝑇𝑐[𝑠, 𝑎, 𝑠𝑖]
+26.6 LearningR
+Inadditiontolearningamodelof 𝑇,wealsoneedtolearnamodelof 𝑅. Rememberthat 𝑅[𝑠, 𝑎]gives
+ustheexpectedrewardfortakinganaction, 𝑎,fromastate, 𝑠. Recallalsothateachexperiencetuple
+containsanimmediatereward, 𝑟,fortakingthecorrespondingactionfromthecorrespondingstate.
+Given this, we can formulate a simple equation for 𝑅, which we update after each real experience.
+Notice that this update equation is very similar to the Q‑table update equation, incorporating the
+samelearningrate, 𝛼,thatweusedinthatequation.
+𝑅′[𝑠, 𝑎] = (1 − 𝛼) ∗ 𝑅[𝑠, 𝑎] + 𝛼 ∗ 𝑟
+26.7 Dyna‑QRecap
+MattSchlenker 374
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 375 ---
+MachineLearningforTrading(ML4T)‑Complete
+27 UdacityQuizzes‑ML4T
+27.1 ReadingandPlottingStockData
+27.1.1 WhichFieldsShouldBeInACSVFileQuiz
+MattSchlenker 375
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 376 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.1.2 WhichFieldsShouldBeInACSVFileQuizSolution
+We want to include datathatchanges frequently; otherwise, we are wasting space including redun‑
+dant data. Of the options given, both “date/time” and “price of the stock” are good fits. The other
+datapointsareeitherstaticorchangerelativelyinfrequently.
+MattSchlenker 376
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 377 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.1.3 ComputeMeanVolumeQuiz
+Yourtaskistocalculatethemeanvolumeforeachofthegivensymbols.
+MattSchlenker 377
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 378 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.1.4 ComputeMeanVolumeQuizSolution
+Given a DataFrame dfcontaining a “Volume” column, the following code returns the mean of the
+valuesinthatcolumn.
+1df['Values '].mean ()
+27.1.4.1 Documentation
+•pandas.DataFrame.mean
+MattSchlenker 378
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 379 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.1.5 PlotHighPricesforIBMQuiz
+YourtaskistoplotthehighpricesforIBM.
+MattSchlenker 379
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 380 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.1.6 PlotHighPricesforIBMQuizSolution
+First,weneedtomakesurethatwereadintherightCSV,whichwecanaccomplishwith:
+1df=pd.read_csv ('data /IBM.csv')
+Next,wecanretrievethe“High”columnandplotit:
+1df['High '].plot ()
+MattSchlenker 380
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 381 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.2 WorkingWithMultipleStocks
+27.2.1 NYSETradingDaysQuiz
+MattSchlenker 381
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 382 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.2.2 NYSETradingDaysQuizSolution
+Seethebreakdown here(for2018and2019).
+MattSchlenker 382
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 383 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.2.3 TypesofJoinsQuiz
+Wecanavoidhavingtoexplicitlycall dropnaonline22bypassingacertainvalueforthe‘how’param‑
+eterofthe joincallonline19.
+Whatisthevalueofthatparameter?
+MattSchlenker 383
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 384 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.2.4 TypesofJoinsQuizSolution
+27.2.4.1 Documentation
+•pandas.DataFrame.join
+27.2.5 UtilityFunctionsforReadingDataQuiz
+Ifwelookatthecodewehavewrittensofar,weseesomeduplication.
+MattSchlenker 384
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 385 ---
+MachineLearningforTrading(ML4T)‑Complete
+Yourtaskistoconsolidatethiscodeintoonelocation: theutilityfunction get_data .
+MattSchlenker 385
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 386 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.2.6 UtilityFunctionsforReadingDataQuizSolution
+WehaveconsolidatedboththeDataFrameinitializationcodeandthejoiningcode.
+Additionally, since we are using SPY as our baseline, we drop all rows from dfwhere SPY has not
+traded‑thatis,wheretheSPYcolumnhas NaNvalues‑withthefollowingcode:
+1df=df.dropna (subset =["SPY"])
+27.2.6.1 Documentation
+•pandas.DataFrame.dropna
+MattSchlenker 386
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 387 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.2.7 HowtoPloton“EqualFooting”Quiz
+MattSchlenker 387
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 388 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.2.8 HowtoPloton“EqualFooting”QuizSolution
+Whilebothofthesearetechnicallycorrect,thesecondapproachleverages vectorization whichismust
+fasterthantheiterativeapproach. Readmoreaboutvectorization here.
+MattSchlenker 388
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 389 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.2.9 SliceandPlotTwoStocksQuiz
+Yourtaskistowritecodethatfirstslices dfalongtherowsboundedby start_index andend_index
+andacross columns ,andthenpassestheslicetothe plot_selected method.
+MattSchlenker 389
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 390 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.2.10 SliceandPlotTwoStocksQuizSolution
+Wecancreateoursliceusingthefollowingcode,whichwethenpasstothe plot_data method:
+1df.ix[start_index :end_index ,columns ]
+27.2.10.1 Documentation
+•pandas.DataFrame.ix‑DEPRECATED
+•pandas.DataFrame.loc
+•pandas.DataFrame.iloc
+MattSchlenker 390
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 391 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.3 ThePowerofNumPy
+27.3.1 ReplaceaSliceQuiz
+Weneedtomovedatafromthelasttworowsandthelasttwocolumnsof nd2tothefirsttworows
+andthefirsttwocolumnsof nd1.
+MattSchlenker 391
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 392 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.3.2 ReplaceaSliceQuizSolution
+Let’sfirstlookathowwecanslice nd2toextractthedatawewant. Wecanslicethelasttworowsusing
+negativeindexing: -2:. Wecanslicethelasttwocolumnsas 2:4. RememberthatNumPyindexingis
+upper‑boundexclusive.
+Nowlet’sseehowwecantransplantthatdatainto nd1. Wecanselectthefirsttworowsof nd1as0:2,
+andwecanselectthefirsttwocolumnsas 0:2.
+Thecompletedatatransfercanbeaccomplishedwiththefollowingcode:
+1nd1[0:2, 0:2] = nd2[-2:, 2:4]
+27.3.2.1 Documentation
+•Indexing
+MattSchlenker 392
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 393 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.3.3 SpecifytheDataTypeQuiz
+We saw that the elements in an array created by np.onesare floats by default. Our task here is to
+update the call to np.onesand pass in a parameter that tells NumPy to give us integers instead of
+floats.
+MattSchlenker 393
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 394 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.3.4 SpecifytheDataTypeQuizSolution
+Wecanaccomplishthischangewiththefollowingcode:
+1np.ones ((5, 4), dtype =np.int_ )
+27.3.4.1 Documentation
+•numpy.ones
+•Datatypes
+MattSchlenker 394
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 395 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.3.5 LocateMaximumValueQuiz
+Ourtaskistoimplementthefunction get_max_index ,whichtakesaone‑dimensionalndarray aand
+returnstheindexofthemaximumvalue.
+MattSchlenker 395
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 396 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.3.6 LocateMaximumValueQuizSolution
+Wecanretrievetheindexofthemaximumvaluein awiththe argmaxmethod:
+1def get_max_index (a):
+2 return a.argmax ()
+27.3.6.1 Documentation
+•numpy.argmax
+27.4 StatisticalAnalysisofTimeSeries
+27.4.1 WhichStatistictoUseQuiz
+Assumeweareusingarollingmeantotrackthemovementofastock. Wearelookingforanoppor‑
+tunitytofindwhenthepricehasdivergedsignificantlyfarfromtherollingmean,aswecanusethis
+divergencetosignalabuyorasell.
+Whichstatisticmightweusetodiscoverifthepricehasdivergedsignificantlyenough?
+MattSchlenker 396
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 397 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.4.2 WhichStatistictoUseQuizSolution
+Standarddeviationgivesusameasureofdivergencefromthemean. Therefore,ifthepricebreaches
+MattSchlenker 397
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 398 ---
+MachineLearningforTrading(ML4T)‑Complete
+thestandarddeviation,wemayconcludethatthepricehasmovedsignificantlyenoughforustocon‑
+siderbuyingorsellingthestock.
+27.4.3 CalculateBollingerBandsQuiz
+Computing Bollinger bands consists of three main steps: first, computing the rolling mean; second,
+computingtherollingstandarddeviationand;third,computingtheupperandlowerbands.
+Ourgoalistoimplementthethreefunctionsbelowtoaccomplishthesetasks.
+27.4.4 CalculateBollingerBandsQuizSolution
+Givenanndarray valuesandawindow window,wecancalculatetherollingstandarddeviationas
+follows:
+1#OLD
+2pd.rolling_std (values ,window =window )
+3
+4#NEW
+5values .rolling (window ).std()
+Givenarollingmean rmandarollingstandarddeviation rstd,wecancalculatetheBollingerbands
+asfollows:
+1rm+ (2 * rstd ),rm- (2 * rstd )
+MattSchlenker 398
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 399 ---
+MachineLearningforTrading(ML4T)‑Complete
+27.4.4.1 Documentation
+•pandas.DataFrame.rolling
+27.4.5 ComputeDailyReturnsQuiz
+Our task is to implement a function compute_daily_returns that receives a DataFrame dfand
+returns a DataFrame consisting of the daily return values. The returned DataFrame must have the
+MattSchlenker 399
+hrishishahh@gmail.com 26 Jan 2026
+
+--- Page 400 ---
+MachineLearningforTrading(ML4T)‑Complete
+samenumberofrowsas df,andanyrowswithmissingdatamustbefilledwithzeroes.
+27.4.6 ComputeDailyReturnsSolution
+GivenaDataFrame dfwithnrows,wecancreateanewDataFramewith n+mrowswhereeachrow
+isshifteddown mrowswiththefollowingcode:
+1df.shift (m)
+Notethatthenewlycreated mrowsatthetopoftheDataFramewillbefilledwith NaNvalues.
+Therefore,wecandivideeverypriceinourDataFrame dfbythepriceonthepreviousdaylikethis:
+1df/df.shift (1)
+Wecancompletethedailyreturncalculation,andgenerateaDataFrame daily_returns likeso:
+1df/df.shift (1) - 1
+Theonlythingwehavetoconsidernowisthefirstrowin daily_returns . Sincethefirstrowinthe
+shiftedDataFrameisfilledwith NaNvalues,anysubsequentmathematicaloperationsonthosevalues
+yield NaN.
+However,ourtaskwastofillanyrowswithmissingdatawithzeroes. Wecanfix daily_returns like
+this:
+1#Deprecated
+2daily_returns .ix[0, :] = 0
+MattSchlenker 400
+hrishishahh@gmail.com 26 Jan 2026
+
