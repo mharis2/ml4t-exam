@@ -460,64 +460,64 @@ const examData5 = [
             },
             {
                 id: "b",
-                text: "Beta is the slope of that regression line and measures an asset's sensitivity to the market. A Beta of 1.5 implies the stock is 50% more volatile than the market.",
+                text: "Beta is the slope of that regression line and measures an asset's sensitivity to the market. β > 1.0 means more volatile than market, β < 1.0 means less volatile.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "Alpha is the Y-intercept of the regression and represents excess return achieved by stock selection skill, beyond what market risk (Beta) would predict.",
+                text: "Alpha is the Y-intercept of the regression line. 'Seeking alpha' is finding stocks with genuine excess return above what their market risk would predict.",
                 correct: true,
             },
             {
                 id: "d",
-                text: "Under strict CAPM in perfectly efficient markets, expected Alpha for all stocks is greater than 10% annually.",
+                text: "Under strict interpretation of CAPM, on average across all stocks, alpha must be exactly 10%.",
                 correct: false,
             },
             {
                 id: "e",
-                text: "An investor buying S&P 500 Index Funds (passive ETFs) is 'Buying Beta' — getting cheap market exposure. 'Seeking Alpha' requires active stock selection skill.",
-                correct: true,
+                text: "An investor heavily buying active mutual funds and carefully picking individual stocks is attempting to 'Buy Beta'.",
+                correct: false,
             },
         ],
         explanation:
-            "Under strict CAPM in perfectly efficient markets, expected true Alpha is theoretically ZERO — all returns are compensation purely for systemic risk (Beta). On average across all stocks, Alpha = 0 because all stocks together = the market. Positive alpha in one stock is offset by negative alpha in another.",
+            "On average across all stocks, alpha = 0 (because all stocks together = the market). 'Buying beta' means investing in high-beta stocks for amplified market exposure (cheap, no skill needed); 'Seeking alpha' is finding stocks that systematically outperform — the goal of active management.",
     },
 
-    // ── Q14: Beta-Neutral / Market-Neutral Strategies ──
+    // ── Q14: Beta-Balanced / Market-Neutral Strategies ──
     {
         id: 14,
-        topic: "CAPM — Beta-Neutral Strategies",
+        topic: "CAPM — Beta-Balanced Strategies",
         question:
-            "A hedge fund manager wants to construct a market-neutral (beta-neutral) portfolio. Consider the following statements:",
+            "A hedge fund manager wants to construct a beta-balanced (market-neutral) portfolio. Consider the following statements:",
         options: [
             {
                 id: "a",
-                text: "A market-neutral portfolio has a net beta of zero (Σ w_i × β_i = 0), meaning its returns are driven entirely by alpha (stock selection skill), not market direction.",
+                text: "A beta-neutral portfolio has a net Beta of zero (Σ w_i × β_i = 0), meaning it has no net market exposure.",
                 correct: true,
             },
             {
                 id: "b",
-                text: "'Buying beta' refers to investing in high-beta stocks for amplified market exposure — it requires no stock-picking skill and can be achieved cheaply with a passive index fund (ETF).",
-                correct: true,
+                text: "A manager long 50% in ExxonMobil (β = 0.77) and short 50% in SPY (β = 1.0) creates a perfectly beta-neutral portfolio with zero net beta.",
+                correct: false,
             },
             {
                 id: "c",
-                text: "Hedge funds that use beta-neutral strategies typically use high leverage (20-30x) to amplify the small excess returns from stock selection into meaningful portfolio returns.",
+                text: "Because market exposure provides no alpha, a beta-neutral fund's returns are driven entirely by stock selection skill.",
                 correct: true,
             },
             {
                 id: "d",
-                text: "In a market crash, a perfectly beta-neutral portfolio would experience the exact same severe losses as the overall broader market.",
-                correct: false,
+                text: "If the market crashes, a properly structured beta-neutral portfolio's short positions should offset the long losses.",
+                correct: true,
             },
             {
                 id: "e",
-                text: "Combining assets with low or negative correlation reduces portfolio volatility without necessarily reducing expected returns — this is the core benefit of diversification.",
+                text: "Hedge funds leverage heavily (20-30x) because excess returns from stock selection (alpha) in beta-neutral strategies are often fractions of a percent per trade.",
                 correct: true,
             },
         ],
         explanation:
-            "By definition, a portfolio with net beta = 0 has zero correlation to market movements. In a massive market crash, it should theoretically experience zero market-driven losses, surviving solely on the alpha of its long/short pairings. The short positions offset the long losses from the market decline.",
+            "A 50/50 split of β=0.77 and β=1.0 does NOT equal zero. (0.5 × 0.77) + (-0.5 × 1.0) = -0.115 net beta. To truly balance, you must weight the positions inversely proportional to their betas (e.g., hold 56% long, -44% short).",
     },
 
     // ── Q15: Sharpe Ratio & Performance Evaluation ──
@@ -603,18 +603,18 @@ const examData5 = [
         options: [
             {
                 id: "a",
-                text: "Book Value represents the net asset value of the company (Total Assets minus Total Liabilities = Stockholder's Equity) calculated from the balance sheet.",
+                text: "Book Value represents the net asset value of the company: Total Assets minus Total Liabilities = Stockholder's Equity.",
                 correct: true,
             },
             {
                 id: "b",
-                text: "Intrinsic Value can be estimated using the Discounted Cash Flow (DCF) method or the Gordon Growth Model: Intrinsic Value = Dividend / (Discount Rate − Growth Rate).",
+                text: "Intrinsic Value can be estimated using the Gordon Growth Model for perpetual dividends: Intrinsic Value = Dividend / (Discount Rate − Growth Rate).",
                 correct: true,
             },
             {
                 id: "c",
-                text: "Intrinsic Value is a precise fixed number that fluctuates exactly 1:1 with the daily stock price and is identical to the current Market Capitalization.",
-                correct: false,
+                text: "A stock trading at a Price-to-Book (P/B) ratio of < 1.0 indicates it is trading below book value, which may signal a potential value opportunity.",
+                correct: true,
             },
             {
                 id: "d",
@@ -623,12 +623,12 @@ const examData5 = [
             },
             {
                 id: "e",
-                text: "If Market Price > estimated Intrinsic Value, this represents a potential SHORT opportunity — the stock may fall to converge with its fundamental value.",
-                correct: true,
+                text: "Statistical arbitrage assumes that 'market price > intrinsic value' suggests a long opportunity.",
+                correct: false,
             },
         ],
         explanation:
-            "Intrinsic Value is an ESTIMATED calculation of a company's true fundamental worth, attempting to look PAST fluctuating daily market sentiment. It does not tick 1:1 with current price — that's the whole point. The Price-to-Book ratio (P/B < 1.0) may signal undervaluation, but can also be a 'value trap' if the underlying business is declining.",
+            "If market price > intrinsic value, the stock is overvalued, which presents a SHORT opportunity, not a long opportunity. Conversely, market price < intrinsic value presents a LONG opportunity. Fundamental Analysis (book value, DCF, earnings) expects the market to eventually recognize the true value.",
     },
 
     // ── Q18: Decision Trees — Regression vs Classification ──
@@ -853,7 +853,7 @@ const examData5 = [
             "When a stock pays a dividend, the actual stock price drops by approximately the dividend amount on the ex-dividend date. The adjusted price retroactively adjusts PAST prices DOWNWARD so that the return calculation correctly captures the dividend return. If it adjusted prices upward, it would artificially inflate historical returns.",
     },
 
-    // ── Q24: Backtesting Pitfalls ──
+    // ── Q24: Practical Deployment — Pitfalls ──
     {
         id: 24,
         topic: "Practical Deployment — Pitfalls",
@@ -862,12 +862,12 @@ const examData5 = [
         options: [
             {
                 id: "a",
-                text: "Lookahead bias: They utilized the 'Close' price of today to calculate technical indicators generating a trade at the 'Open' of today — using data before it was actually available.",
+                text: "Lookahead bias: they used 'fill backward' before using 'fill forward' for missing data gaps (e.g. at 3:10 PM, using the 4:00 PM closing price).",
                 correct: true,
             },
             {
                 id: "b",
-                text: "Survivorship bias: They downloaded the current S&P 500 constituents and ran a backtest over 20 years, ignoring bankrupt companies like Enron or Lehman Brothers that were once in the index.",
+                text: "Survivorship bias: they only tested their strategy on stocks that exist today, ignoring companies that went bankrupt or delisted (inflating returns).",
                 correct: true,
             },
             {
@@ -877,7 +877,7 @@ const examData5 = [
             },
             {
                 id: "d",
-                text: "Lack of trading costs: The backtest assumed free, instant execution with no bid-ask spread and zero market impact — in reality, these costs erode much of the theoretical alpha.",
+                text: "Data leakage risk: they formulated the algorithm using order attributes that were inherently controlled by the broker after execution.",
                 correct: true,
             },
             {
@@ -887,7 +887,7 @@ const examData5 = [
             },
         ],
         explanation:
-            "MPT does not enforce deterministic caps on what a single algorithm might achieve. The standard real-world barriers are: lookahead bias, survivorship bias, overfitting, and trading friction (bid-ask spread, slippage, market impact). These are the universal reasons for massive backtest-to-live performance degradation.",
+            "Lookahead bias (using 'fill backward'), survivorship bias (inflating returns by dropping failures), overfitting, and data leakage (endogenous features) are the universal sources of massive backtest-to-live degradation.",
     },
 
     // ── Q25: Foundations Recap — Probability & Model Classification ──
