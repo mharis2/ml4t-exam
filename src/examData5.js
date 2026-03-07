@@ -11,17 +11,17 @@ const examData5 = [
         options: [
             {
                 id: "a",
-                text: "Supervised learning requires historical labeled data (e.g., past stock prices or returns) to train a model to predict future prices or classify market directions.",
+                text: "Supervised learning requires historical labeled data (e.g., past stock prices paired with known outcomes) to train a model to predict future prices or classify market directions.",
                 correct: true,
             },
             {
                 id: "b",
-                text: "Unsupervised learning, such as k-means clustering or PCA, operates without labeled outcomes, seeking instead to find hidden structures, groupings, or factors within market data.",
+                text: "Unsupervised learning, such as k-means clustering or PCA, operates without labeled outcomes, seeking instead to find hidden structures, groupings, or latent factors within market data.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "Reinforcement learning involves an agent taking actions (buy/sell/hold) in an environment to maximize a cumulative reward (e.g., portfolio return) over time, learning from the consequences of its actions.",
+                text: "Reinforcement learning involves an agent taking actions (buy/sell/hold) in an environment to maximize a cumulative reward (e.g., portfolio return) over time, learning from the consequences of its actions rather than being given correct answers.",
                 correct: true,
             },
             {
@@ -36,7 +36,7 @@ const examData5 = [
             },
         ],
         explanation:
-            "Supervised learning is highly susceptible to overfitting, especially in noisy financial data. RL models are not immune to regime changes; a policy learned in a bull market may fail catastrophically in a crash before it can adapt.",
+            "Supervised learning is highly susceptible to overfitting, especially in noisy financial data — labels do not prevent this. RL models are not immune to regime changes; a policy learned in a bull market may fail catastrophically in a crash before it can adapt. RL learns from rewards (like a critic giving thumbs up/down), not from correct answers like supervised learning.",
     },
 
     // ── Q2: Training and Testing Data ──
@@ -73,15 +73,15 @@ const examData5 = [
             },
         ],
         explanation:
-            "Randomly shuffling financial time-series data causes lookahead bias because future data leaks into the training set. A zero training error usually indicates severe overfitting, not perfect generalization. Chronological splitting is crucial in finance.",
+            "Randomly shuffling financial time-series data causes lookahead bias because future data leaks into the training set. A zero training error usually indicates severe overfitting, not perfect generalization. Chronological splitting is crucial in finance. The proper approach is: training set (fit parameters) → validation set (tune hyperparameters) → test set (final evaluation ONCE).",
     },
 
-    // ── Q3: Overfitting vs Underfitting (and Polynomials) ──
+    // ── Q3: Overfitting vs Underfitting ──
     {
         id: 3,
         topic: "Model Complexity — Fit",
         question:
-            "Consider the concepts of overfitting, underfitting, and polynomial extrapolation in machine learning. Evaluate the following statements:",
+            "Consider the concepts of overfitting, underfitting, and the classic polynomial curve-fitting example in machine learning. Evaluate the following statements:",
         options: [
             {
                 id: "a",
@@ -100,7 +100,7 @@ const examData5 = [
             },
             {
                 id: "d",
-                text: "Adding proper regularization (such as Ridge or Lasso penalty) to a complex polynomial model helps constrain the coefficients and mitigate overfitting.",
+                text: "The generalization gap (Test Error minus Training Error) grows as a model overfits — training error decreases while test error increases.",
                 correct: true,
             },
             {
@@ -110,34 +110,34 @@ const examData5 = [
             },
         ],
         explanation:
-            "Increasing the polynomial degree to M=9 for N=10 points leads to wild oscillations (Runge's phenomenon) and extreme overfitting, driving test error up drastically. The other statements accurately describe the bias-variance tradeoff and regularization.",
+            "When M=9 for N=10 data points, the polynomial passes through every training point exactly (training error = 0) but oscillates wildly between points — this is the textbook definition of overfitting. Test error skyrockets. The test error curve forms a U-shape: decreasing as the model captures true patterns, then increasing as it memorizes noise.",
     },
 
-    // ── Q4: KNN vs Linear Regression (Mechanics) ──
+    // ── Q4: KNN vs Linear Regression ──
     {
         id: 4,
         topic: "Algorithms — kNN vs LinReg",
         question:
-            "Compare the mechanics of k-Nearest Neighbors (kNN) and ordinary Linear Regression in terms of training, querying, and data suitability. Evaluate the following:",
+            "Compare the mechanics of k-Nearest Neighbors (kNN) and ordinary Linear Regression in terms of training time, query time, and data suitability. Evaluate the following:",
         options: [
             {
                 id: "a",
-                text: "Linear regression is parametric (an eager learner) and has a relatively slow 'build' phase as it calculates coefficients, but a very fast O(1) 'query' phase.",
+                text: "Linear regression is parametric (an eager learner) and has a relatively slow 'build' phase as it calculates coefficients via matrix operations, but a very fast O(1) 'query' phase using a simple dot product.",
                 correct: true,
             },
             {
                 id: "b",
-                text: "kNN is non-parametric (a lazy learner) and has an effectively zero 'build' time (just storing data), but querying is slow O(N) because it must compute distance to every stored point.",
+                text: "kNN is non-parametric (a lazy learner) with effectively zero 'build' time (just storing data), but querying is slow O(N) because it must compute the distance to every stored point.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "If the true relationship in the data is highly non-linear, kNN will generally outperform a simple linear regression model.",
+                text: "If the true relationship in the data is highly non-linear and the number of features is small (e.g., 1 or 2), kNN will generally outperform a simple linear regression model.",
                 correct: true,
             },
             {
                 id: "d",
-                text: "As the number of features (dimensions) increases to 1,000, kNN queries become significantly faster than linear regression queries.",
+                text: "As the number of features (dimensions) increases to 1,000, kNN queries become significantly faster and more accurate than linear regression.",
                 correct: false,
             },
             {
@@ -147,7 +147,7 @@ const examData5 = [
             },
         ],
         explanation:
-            "kNN suffers from the curse of dimensionality; its query time scales poorly with features and distance metrics become less meaningful. Linear regression requires manual feature engineering to capture non-linear interactions; it cannot discover them automatically.",
+            "kNN suffers from the curse of dimensionality — in high dimensions, 'nearest' neighbors are no longer truly close, and performance degrades. Linear regression often wins for p ≥ 4 features even when the true relationship is non-linear. Linear regression requires manual feature engineering (e.g., adding X₁×X₂ interaction terms) to capture interactions; it cannot discover them automatically.",
     },
 
     // ── Q5: Curse of Dimensionality ──
@@ -184,61 +184,24 @@ const examData5 = [
             },
         ],
         explanation:
-            "Adding more features (especially noise) usually degrades kNN performance because the distance metric gets diluted. Linear regression with more features than data rows (p > n) cannot be uniquely solved without regularization and is highly prone to overfitting.",
+            "Adding noisy features degrades kNN because the distance metric gets diluted by irrelevant dimensions — neighbors become farther away and averages over distant points introduce high bias. Linear regression with more features than data rows (p > n) cannot be uniquely solved without regularization and is highly prone to overfitting — it is NOT immune.",
     },
 
-    // ── Q6: Hedge Funds & Investing Considerations ──
+    // ── Q6: Boosting (Ensemble Methods) ──
     {
         id: 6,
-        topic: "Institutional Finance — Hedge Funds",
-        question:
-            "A quantitative hedge fund is considering taking a massive long position in a mid-cap stock. What factors would they analyze before investing? Evaluate:",
-        options: [
-            {
-                id: "a",
-                text: "Liquidity constraints: if average daily volume is too low, the fund's large order will cause significant 'market impact', driving the purchase price up.",
-                correct: true,
-            },
-            {
-                id: "b",
-                text: "Capacity: determining the maximum amount of capital that can be deployed into the strategy before the alpha is completely eroded by trading costs.",
-                correct: true,
-            },
-            {
-                id: "c",
-                text: "Hedge funds uniquely avoid all use of leverage; they only invest the strict pool of capital provided by their limited partners.",
-                correct: false,
-            },
-            {
-                id: "d",
-                text: "Correlation to the broader market portfolio (Beta) — many hedge funds explicitly try to hedge out market risk to generate pure uncorrelated Alpha.",
-                correct: true,
-            },
-            {
-                id: "e",
-                text: "Since hedge funds are strictly regulated under the Investment Company Act of 1940 like mutual funds, they cannot short sell the stock under any circumstances.",
-                correct: false,
-            },
-        ],
-        explanation:
-            "Hedge funds are known for leveraging their positions extensively (unlike standard mutual funds) to amplify returns. They are generally loosely regulated (catering to accredited investors) and absolutely use short selling as a core mechanic.",
-    },
-
-    // ── Q7: Boosting (Ensemble Methods) ──
-    {
-        id: 7,
         topic: "Ensemble — Boosting",
         question:
             "Consider Boosting algorithms (like AdaBoost or Gradient Boosting) as an ensemble learning technique. Evaluate the following statements:",
         options: [
             {
                 id: "a",
-                text: "Unlike bagging which trains models in parallel independently, boosting trains weak learners sequentially, with each new model attempting to correct the errors of the previous sequence.",
+                text: "Unlike bagging which trains models in parallel independently, boosting trains weak learners sequentially, with each new model attempting to correct the errors (residuals) of the previous sequence.",
                 correct: true,
             },
             {
                 id: "b",
-                text: "In AdaBoost, data instances that were misclassified by the previous tree are given heavily increased weight for the next tree.",
+                text: "In AdaBoost, data instances that were misclassified by the previous tree are given heavily increased weight for the next tree to focus on.",
                 correct: true,
             },
             {
@@ -248,29 +211,66 @@ const examData5 = [
             },
             {
                 id: "d",
-                text: "Because boosting continually focuses on the hardest-to-predict examples, it can be sensitive to outliers and noisy data, sometimes leading to overfitting if not tuned properly.",
+                text: "Because boosting continually focuses on the hardest-to-predict examples, it can be sensitive to outliers and noisy data, and unlike bagging, it CAN overfit if the number of trees (B) is too large.",
                 correct: true,
             },
             {
                 id: "e",
-                text: "The final prediction in a boosting ensemble is typically a weighted sum/vote of the constituent weak learners.",
+                text: "The final prediction in a boosting ensemble is typically a weighted sum/vote of the constituent weak learners, with a shrinkage parameter λ controlling the learning rate.",
                 correct: true,
             },
         ],
         explanation:
-            "Boosting primarily reduces BIAS by sequentially fitting residuals/errors of weak learners (like shallow stumps). Bagging (like Random Forests) is what primarily reduces VARIANCE by averaging many deep, high-variance trees.",
+            "Boosting primarily reduces BIAS by sequentially fitting residuals/errors of weak learners (like shallow stumps). Bagging (like Random Forests) is what primarily reduces VARIANCE by averaging many deep, high-variance trees trained independently. Key distinction: Bagging = parallel, reduces variance, cannot overfit. Boosting = sequential, reduces bias, CAN overfit.",
     },
 
-    // ── Q8: Probability: Product Rule & Sum Rule ──
+    // ── Q7: Hedge Fund Investment Considerations ──
+    {
+        id: 7,
+        topic: "Institutional Finance — Hedge Funds",
+        question:
+            "A quantitative hedge fund is considering taking a position in a mid-cap stock. Before investing, what factors would they analyze? Evaluate the following statements:",
+        options: [
+            {
+                id: "a",
+                text: "Liquidity constraints: if average daily volume is too low, the fund's large order will cause significant 'market impact', driving the purchase price up against them.",
+                correct: true,
+            },
+            {
+                id: "b",
+                text: "Correlation to the broader market portfolio (Beta) — many hedge funds explicitly try to hedge out market risk to construct beta-neutral portfolios that generate pure uncorrelated Alpha.",
+                correct: true,
+            },
+            {
+                id: "c",
+                text: "Hedge funds uniquely avoid all use of leverage; they only invest the strict pool of capital provided by their limited partners.",
+                correct: false,
+            },
+            {
+                id: "d",
+                text: "The fund would evaluate whether the stock's current market price diverges from its estimated true value — buying when price < intrinsic value (long) or selling when price > intrinsic value (short).",
+                correct: true,
+            },
+            {
+                id: "e",
+                text: "Since hedge funds are strictly regulated under the same rules as mutual funds, they cannot short sell stocks or use complex strategies under any circumstances.",
+                correct: false,
+            },
+        ],
+        explanation:
+            "Hedge funds are known for leveraging their positions extensively (often 20-30x for beta-neutral strategies) to amplify the small excess returns from stock selection. They are lightly regulated (catering to accredited investors only) and absolutely use short selling as a core mechanic — the original 'hedge' is going long AND short simultaneously.",
+    },
+
+    // ── Q8: Probability — Product Rule & Sum Rule ──
     {
         id: 8,
         topic: "Probability — Core Rules",
         question:
-            "Consider fundamental probability rules required for quantitative finance. Evaluate the following statements:",
+            "Consider fundamental probability rules required for quantitative finance and probabilistic ML. Evaluate the following statements:",
         options: [
             {
                 id: "a",
-                text: "The Sum Rule for any two events A and B states: P(A or B) = P(A) + P(B) − P(A and B).",
+                text: "The Sum Rule (marginalization) for any two events A and B states: P(A or B) = P(A) + P(B) − P(A and B).",
                 correct: true,
             },
             {
@@ -285,7 +285,7 @@ const examData5 = [
             },
             {
                 id: "d",
-                text: "For dependent events, the Product Rule is expressed using conditional probability: P(A and B) = P(A) × P(B | A).",
+                text: "For dependent events, the Product Rule is expressed using conditional probability: P(A and B) = P(A) × P(B | A), which is the basis for deriving Bayes' Theorem.",
                 correct: true,
             },
             {
@@ -295,7 +295,7 @@ const examData5 = [
             },
         ],
         explanation:
-            "Mutually exclusive events cannot happen at the same time, so P(A and B) = 0. Probabilities can never exceed 1.0. The maximum joint probability P(A and B) in the example can only be 0.5 (if the tech stock rising is completely encompassed by the market rising).",
+            "Mutually exclusive events cannot happen at the same time, so P(A and B) = 0, not 1. Probabilities can never exceed 1.0. The Sum Rule and Product Rule are the two foundational rules of probability — Bayes' Theorem is derived directly from the Product Rule: P(Y|X) = P(X|Y) · P(Y) / P(X).",
     },
 
     // ── Q9: Basic Variance and Error Measurement ──
@@ -303,7 +303,7 @@ const examData5 = [
         id: 9,
         topic: "Statistics — Error & Variance",
         question:
-            "A quantitative evaluation of a trading model involves variance, error metrics, and statistical inference. Evaluate these basic statements:",
+            "A quantitative evaluation of a trading model involves variance, error metrics, and statistical inference. Evaluate these statements:",
         options: [
             {
                 id: "a",
@@ -317,12 +317,12 @@ const examData5 = [
             },
             {
                 id: "c",
-                text: "Root Mean Square Error (RMSE) severely penalizes large prediction errors more than small ones because the errors are squared before being averaged.",
+                text: "Root Mean Square Error (RMSE) penalizes large prediction errors more heavily than small ones because the errors are squared before being averaged.",
                 correct: true,
             },
             {
                 id: "d",
-                text: "The F-statistic in a multiple linear regression tests the overall significance of the model, asking: 'Do all independent variables jointly have no effect?'",
+                text: "Expected Test MSE can be mathematically decomposed into three additive components: Bias², Variance, and Irreducible Error (noise).",
                 correct: true,
             },
             {
@@ -332,44 +332,44 @@ const examData5 = [
             },
         ],
         explanation:
-            "Low variance simply means the predictions are tightly clustered together, not necessarily accurate. If the predictions are clustered tightly around the wrong value, the model has low variance but high bias (inaccurate).",
+            "Low variance simply means the predictions are tightly clustered together, not necessarily accurate. If the predictions are clustered tightly around the wrong value, the model has low variance but high bias (inaccurate). This is the core of the bias-variance tradeoff: Bias² + Variance + Irreducible Error.",
     },
 
-    // ── Q10: Data & Real-World ML Challenges ──
+    // ── Q10: Real-World ML Challenges in Finance ──
     {
         id: 10,
         topic: "ML in Finance — Practical Challenges",
         question:
-            "Applying Machine Learning to financial markets is notoriously difficult. Evaluate the following challenges models face in the real world:",
+            "Applying Machine Learning to financial markets is notoriously difficult. Evaluate the following challenges ML models face in the real world:",
         options: [
             {
                 id: "a",
-                text: "Not having enough data: Monthly macroeconomic data (like CPI) yields only 12 data points a year, making deep learning models highly prone to overfitting.",
+                text: "Not having enough data: Monthly macroeconomic data (like CPI) yields only 12 data points a year, making complex models highly prone to overfitting due to 'the small data problem.'",
                 correct: true,
             },
             {
                 id: "b",
-                text: "Look-ahead bias / Data Leakage: Training a model using closing price data from Friday to make a prediction on Friday morning.",
+                text: "Look-ahead bias / Data Leakage: Training a model using Q3 earnings reported 40 days after quarter-end AS IF it were available on the quarter-end date.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "Non-stationarity: The statistical properties of financial markets change over time due to regulations, technology, and arbitrage, invalidating old patterns.",
+                text: "Non-stationarity (Adaptive Markets): The statistical properties of financial markets change over time as successful strategies get arbitraged away, regulations shift, and new market participants enter.",
                 correct: true,
             },
             {
                 id: "d",
-                text: "Low Signal-to-Noise Ratio: Financial data is extremely noisy; genuine predictive signals are tiny compared to the randomness of daily market fluctuations.",
+                text: "Low Signal-to-Noise Ratio: Financial data is extremely noisy; genuine predictive signals are tiny compared to the randomness of daily market fluctuations — making simple models often beat complex ones.",
                 correct: true,
             },
             {
                 id: "e",
-                text: "Because of these challenges, utilizing a 1,000-layer neural network on raw stock prices is generally considered the safest and most robust baseline to start with.",
+                text: "Because of these challenges, utilizing a 1,000-layer neural network on raw stock prices is generally considered the safest and most robust baseline model to start with.",
                 correct: false,
             },
         ],
         explanation:
-            "Because of low signal-to-noise and limited data history, using massive complex models like 1,000-layer neural networks immediately leads to extreme overfitting. Simple, robust, interpretable models (like ridge regression or random forests) are often the preferred starting point.",
+            "Because of low signal-to-noise and limited data history, using massive complex models immediately leads to extreme overfitting. Simple, robust, interpretable models (like ridge regression or random forests) are the preferred starting point. Domain knowledge is your best defense against overfitting — use economic intuition to curate inputs.",
     },
 
     // ── Q11: No Free Lunch Theorem ──
@@ -381,12 +381,12 @@ const examData5 = [
         options: [
             {
                 id: "a",
-                text: "The theorem states that if you average the performance of any two optimization algorithms across all possible problems, their performance is identical.",
+                text: "The theorem states that if you average the performance of any two learning algorithms across ALL possible problems, their performance is identical.",
                 correct: true,
             },
             {
                 id: "b",
-                text: "It implies there is no universally 'best' machine learning algorithm for every single dataset and task.",
+                text: "It implies there is no universally 'best' machine learning algorithm — model choice depends on the inductive bias baked into the model architecture matching the structure of the specific problem.",
                 correct: true,
             },
             {
@@ -401,12 +401,12 @@ const examData5 = [
             },
             {
                 id: "e",
-                text: "David Wolpert and William Macready introduced the No Free Lunch theorem to formally prove that assumptions (bias) are mandatory for a learner to generalize.",
+                text: "A practical implication for ML4T is that a linear model may beat a neural net on small tabular financial data, because assumptions (inductive bias) are mandatory for a learner to generalize.",
                 correct: true,
             },
         ],
         explanation:
-            "The theorem says algorithms average out perfectly across ALL CONCEIVABLE problems (including pure noise). However, on specific real-world domains (like speech recognition), some models (neural nets) perform vastly better because their built-in assumptions ALIGN with the structure of that specific problem.",
+            "The theorem says algorithms average out across ALL CONCEIVABLE problems (including pure noise). However, on specific real-world domains (like speech recognition), some models (neural nets) perform vastly better because their built-in assumptions ALIGN with the structure of that problem. The key implication: don't cargo-cult architectures; always use cross-validation.",
     },
 
     // ── Q12: Short Selling Mechanics ──
@@ -414,21 +414,21 @@ const examData5 = [
         id: 12,
         topic: "Market Mechanics — Short Selling",
         question:
-            "A trader initiates a short position on a rapidly declining meme stock. Evaluate the mechanics and risks of shorting a stock:",
+            "A trader initiates a short position on a stock. Evaluate the mechanics and risks of short selling:",
         options: [
             {
                 id: "a",
-                text: "To short sell, the trader borrows shares from a broker, sells them at the current market price, and hopes to buy them back later at a lower price.",
+                text: "To short sell, the trader borrows shares from a broker, sells them at the current market price ('sell to open'), and hopes to buy them back later at a lower price ('buy to close').",
                 correct: true,
             },
             {
                 id: "b",
-                text: "The maximum profit of a pure short position is 100% of the initial investment (if the stock drops exactly to $0.00).",
+                text: "The maximum profit of a pure short position is capped (the stock can only drop to $0), while the theoretical maximum loss is unlimited because there is no ceiling on how high a stock price can rise.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "The theoretical maximum loss is capped at the initial margin requirement deposited by the trader; the broker covers the rest.",
+                text: "The theoretical maximum loss of a short position is capped at the initial margin requirement deposited by the trader; the broker absorbs any remaining losses.",
                 correct: false,
             },
             {
@@ -438,128 +438,54 @@ const examData5 = [
             },
             {
                 id: "e",
-                text: "If the stock price rises explosively, the broker may issue a 'margin call', forcing the trader to deposit more cash or buy back the shares at a colossal loss (a short squeeze).",
+                text: "If the stock price rises explosively, the broker may issue a 'margin call', forcing the trader to deposit more cash or buy back the shares at a colossal loss (a short squeeze scenario).",
                 correct: true,
             },
         ],
         explanation:
-            "The theoretical maximum loss of a short position is infinite, because there is no ceiling on how high a stock price can rise. The broker does NOT cover losses—they liquidate you via a margin call to protect themselves.",
+            "The broker does NOT absorb losses — they protect themselves via margin calls and forced liquidation. Maximum long loss = 100% (stock goes to $0). Maximum short loss = theoretically infinite (stock can rise without bound). Short selling also fights the long-term upward trend of the market.",
     },
 
-    // ── Q13: Valuations — Intrinsic, Book, Market ──
+    // ── Q13: CAPM — Alpha and Beta ──
     {
         id: 13,
-        topic: "Stock Fundamentals — Valuations",
-        question:
-            "An investor is comparing the Market Capitalization, Book Value, and Intrinsic Value of a stock to decide when to buy. Evaluate these valuation statements:",
-        options: [
-            {
-                id: "a",
-                text: "Market Capitalization is the current public valuation of the company, calculated seamlessly by multiplying the current share price by the total number of outstanding shares.",
-                correct: true,
-            },
-            {
-                id: "b",
-                text: "Book Value essentially represents the net asset value of the company (Total Assets minus Total Liabilities), calculated using the balance sheet.",
-                correct: true,
-            },
-            {
-                id: "c",
-                text: "Intrinsic Value is a theoretical, precise number calculated entirely through market sentiment; it fluctuates exactly 1:1 with the daily stock price tick.",
-                correct: false,
-            },
-            {
-                id: "d",
-                text: "A fundamental value investor typically seeks to BUY a stock when its currently calculated Intrinsic Value is significantly HIGHER than its current Market Price.",
-                correct: true,
-            },
-            {
-                id: "e",
-                text: "A 'value trap' can occur when a stock appears cheap (low Price-to-Book ratio) but is continuously declining because the underlying business is fundamentally broken.",
-                correct: true,
-            },
-        ],
-        explanation:
-            "Intrinsic value is an estimated calculation of a company's true fundamental worth (often via Discounted Cash Flow), attempting to look PAST fluctuating daily market sentiment. It does not tick 1:1 with current price.",
-    },
-
-    // ── Q14: Performance Evaluation & Sharpe Ratio (From App Image) ──
-    {
-        id: 14,
-        topic: "Performance Evaluation — Sharpe",
-        question:
-            "As a portfolio manager, you are evaluating performance metrics for a trading strategy. Consider the following statements:",
-        options: [
-            {
-                id: "a",
-                text: "The Sharpe Ratio is calculated as (portfolio return − risk-free rate) / standard deviation of portfolio returns.",
-                correct: true,
-            },
-            {
-                id: "b",
-                text: "To annualize the Sharpe ratio from daily returns in Python, you compute: sqrt(252) × mean(daily_returns) / std(daily_returns).",
-                correct: true,
-            },
-            {
-                id: "c",
-                text: "The S&P 500's long-term Sharpe ratio is approximately 0.5, and a Sharpe ratio of 1.0 or higher is generally considered very good.",
-                correct: true,
-            },
-            {
-                id: "d",
-                text: "The cumulative return of a portfolio is calculated by simply summing all the daily returns together.",
-                correct: false,
-            },
-            {
-                id: "e",
-                text: "The Sharpe Ratio is calculated by adding the risk-free rate to the portfolio's average return and dividing by the standard deviation.",
-                correct: false,
-            },
-        ],
-        explanation:
-            "Cumulative return is calculated using a compound product = Π(1 + daily_return) - 1, NOT by simply adding them up. The Sharpe ratio subtracts the risk-free rate, it doesn't add it.",
-    },
-
-    // ── Q15: CAPM — Alpha and Beta ──
-    {
-        id: 15,
         topic: "CAPM — Alpha & Beta",
         question:
-            "Consider the Capital Asset Pricing Model (CAPM) framework, splitting returns into Beta (market) and Alpha (skill). Evaluate:",
+            "Consider the Capital Asset Pricing Model (CAPM) framework, which decomposes returns into Beta (market) and Alpha (skill). Evaluate the following:",
         options: [
             {
                 id: "a",
-                text: "CAPM states the expected return of an asset is equal to the risk-free rate plus a risk premium dictated by its Beta.",
+                text: "CAPM states: Return(stock) = Alpha + Beta × Return(market) + ε, which is literally a simple linear regression of stock returns on market returns.",
                 correct: true,
             },
             {
                 id: "b",
-                text: "Beta measures an asset's volatility and correlation relative to the benchmark market (e.g., S&P 500). A Beta of 1.5 implies the stock is 50% more volatile than the market.",
+                text: "Beta is the slope of that regression line and measures an asset's sensitivity to the market. A Beta of 1.5 implies the stock is 50% more volatile than the market.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "Alpha represents the excess return achieved by an active manager over the benchmark after adjusting for the risk (Beta) taken.",
+                text: "Alpha is the Y-intercept of the regression and represents excess return achieved by stock selection skill, beyond what market risk (Beta) would predict.",
                 correct: true,
             },
             {
                 id: "d",
-                text: "Under strict interpretation of CAPM in perfectly efficient markets, expected Alpha for all stocks is greater than 10%.",
+                text: "Under strict CAPM in perfectly efficient markets, expected Alpha for all stocks is greater than 10% annually.",
                 correct: false,
             },
             {
                 id: "e",
-                text: "An investor heavily buying S&P 500 Index Funds (ETFs) is inherently 'Seeking Alpha' by picking the top 500 individual breakout stocks.",
-                correct: false,
+                text: "An investor buying S&P 500 Index Funds (passive ETFs) is 'Buying Beta' — getting cheap market exposure. 'Seeking Alpha' requires active stock selection skill.",
+                correct: true,
             },
         ],
         explanation:
-            "Under a strict CAPM in perfectly efficient markets, expected true Alpha is theoretically zero, as all returns are compensated purely by systemic risk (Beta). Buying passive index funds is the ultimate approach to 'Buying Beta', entirely ignoring stock selection ('Seeking Alpha').",
+            "Under strict CAPM in perfectly efficient markets, expected true Alpha is theoretically ZERO — all returns are compensation purely for systemic risk (Beta). On average across all stocks, Alpha = 0 because all stocks together = the market. Positive alpha in one stock is offset by negative alpha in another.",
     },
 
-    // ── Q16: Beta-Neutral Strategies (From App Image) ──
+    // ── Q14: Beta-Neutral / Market-Neutral Strategies ──
     {
-        id: 16,
+        id: 14,
         topic: "CAPM — Beta-Neutral Strategies",
         question:
             "A hedge fund manager wants to construct a market-neutral (beta-neutral) portfolio. Consider the following statements:",
@@ -571,12 +497,12 @@ const examData5 = [
             },
             {
                 id: "b",
-                text: "'Buying beta' refers to investing in high-beta stocks for amplified market exposure — it requires no stock-picking skill and can be achieved cheaply with an index fund.",
+                text: "'Buying beta' refers to investing in high-beta stocks for amplified market exposure — it requires no stock-picking skill and can be achieved cheaply with a passive index fund (ETF).",
                 correct: true,
             },
             {
                 id: "c",
-                text: "Hedge funds that use beta-neutral strategies typically use high leverage (20-30x) to amplify the small excess returns from stock selection.",
+                text: "Hedge funds that use beta-neutral strategies typically use high leverage (20-30x) to amplify the small excess returns from stock selection into meaningful portfolio returns.",
                 correct: true,
             },
             {
@@ -586,20 +512,57 @@ const examData5 = [
             },
             {
                 id: "e",
-                text: "Combining assets with slightly negative or zero correlation reduces portfolio volatility without necessarily reducing expected returns — a core benefit of diversification.",
+                text: "Combining assets with low or negative correlation reduces portfolio volatility without necessarily reducing expected returns — this is the core benefit of diversification.",
                 correct: true,
             },
         ],
         explanation:
-            "By definition, a portfolio with a net beta of zero is uncorrelated to the market's movements. In a massive market crash, it should theoretically maintain its composure (experiencing zero market-driven losses), surviving solely on the alpha of its long/short pairings.",
+            "By definition, a portfolio with net beta = 0 has zero correlation to market movements. In a massive market crash, it should theoretically experience zero market-driven losses, surviving solely on the alpha of its long/short pairings. The short positions offset the long losses from the market decline.",
     },
 
-    // ── Q17: EMH (Efficient Market Hypothesis) ──
+    // ── Q15: Sharpe Ratio & Performance Evaluation ──
     {
-        id: 17,
+        id: 15,
+        topic: "Performance Evaluation — Sharpe Ratio",
+        question:
+            "As a portfolio manager, you are evaluating performance metrics for a trading strategy. Consider the following statements:",
+        options: [
+            {
+                id: "a",
+                text: "The Sharpe Ratio is calculated as: (portfolio return − risk-free rate) / standard deviation of portfolio returns.",
+                correct: true,
+            },
+            {
+                id: "b",
+                text: "To annualize the Sharpe ratio from daily returns in Python, you compute: sqrt(252) × mean(daily_returns) / std(daily_returns).",
+                correct: true,
+            },
+            {
+                id: "c",
+                text: "The S&P 500's long-term Sharpe ratio is approximately 0.5, and a Sharpe ratio of 1.0 or higher is generally considered very good and rarely achieved sustainably.",
+                correct: true,
+            },
+            {
+                id: "d",
+                text: "The cumulative return of a portfolio is calculated by simply summing all the daily returns together (cumulative_return = Σ daily_returns).",
+                correct: false,
+            },
+            {
+                id: "e",
+                text: "The Sharpe Ratio is calculated by adding the risk-free rate to the portfolio's average return and dividing by the standard deviation.",
+                correct: false,
+            },
+        ],
+        explanation:
+            "Cumulative return is calculated using a compound product: cumulative_return = Π(1 + daily_return) − 1, NOT by simply summing daily returns. The Sharpe ratio SUBTRACTS the risk-free rate from the portfolio return, it doesn't add it. These are common exam traps directly from the sample questions.",
+    },
+
+    // ── Q16: EMH (Efficient Market Hypothesis) ──
+    {
+        id: 16,
         topic: "Market Efficiency — EMH",
         question:
-            "Eugene Fama's Efficient Market Hypothesis categorizes market efficiency into Weak, Semi-Strong, and Strong forms. Evaluate:",
+            "Eugene Fama's Efficient Market Hypothesis categorizes market efficiency into three forms. Evaluate the following statements:",
         options: [
             {
                 id: "a",
@@ -608,30 +571,67 @@ const examData5 = [
             },
             {
                 id: "b",
-                text: "The Semi-Strong Form states that all publicly available information (earnings, news, balance sheets) is priced in, rendering Fundamental Analysis useless.",
+                text: "The Semi-Strong Form states that all publicly available information (earnings, news, balance sheets, filings) is priced in, rendering both Technical and Fundamental Analysis useless.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "The Strong Form states that ALL information, including non-public / insider dark data, is immediately reflected in the stock price.",
+                text: "The Strong Form states that ALL information, including non-public and insider information, is immediately reflected in the stock price.",
                 correct: true,
             },
             {
                 id: "d",
-                text: "Because Congress prosecutes profitable insider trading heavily, the general market consensus is that the Strong Form of EMH is unquestionably true.",
+                text: "The general consensus among financial economists is that the Strong Form of EMH unquestionably holds true in all real-world markets.",
                 correct: false,
             },
             {
                 id: "e",
-                text: "If a hedge fund successfully uses natural language processing on Twitter sentiment to predict prices next week, they are providing evidence against the Semi-Strong form.",
+                text: "If a hedge fund successfully uses NLP on Twitter sentiment to predict next week's prices, they are providing evidence against the Semi-Strong form of EMH.",
                 correct: true,
             },
         ],
         explanation:
-            "To the contrary, the existence of highly profitable (albeit illegal) insider trading proves that non-public information IS NOT instantly priced in. Meaning, the Strong Form of EMH is widely considered to NOT hold in the real world.",
+            "The Strong Form of EMH is widely considered to NOT hold — the existence of profitable (illegal) insider trading proves that non-public information is NOT instantly priced in. Most evidence supports weak or semi-strong form for large-cap US stocks. Less efficient for small-cap and emerging markets. Paradox: active managers like hedge funds may be the agents who MAKE markets efficient.",
     },
 
-    // ── Q18: Regression vs Classification Trees ──
+    // ── Q17: Valuations — Intrinsic, Book, Market ──
+    {
+        id: 17,
+        topic: "Stock Fundamentals — Valuations",
+        question:
+            "An investor is comparing the Market Capitalization, Book Value, and Intrinsic Value of a stock to decide when to buy or sell. Evaluate these valuation statements:",
+        options: [
+            {
+                id: "a",
+                text: "Book Value represents the net asset value of the company (Total Assets minus Total Liabilities = Stockholder's Equity) calculated from the balance sheet.",
+                correct: true,
+            },
+            {
+                id: "b",
+                text: "Intrinsic Value can be estimated using the Discounted Cash Flow (DCF) method or the Gordon Growth Model: Intrinsic Value = Dividend / (Discount Rate − Growth Rate).",
+                correct: true,
+            },
+            {
+                id: "c",
+                text: "Intrinsic Value is a precise fixed number that fluctuates exactly 1:1 with the daily stock price and is identical to the current Market Capitalization.",
+                correct: false,
+            },
+            {
+                id: "d",
+                text: "A value investor typically seeks to BUY a stock when its estimated Intrinsic Value is significantly HIGHER than its current Market Price (a 'margin of safety').",
+                correct: true,
+            },
+            {
+                id: "e",
+                text: "If Market Price > estimated Intrinsic Value, this represents a potential SHORT opportunity — the stock may fall to converge with its fundamental value.",
+                correct: true,
+            },
+        ],
+        explanation:
+            "Intrinsic Value is an ESTIMATED calculation of a company's true fundamental worth, attempting to look PAST fluctuating daily market sentiment. It does not tick 1:1 with current price — that's the whole point. The Price-to-Book ratio (P/B < 1.0) may signal undervaluation, but can also be a 'value trap' if the underlying business is declining.",
+    },
+
+    // ── Q18: Decision Trees — Regression vs Classification ──
     {
         id: 18,
         topic: "Decision Trees — Types",
@@ -640,96 +640,96 @@ const examData5 = [
         options: [
             {
                 id: "a",
-                text: "A Classification Tree predicts a discrete category label (e.g., 'Buy', 'Sell', 'Hold') at the leaf nodes.",
+                text: "A Classification Tree predicts a discrete category label (e.g., 'Buy', 'Sell', 'Hold') at the leaf nodes, using impurity measures like Gini Index or Entropy to decide splits.",
                 correct: true,
             },
             {
                 id: "b",
-                text: "A Regression Tree predicts a continuous numerical value (e.g., predicted stock price $152.40) by averaging the targets of the training data in that leaf node.",
+                text: "A Regression Tree predicts a continuous numerical value by averaging the targets of the training data that fall in each terminal node (leaf), using RSS/variance reduction to decide splits.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "During training, Classification Trees often use Information Gain or Gini Impurity to decide the best split variable and threshold.",
+                text: "Decision trees are built using recursive binary splitting — a greedy, top-down algorithm that chooses the locally best split at each step.",
                 correct: true,
             },
             {
                 id: "d",
-                text: "During training, Regression Trees typically use Mean Squared Error (variance reduction) to decide the optimal split.",
+                text: "Single decision trees have high variance — small changes in the training data can produce a very different tree structure, which is the key motivation for ensemble methods.",
                 correct: true,
             },
             {
                 id: "e",
-                text: "Only Regression Trees are prone to overfitting. A Classification Tree mathematically cannot overfit because its outputs are restricted to existing labels.",
+                text: "Only Regression Trees are prone to overfitting. A Classification Tree mathematically cannot overfit because its outputs are restricted to existing class labels.",
                 correct: false,
             },
         ],
         explanation:
-            "Both Regression and Classification Trees are highly prone to overfitting if grown too deep (unpruned). A classification tree can overfit by creating a leaf node for every single individual noise-filled training instance, failing to generalize.",
+            "Both Regression and Classification Trees are highly prone to overfitting if grown too deep (unpruned). A classification tree can overfit by creating a leaf node for every single noise-filled training instance. Decreasing leaf_size = more leaves = more complex tree = more overfitting. This is analogous to decreasing K in kNN.",
     },
 
-    // ── Q19: OOB Error in Bagging ──
+    // ── Q19: Bagging & Random Forests ──
     {
         id: 19,
-        topic: "Ensemble Methods — OOB Error",
+        topic: "Ensemble Methods — Bagging & OOB",
         question:
-            "A data scientist is using Bootstrap Aggregating (Bagging) to create a Random Forest and wishes to estimate the test error. Consider Out-Of-Bag (OOB) error:",
+            "A data scientist uses Bootstrap Aggregation (Bagging) and Random Forests. Consider the Out-Of-Bag (OOB) error and ensemble mechanics:",
         options: [
             {
                 id: "a",
-                text: "When creating a bootstrap sample of size N with replacement, roughly 1/3 (~36.8%) of the original training data is left out of that specific sample.",
+                text: "When creating a bootstrap sample of size N with replacement, roughly 1/3 (~36.8%) of the original training data is left out of that specific sample — these are the Out-Of-Bag (OOB) observations.",
                 correct: true,
             },
             {
                 id: "b",
-                text: "These left-out data points are known as the 'Out-Of-Bag' (OOB) observations.",
+                text: "OOB error provides a built-in estimate of out-of-sample test error without the need for a separate validation split — OOB prediction for each observation uses ONLY trees that did NOT see it during training.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "OOB error provides a highly accurate, built-in estimate of out-of-sample test error without the need for a separate validation split or cross-validation.",
+                text: "Random Forests improve upon standard bagging by randomly sampling m ≈ √p features at each split, decorrelating the trees and giving bigger variance reduction when averaged.",
                 correct: true,
             },
             {
                 id: "d",
-                text: "To calculate OOB error for a given observation, you predict its target using ONLY the subset of trees that did NOT see this observation during training.",
+                text: "Bagging reduces VARIANCE (not bias) — each tree has high variance and low bias; averaging many independent trees reduces variance without increasing bias.",
                 correct: true,
             },
             {
                 id: "e",
-                text: "Because OOB uses data not seen during training, its error rate is practically guaranteed to be 0% in a robust Random Forest.",
+                text: "Because OOB observations are not used during training, the OOB error rate is practically guaranteed to be exactly 0% in any robust Random Forest.",
                 correct: false,
             },
         ],
         explanation:
-            "OOB error estimates true Out-Of-Sample test generalization error. For any real-world noisy dataset, a test error of 0% is impossible and would indicate severe leakage. It's a useful accurate estimator, not a magical path to zero error.",
+            "OOB error estimates true out-of-sample generalization error. For any real-world noisy dataset, a test error of 0% is impossible and would indicate data leakage. The key parameter for Random Forests is m (features per split): m = p → equivalent to bagging; m = √p → standard random forest. 'Ensembling is the closest thing to a free lunch in ML, much like diversification in investing.'",
     },
 
-    // ── Q20: Parametric vs Non-Parametric Details ──
+    // ── Q20: Parametric vs Non-Parametric Models ──
     {
         id: 20,
-        topic: "Statistical Learning — Parametric",
+        topic: "Statistical Learning — Parametric vs Non-Parametric",
         question:
-            "Distinguish between parametric and non-parametric machine learning models. Evaluate the following classification:",
+            "Distinguish between parametric and non-parametric machine learning models. Evaluate the following:",
         options: [
             {
                 id: "a",
-                text: "Parametric models make a strong assumption about the functional form f(x) (e.g., assuming it is linear).",
+                text: "Parametric models assume a functional form for f(X) (e.g., Y = β₀ + β₁X₁ + ... + βₚXₚ) and only need to estimate a fixed number of coefficients.",
                 correct: true,
             },
             {
                 id: "b",
-                text: "Non-parametric models do not make explicit assumptions about the functional form, allowing the flexibility to fit a wide array of potential shapes.",
+                text: "Non-parametric models do not assume an explicit functional form — the data itself shapes the model structure, allowing the flexibility to fit a wide array of shapes.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "Linear Regression, Ridge Regression, and Logistic Regression are examples of Parametric models.",
+                text: "Linear Regression, Ridge Regression, and Logistic Regression are examples of Parametric models; kNN and unpruned Decision Trees are examples of Non-parametric models.",
                 correct: true,
             },
             {
                 id: "d",
-                text: "k-Nearest Neighbors (kNN) and unpruned Decision Trees are examples of Non-parametric models.",
+                text: "Parametric models (like Linear Regression) generally win in high dimensions or with small datasets, because their assumed form provides guiding constraints that prevent wild predictions.",
                 correct: true,
             },
             {
@@ -739,121 +739,121 @@ const examData5 = [
             },
         ],
         explanation:
-            "Non-parametric models generally require MUCH LARGER datasets to achieve accurate estimates, because they do not have the guiding guardrails (bias) of a pre-assumed mathematical shape to constrain them in sparse data regions.",
+            "Non-parametric models generally require MUCH LARGER datasets because they lack the guiding guardrails (bias) of a pre-assumed mathematical form. In sparse data regions, parametric models have an advantage because their assumed structure constrains predictions. kNN is competitive for p=1 or p=2 features, but linear regression often wins for p ≥ 4.",
     },
 
-    // ── Q21: When to Buy/Sell; Market Rigging ──
+    // ── Q21: Bias-Variance Tradeoff in Detail ──
     {
         id: 21,
-        topic: "Market Mechanics — Execution",
-        question:
-            "A trader is deciding when to buy vs sell, mindful of concepts from market microstructure ('is the stock market rigged'). Evaluate the following:",
-        options: [
-            {
-                id: "a",
-                text: "High-Frequency Trading (HFT) firms invest heavily in microwave towers and fiber-optic co-location to beat competitors to the exchange by mere microseconds.",
-                correct: true,
-            },
-            {
-                id: "b",
-                text: "Front-running involves an entity seeing a large incoming order and racing to execute their own trade ahead of it to profit from the resulting price impact.",
-                correct: true,
-            },
-            {
-                id: "c",
-                text: "Dark Pools are private exchanges where institutional investors can trade large blocks of stock without immediately revealing their hand to the public order book (mitigating market impact).",
-                correct: true,
-            },
-            {
-                id: "d",
-                text: "In standard valuation theory, a security should be sold short when its Intrinsic Value is deeply below its current Market Price, assuming a catalyst exists.",
-                correct: true,
-            },
-            {
-                id: "e",
-                text: "A 'Rigged' market refers to the legally mandated rule that HFT firms must report all trades an hour before execution to protect retail investors.",
-                correct: false,
-            },
-        ],
-        explanation:
-            "There is no such rule. The 'Rigged' market argument (from Michael Lewis' Flash Boys) refers to the exact opposite—the systemic advantage HFTs have using complex order types, co-location, and payment for order flow to essentially front-run slower retail and institutional flow.",
-    },
-
-    // ── Q22: F-Statistics ──
-    {
-        id: 22,
-        topic: "Statistics — Multi-Regression Evaluation",
-        question:
-            "A quant builds a multiple linear regression using 5 specific financial factors. To validate the model, they calculate the F-statistic. Evaluate:",
-        options: [
-            {
-                id: "a",
-                text: "While a t-statistic evaluates the significance of a single individual coefficient, the F-statistic evaluates the overall significance of the entire model.",
-                correct: true,
-            },
-            {
-                id: "b",
-                text: "The Null Hypothesis for the F-test in regression is that ALL the slope coefficients are simultaneously equal to zero.",
-                correct: true,
-            },
-            {
-                id: "c",
-                text: "If the calculated F-statistic is extremely small (p-value close to 1.0), you should comfortably reject the null hypothesis and trade on the model.",
-                correct: false,
-            },
-            {
-                id: "d",
-                text: "An F-test compares the variance explained by the model to the unexplained variance (the residuals).",
-                correct: true,
-            },
-            {
-                id: "e",
-                text: "If a model suffers from multicollinearity, individual t-tests might unexpectedly show insignificance while the overall F-test remains highly significant.",
-                correct: true,
-            },
-        ],
-        explanation:
-            "A small F-statistic with a high p-value means the model does not explain a significant amount of variance; you FAIL to reject the null hypothesis. The model is essentially worthless, and you should not trade on it.",
-    },
-
-    // ── Q23: Bias vs Variance Check ──
-    {
-        id: 23,
         topic: "Model Errors — Bias/Variance",
         question:
             "Evaluate scenarios mapping to Bias and Variance in financial modeling:",
         options: [
             {
                 id: "a",
-                text: "A linear regression attempting to fit a wildly oscillating sine wave relationship will output a straight line. This represents high bias.",
+                text: "A linear regression attempting to fit a wildly oscillating sine wave relationship will output a straight line through the data. This represents high bias (the model is systematically wrong).",
                 correct: true,
             },
             {
                 id: "b",
-                text: "A deep decision tree learning the exact noise in today's arbitrary market ticks and producing jagged, specialized rules represents high variance.",
+                text: "A deep decision tree memorizing the exact noise in today's arbitrary market ticks and producing jagged, specialized rules has high variance — it changes drastically with each new dataset.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "Total test error is mathematically decomposed into Bias², Variance, and Irreducible Noise.",
+                text: "Total expected test error is mathematically decomposed into three components: Bias², Variance, and Irreducible Noise.",
                 correct: true,
             },
             {
                 id: "d",
-                text: "In finance, limiting model complexity (accepting a slightly higher bias to massively reduce variance) is a standard defense against poor signal-to-noise ratios.",
+                text: "In finance, limiting model complexity (accepting slightly higher bias to massively reduce variance) is a standard defense against poor signal-to-noise ratios.",
                 correct: true,
             },
             {
                 id: "e",
-                text: "As k increases in a kNN algorithm (e.g., k=1 to k=100), the model's variance increases while its bias drops to zero.",
+                text: "As k increases in a kNN algorithm (e.g., from k=1 to k=N), the model's variance increases while its bias drops to zero.",
                 correct: false,
             },
         ],
         explanation:
-            "As k increases in kNN, the model becomes 'smoother'—averaging out more neighbors. This DECREASES variance but INCREASES bias (underfitting). At max k (k=N), it simply predicts the mean of the entire dataset.",
+            "As k increases in kNN, the model becomes 'smoother' — averaging over more neighbors. This DECREASES variance but INCREASES bias (underfitting). At k=1, the model memorizes training data (high variance, zero training error). At k=N, it simply predicts the mean of the entire dataset (maximum bias, minimum variance).",
     },
 
-    // ── Q24: MPT & Lookahead Bias ──
+    // ── Q22: Hedge Fund Structure & Fees ──
+    {
+        id: 22,
+        topic: "Institutional Finance — Fund Types",
+        question:
+            "Compare the structure, regulation, and fee models of ETFs, Mutual Funds, and Hedge Funds. Evaluate the following:",
+        options: [
+            {
+                id: "a",
+                text: "ETFs trade throughout the day like stocks with very low fees (~0.1-1.0% AUM), while mutual funds are priced once daily at end-of-day NAV with higher fees (~0.25-2.0% AUM).",
+                correct: true,
+            },
+            {
+                id: "b",
+                text: "Hedge funds typically charge '2 and 20' — a 2% annual management fee on Assets Under Management regardless of performance, plus 20% of any profits above a benchmark.",
+                correct: true,
+            },
+            {
+                id: "c",
+                text: "Hedge funds are restricted to accredited investors only (wealthy individuals and institutions) and maintain very low transparency to protect their proprietary strategies.",
+                correct: true,
+            },
+            {
+                id: "d",
+                text: "Hedge funds operate four main strategy types: Equity Long/Short, Arbitrage, Momentum/Direction, and Event-driven trading.",
+                correct: true,
+            },
+            {
+                id: "e",
+                text: "Mutual funds, ETFs, and Hedge funds are all regulated identically under the same strict SEC rules, with the same leverage limits and advertising restrictions.",
+                correct: false,
+            },
+        ],
+        explanation:
+            "Hedge funds are LIGHTLY regulated compared to ETFs and mutual funds. They can use extensive leverage, short sell freely, and historically were prohibited from advertising. Secrecy is essential because financial strategies cannot be legally protected as intellectual property — hiding the strategy is the only defense against competitors copying it.",
+    },
+
+    // ── Q23: Data Handling — Adjusted Prices & Missing Data ──
+    {
+        id: 23,
+        topic: "Data Quirks — Practical Handling",
+        question:
+            "When working with stock market data in Python for backtesting, several data quirks must be handled correctly. Evaluate the following:",
+        options: [
+            {
+                id: "a",
+                text: "Adjusted close prices retroactively adjust all historical prices to account for stock splits and dividends — you should ALWAYS use adjusted prices for return calculations and backtesting.",
+                correct: true,
+            },
+            {
+                id: "b",
+                text: "For missing data in financial time series, the recommended approach is: fill forward first (propagate last known price), then fill backward (to handle gaps at the start of the series).",
+                correct: true,
+            },
+            {
+                id: "c",
+                text: "In a 2-for-1 stock split, 100 shares at $100 become 200 shares at $50 — total value is unchanged, but unadjusted price charts show a misleading 50% 'drop.'",
+                correct: true,
+            },
+            {
+                id: "d",
+                text: "Survivorship bias occurs when you backtest only on stocks that currently exist in an index, ignoring companies that went bankrupt (like Enron or Lehman Brothers), inflating results.",
+                correct: true,
+            },
+            {
+                id: "e",
+                text: "When a stock pays a dividend, the adjusted price is adjusted upward because dividends represent additional income to the shareholder.",
+                correct: false,
+            },
+        ],
+        explanation:
+            "When a stock pays a dividend, the actual stock price drops by approximately the dividend amount on the ex-dividend date. The adjusted price retroactively adjusts PAST prices DOWNWARD so that the return calculation correctly captures the dividend return. If it adjusted prices upward, it would artificially inflate historical returns.",
+    },
+
+    // ── Q24: Backtesting Pitfalls ──
     {
         id: 24,
         topic: "Practical Deployment — Pitfalls",
@@ -862,69 +862,69 @@ const examData5 = [
         options: [
             {
                 id: "a",
-                text: "Lookahead bias: They utilized the 'High' or 'Close' price of today to calculate technical indicators generating a trade at the 'Open' of today.",
+                text: "Lookahead bias: They utilized the 'Close' price of today to calculate technical indicators generating a trade at the 'Open' of today — using data before it was actually available.",
                 correct: true,
             },
             {
                 id: "b",
-                text: "Survivorship bias: They downloaded the current S&P 500 constituents and ran a backtest over 20 years, ignoring bankrupt companies like Enron or Lehman Brothers.",
+                text: "Survivorship bias: They downloaded the current S&P 500 constituents and ran a backtest over 20 years, ignoring bankrupt companies like Enron or Lehman Brothers that were once in the index.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "Overfitting: Their algorithm had dozens of parameters tuned to perfectly isolate every historical dip, failing completely on new, out-of-sample data.",
+                text: "Overfitting: Their algorithm had dozens of parameters tuned to perfectly isolate every historical dip and rally, failing completely on new, out-of-sample data.",
                 correct: true,
             },
             {
                 id: "d",
-                text: "Lack of trading costs: The backtest assumed free, instant execution with no bid-ask spread and zero market impact on maximum positions.",
+                text: "Lack of trading costs: The backtest assumed free, instant execution with no bid-ask spread and zero market impact — in reality, these costs erode much of the theoretical alpha.",
                 correct: true,
             },
             {
                 id: "e",
-                text: "Modern Portfolio Theory guarantees this performance is impossible, since the Efficient Frontier dictates absolute caps on algorithmic returns.",
+                text: "Modern Portfolio Theory guarantees this performance is impossible, since the Efficient Frontier dictates absolute caps on the returns any algorithmic strategy can ever achieve.",
                 correct: false,
             },
         ],
         explanation:
-            "MPT does not enforce deterministic bounds on what a single algorithm might achieve conceptually, but standard real-world barriers like survivorship bias, trading friction, and severe lookahead/overfitting are the universal reasons for massive backtest-to-live degradation.",
+            "MPT does not enforce deterministic caps on what a single algorithm might achieve. The standard real-world barriers are: lookahead bias, survivorship bias, overfitting, and trading friction (bid-ask spread, slippage, market impact). These are the universal reasons for massive backtest-to-live performance degradation.",
     },
 
-    // ── Q25: Book Structure & Sum/Product Probability (Combo) ──
+    // ── Q25: Foundations Recap — Probability & Model Classification ──
     {
         id: 25,
         topic: "Foundations Recap",
         question:
-            "Bringing together the structure of statistical learning and core probability. Consider an algorithm tracking distinct features A and B:",
+            "Bringing together the structure of statistical learning, probability rules, and ensemble methods. Consider signals A and B in a trading model:",
         options: [
             {
                 id: "a",
-                text: "A non-parametric algorithm builds essentially no internal weights or functional formulas; the structure of the model is exactly the training data.",
+                text: "If P(Signal A) = 0.5 and P(Signal B) = 0.5, and they are mutually exclusive, then P(A OR B) = 1.0 using the Sum Rule (since P(A and B) = 0 for mutually exclusive events).",
                 correct: true,
             },
             {
                 id: "b",
-                text: "If P(Signal A occurs) = 0.5, and P(Signal B occurs) = 0.5, and they are mutually exclusive, then P(A OR B) = 1.0 using the Sum Rule.",
+                text: "If A and B are independent, P(A AND B) = 0.5 × 0.5 = 0.25 using the Product Rule.",
                 correct: true,
             },
             {
                 id: "c",
-                text: "If A and B are independent, P(A AND B) = 0.25 using the Product Rule.",
+                text: "Ensemble methods like Bagging and Boosting typically rely on Decision Trees at their core, which are Non-parametric models (creating split thresholds rather than an explicit parametric form).",
                 correct: true,
             },
             {
                 id: "d",
-                text: "Applying ML to finance effectively means utilizing these foundational rules over robust, non-leaky datasets to find persistent, out-of-sample edges.",
+                text: "Applying ML to finance effectively means utilizing these foundational rules over robust, non-leaky datasets — using chronological train/test splits with no lookahead bias — to find persistent, out-of-sample edges.",
                 correct: true,
             },
             {
                 id: "e",
-                text: "Boosting and Bagging are Parametric models because they calculate exact continuous coefficients like linear regression.",
+                text: "Boosting and Bagging are Parametric models because they produce final predictions as weighted sums, analogous to the exact continuous coefficients used in linear regression.",
                 correct: false,
             },
         ],
         explanation:
-            "Boosting and Bagging normally rely on Decision Trees at their core, which are Non-parametric models (creating a series of split thresholds rather than an explicit functional parameter form).",
+            "Boosting and Bagging normally rely on Decision Trees at their core, which are Non-parametric models. Although the final ensemble prediction is a weighted combination of tree outputs, the trees themselves do not assume a fixed functional form — they partition the feature space into rectangular regions using learned split thresholds. This makes them fundamentally non-parametric.",
     },
 ];
 
